@@ -23,7 +23,13 @@ install:
 
 # command to run tests
 script:
-  - docker run -t -v $PKGDIR:/Package -e COVERITY_SCAN_TOKEN=$COVERITY_SCAN_TOKEN cernvm /init /Package/.travis-ci.d/coverity_scan.sh
+  -'if [ "$TRAVIS_EVENT_TYPE" = "cron" && "${COMPILER}" = "gcc"  ]; then
+      docker run -t -v $PKGDIR:/Package -e COVERITY_SCAN_TOKEN=$COVERITY_SCAN_TOKEN cernvm /init /Package/.travis-ci.d/coverity_scan.sh
+    elif [ "$TRAVIS_EVENT_TYPE" = "cron" && "${COMPILER}" = "llvm"  ]; then
+      echo "Running the weekly Coverity Scan, no LLVM/Clang build this time"
+    else
+      docker run -t -v $PKGDIR:/Package -e COMPILER=$COMPILER cernvm /init /Package/.travis-ci.d/compile_and_test.sh
+    fi'
 
 # Don't send e-mail notifications
 notifications:
