@@ -34,7 +34,7 @@ install:
     else docker run -t -v $PKGDIR:/Package -e COMPILER=${COMPILER} cernvm /init /Package/.travis-ci.d/compile_and_test.sh;
     fi
 
-deploy:
+script:
   - if [[ "${TRAVIS_EVENT_TYPE}" == "cron" && "${COMPILER}" == "gcc"  ]];
     curl --form token=${COVERITY_SCAN_TOKEN} --form email=marko.petric@cern.ch --form file=@Package/build/myproject.tgz --form version="master" --form description="${description}" https://scan.coverity.com/builds?project=iLCSoft%2FLCIO ;
     fi
