@@ -20,6 +20,9 @@ install:
   - export PKGDIR=${PWD}/Package
   - curl -O https://lcd-data.web.cern.ch/lcd-data/CernVM/cernvm3-docker-latest.tar
   - cat cernvm3-docker-latest.tar | docker import - cernvm
+  - if [[ "${TRAVIS_EVENT_TYPE}" == "cron" && "${COMPILER}" == "gcc"  ]];
+    wget https://scan.coverity.com/download/linux64 --post-data "token=${COVERITY_SCAN_TOKEN}&project=iLCSoft%2FLCIO" -O Package/coverity_tool.tgz
+    fi
 
 # command to run tests
 script:
