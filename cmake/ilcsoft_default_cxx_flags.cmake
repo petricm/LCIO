@@ -4,7 +4,7 @@
 
 INCLUDE(CheckCXXCompilerFlag)
 
-SET(COMPILER_FLAGS -Wall -Wextra -Wshadow -Weffc++ -pedantic -Wno-long-long -Wuninitialized -fdiagnostics-color=auto )
+SET(COMPILER_FLAGS -Wall -Wextra -Wshadow -Weffc++ -pedantic -Wno-long-long -Wuninitialized -fdiagnostics-color=auto -fPIC)
 
 IF(("${CMAKE_CXX_COMPILER_ID}" EQUAL "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" EQUAL "Clang"))
     SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined")
