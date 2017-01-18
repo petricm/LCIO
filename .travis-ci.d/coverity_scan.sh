@@ -1,7 +1,6 @@
 #!/bin/bash
 
-ILCSOFT=/cvmfs/clicdp.cern.ch/iLCSoft/builds/current/CI_gcc
-source $ILCSOFT/init_ilcsoft.sh
+source /cvmfs/clicdp.cern.ch/compilers/gcc/6.2.0/x86_64-centos7/setup.sh
 
 cd /Package
 mkdir build
