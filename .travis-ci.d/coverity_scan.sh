@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /cvmfs/clicdp.cern.ch/compilers/gcc/6.2.0/x86_64-centos7/setup.sh
+source /cvmfs/clicdp.cern.ch/Env/base.sh
 
 cd /Package
 mkdir build
