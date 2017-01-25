@@ -6,7 +6,7 @@ source /cvmfs/clicdp.cern.ch/software/CMake/3.6.2/x86_64-centos7-gcc62-opt/setup
 cd /Package
 mkdir build
 cd build
-cmake -DUSE_CXX11=ON -DBUILD_ROOTDICT=OFF .. && \
+cmake -DUSE_CXX11=ON -DBUILD_ROOTDICT=OFF -DCMAKE_BUILD_TYPE=Debug .. && \
 export PATH=/Package/cov-analysis-linux64/bin:$PATH && \
 cov-build --dir cov-int make -j2 && \
 tar czvf myproject.tgz cov-int
