@@ -27,37 +27,37 @@ public:
   TPCHitImpl& operator=(const TPCHitImpl&) = default ;
 
   /// Destructor.
-  virtual ~TPCHitImpl() ;
+  ~TPCHitImpl() override ;
   
-  virtual int id() const { return simpleUID() ; }
+  int id() const override { return simpleUID() ; }
     
   /** Returns the detector specific cell id.
    */
-  virtual int getCellID() const;
+  int getCellID() const override;
   
   /** Returns the  time of the hit.
    */
-  virtual float getTime() const;
+  float getTime() const override;
   
   /** Returns the integrated charge of the hit.
    */
-  virtual float getCharge() const;
+  float getCharge() const override;
   
   /** Returns a quality flag for the hit.
    */
-  virtual int getQuality() const;
+  int getQuality() const override;
   
   /** Return the number of raw data (32-bit) words stored for the hit.
    *  Check the flag word (bit TPCBIT_RAW) of the collection if raw data is
    *  stored at all.
    */
-  virtual int getNRawDataWords()const;
+  int getNRawDataWords()const override;
   
   /** Return the raw data (32-bit) word at i.
    *  Check the flag word (bit TPCBIT_RAW) of the collection if raw data is
    *  stored at all.
    */
-  virtual int getRawDataWord(int i) const;
+  int getRawDataWord(int i) const override;
 
   /** Set the cell id.
    */
@@ -85,12 +85,12 @@ protected:
   virtual void initRawArray(int size) ;
 
 
-  int _cellID ;
-  float _time ;
-  float _charge ;
-  int _quality ;
-  int _rawSize ;
-  int* _rawArray ;
+  int _cellID{0} ;
+  float _time{0} ;
+  float _charge{0} ;
+  int _quality{0} ;
+  int _rawSize{0} ;
+  int* _rawArray{nullptr} ;
 
 }; // class
 } // namespace IMPL

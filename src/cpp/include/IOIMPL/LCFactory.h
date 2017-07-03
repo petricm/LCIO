@@ -31,18 +31,18 @@ public:
   static LCFactory* getInstance() ;
   
   /// Destructor.
-  virtual ~LCFactory() ;
+  ~LCFactory() override ;
   
 
   /**Creates an LCWriter object for the current persistency type.
    */
-  virtual IO::LCWriter * createLCWriter() ;
+  IO::LCWriter * createLCWriter() override ;
   
   /** Creates an LCReader object for the current persistency type.
    * lcReaderFlag: configuration options for the LCReader object -
    * combine multible options with '|'. So far only LCReader::directAccess.
    */
-  virtual IO::LCReader * createLCReader(int lcReaderFlag=0 ) ;
+  IO::LCReader * createLCReader(int lcReaderFlag=0 ) override ;
 
 
 private:

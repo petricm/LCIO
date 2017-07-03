@@ -25,13 +25,13 @@ class LCStrVec : public LCObject, public StringVec {
 
 public: 
     /// Destructor.
-    virtual ~LCStrVec() { /* nop */; }
+    ~LCStrVec() override { /* nop */; }
 
 
-    typedef LCStrVec lcobject_type ;
+    using lcobject_type = EVENT::LCStrVec ;
 
     public:
-      int id() const { return _acc.simpleUID() ; } 
+      int id() const override { return _acc.simpleUID() ; } 
     protected:
       IMPL::AccessChecked _acc{} ;
 }; // class

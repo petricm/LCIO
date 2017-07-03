@@ -7,21 +7,12 @@ using namespace EVENT ;
 namespace IMPL {
   
   TrackerHitPlaneImpl::TrackerHitPlaneImpl() :
-    _cellID0(0),
-    _cellID1(0),
-    _type(0),
-    _du(0),
-    _dv(0),
-    _EDep(0),
-    _EDepError(0),
-    _time(0),
-    _quality(0),
+    
     _cov( TRKHITPLANENCOVMATRIX ),
     _rawHits(0)
      {}
   
-  TrackerHitPlaneImpl::~TrackerHitPlaneImpl(){  
-  } 
+  TrackerHitPlaneImpl::~TrackerHitPlaneImpl()= default; 
   
   
   const FloatVec & TrackerHitPlaneImpl::getCovMatrix() const {

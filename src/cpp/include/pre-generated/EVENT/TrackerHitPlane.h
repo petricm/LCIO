@@ -31,20 +31,20 @@ class TrackerHitPlane : public TrackerHit {
 
 public: 
     /// Destructor.
-    virtual ~TrackerHitPlane() { /* nop */; }
+    ~TrackerHitPlane() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef TrackerHitPlane lcobject_type ;
+    using lcobject_type = EVENT::TrackerHitPlane ;
 
    /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      */
-    virtual int getCellID0() const = 0;
+    int getCellID0() const override = 0;
 
     /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      *  Optional, check/set flag(LCIO::RTHPBIT_ID1)==1.
      */
-    virtual int getCellID1() const = 0;
+    int getCellID1() const override = 0;
 
     /** Direction of first measurement - given as (theta, phi).
      *  Defines spanning vector of measurement plane. 	

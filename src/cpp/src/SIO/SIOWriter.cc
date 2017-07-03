@@ -35,10 +35,8 @@ using namespace IMPL ;
 
 namespace SIO {
 
-  SIOWriter::SIOWriter() :  _stream(0),
-			    _compressionLevel(-1), 
-			    _hdrHandler(0), 
-			    _runHandler(0)  {
+  SIOWriter::SIOWriter()  
+			     {
     
 #ifdef DEBUG
     SIO_streamManager::setVerbosity( SIO_ALL ) ;
@@ -85,7 +83,7 @@ namespace SIO {
     // if the file exists we throw an exception
 
     FILE* f = FOPEN( sioFilename.c_str() , "r") ;
-    if( f != 0 ){
+    if( f != nullptr ){
       FCLOSE(f) ;
       throw IOException( std::string( "[SIOWriter::open()] File already exists: " 
     				      + sioFilename
@@ -125,7 +123,7 @@ namespace SIO {
     std::string stream_name = LCSIO::getValidSIOName(sioFilename) ;
     _stream = SIO_streamManager::add(  stream_name.c_str() , 32*SIO_KBYTE*SIO_KBYTE ) ;
     
-    if( _stream == 0 )
+    if( _stream == nullptr )
       throw IOException( std::string( "[SIOWriter::open()] Bad or duplicate stream name: " 
  				      + stream_name  )) ;
 
@@ -236,10 +234,10 @@ namespace SIO {
     
     const std::vector<std::string>* strVec = evt->getCollectionNames() ;
     
-    for( std::vector<std::string>::const_iterator name = strVec->begin() ; name != strVec->end() ; name++){
+    for( auto name = strVec->begin() ; name != strVec->end() ; name++){
       
       
-      SIOCollectionHandler* ch = dynamic_cast<SIOCollectionHandler*> 
+      auto* ch = dynamic_cast<SIOCollectionHandler*> 
 	( SIO_blockManager::get( name->c_str() )  ) ;
       
       LCCollection* col = evt->getCollection( *name ) ;
@@ -248,7 +246,7 @@ namespace SIO {
 
 	try{
 
-	  if( ch == 0 ) {
+	  if( ch == nullptr ) {
 	    ch =  new SIOCollectionHandler( *name, col->getTypeName())  ;
 	  }
 
@@ -259,7 +257,7 @@ namespace SIO {
 	} 
 	catch(Exception& ex){   // unsuported type !
 	  delete ch ;
-	  ch =  0 ;
+	  ch =  nullptr ;
 	}
 	
       }

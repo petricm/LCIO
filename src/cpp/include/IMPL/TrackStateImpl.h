@@ -35,50 +35,50 @@ namespace IMPL {
 
     
     /// Destructor.
-    virtual ~TrackStateImpl() ; 
+    ~TrackStateImpl() override ; 
     
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
 
     /** The location of the track state.
      *  Location can be set to: AtIP, AtFirstHit, AtLastHit, AtCalorimeter, AtVertex, AtOther
      */
-    virtual int getLocation() const ;
+    int getLocation() const override ;
 
     /** Impact paramter of the track
      *  in (r-phi).
      */
-    virtual float getD0() const ;
+    float getD0() const override ;
 
     /** Phi of the track at reference point.
      */
-    virtual float getPhi() const ;
+    float getPhi() const override ;
 
     /** Omega is the signed curvature of the track in [1/mm].
      * The sign is that of the particle's charge.
      */
-    virtual float getOmega() const ;
+    float getOmega() const override ;
 
     /** Impact paramter of the track
      *  in (r-z).
      */
-    virtual float getZ0() const ;
+    float getZ0() const override ;
 
     /** Lambda is the dip angle of the track in r-z at the reference point.
      */
-    virtual float getTanLambda() const ;
+    float getTanLambda() const override ;
 
     /** Covariance matrix of the track parameters. Stored as lower triangle matrix where
      * the order of parameters is:   d0, phi, omega, z0, tan(lambda).
      * So we have cov(d0,d0), cov( phi, d0 ), cov( phi, phi), ...
      */
-    virtual const EVENT::FloatVec & getCovMatrix() const ;
+    const EVENT::FloatVec & getCovMatrix() const override ;
 
     /** Reference point of the track parameters, e.g. the origin at the IP, or the position
      *  of the first/last hits or the entry point into the calorimeter.
      */
-    virtual const float* getReferencePoint() const ;
+    const float* getReferencePoint() const override ;
    
 
     // setters 
@@ -98,11 +98,11 @@ namespace IMPL {
   protected:
 
     int _location{} ; // location defined by TrackStateLocationEnum
-    float _d0 ;
-    float _phi ;
-    float _omega ;
-    float _z0 ;
-    float _tanLambda ;
+    float _d0{0} ;
+    float _phi{0} ;
+    float _omega{0} ;
+    float _z0{0} ;
+    float _tanLambda{0} ;
 
     EVENT::FloatVec _covMatrix ;
     float  _reference[TRKSTATENREFSIZE]{} ;

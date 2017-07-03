@@ -137,19 +137,19 @@ public:
 // Constructor opens file, destructor closes file. Once opened for
 // reading, the file cannot be written to, and v.v.
 //
-   lStdHep(const char *filename = 0, bool open_for_write = false);
+   lStdHep(const char *filename = nullptr, bool open_for_write = false);
 //
 // Prevent copying:
 //
 private:
-   lStdHep(const lStdHep &);
+   lStdHep(const lStdHep &) = delete;
 public:
-   virtual ~lStdHep();
+   ~lStdHep() override;
 //
 // Prevent assignment:
 //
 private:
-   lStdHep       &operator=(const lStdHep &);
+   lStdHep       &operator=(const lStdHep &) = delete;
 public:
 //
 // See if there are more events
@@ -213,7 +213,7 @@ public:
 //
 // Call this to make sure you can call things like scale, spin and colorflow:
 //
-   bool           isStdHepEv4(void) const { return(event.scale != 0);         };
+   bool           isStdHepEv4(void) const { return(event.scale != nullptr);         };
 //
 // Event writing functions. They return the last error encountered,
 // or LSH_SUCCESS.
@@ -252,34 +252,34 @@ public:
 //
 // Informational printout
 //
-   void           printFileHeader(FILE *fp = 0);
-   void           printBeginRunRecord(FILE *fp = 0);
-   void           printEndRunRecord(FILE *fp = 0);
-   void           printEventTable(FILE *fp = 0);
-   void           printEventHeader(FILE *fp = 0);
-   void           printEvent(FILE *fp = 0);
-   void           printTrack(int i, FILE *fp = 0);
+   void           printFileHeader(FILE *fp = nullptr);
+   void           printBeginRunRecord(FILE *fp = nullptr);
+   void           printEndRunRecord(FILE *fp = nullptr);
+   void           printEventTable(FILE *fp = nullptr);
+   void           printEventHeader(FILE *fp = nullptr);
+   void           printEvent(FILE *fp = nullptr);
+   void           printTrack(int i, FILE *fp = nullptr);
 
 private:
    long           readFileHeader(void);
 //
 // File Header
 //
-   long           ntot;
-   const char    *version;
-   const char    *title;
-   const char    *comment;
-   const char    *date;
-   const char    *closingDate;
+   long           ntot{0};
+   const char    *version{nullptr};
+   const char    *title{nullptr};
+   const char    *comment{nullptr};
+   const char    *date{nullptr};
+   const char    *closingDate{nullptr};
 
-   long           numevts_expect;
-   long           numevts;
-   long           firstTable;
-   long           dimTable;
-   long           nNTuples;
-   long           nBlocks;
-   long          *blockIds;
-   const char   **blockNames;
+   long           numevts_expect{0};
+   long           numevts{0};
+   long           firstTable{0};
+   long           dimTable{0};
+   long           nNTuples{0};
+   long           nBlocks{0};
+   long          *blockIds{nullptr};
+   const char   **blockNames{nullptr};
 //
 // Event table
 //
@@ -297,30 +297,30 @@ private:
 //
 // ...Empty flag
 //
-      long  isEmpty;
+      long  isEmpty{1};
 //
 // Index into the event table
 //
-      long  ievt;
+      long  ievt{0};
 //
 // ...MCFIO header
 //
-      long  blockid;
-      long  ntot;
-      const char *version;
+      long  blockid{0};
+      long  ntot{0};
+      const char *version{nullptr};
 //
 // ...Location of next table
 //
-      long  nextlocator;
+      long  nextlocator{-3};
 //
 // ...The event table itself
 //
-      long  numEvts;
-      long *evtnums;
-      long *storenums;
-      long *runnums;
-      long *trigMasks;
-      long *ptrEvents;
+      long  numEvts{0};
+      long *evtnums{nullptr};
+      long *storenums{nullptr};
+      long *runnums{nullptr};
+      long *trigMasks{nullptr};
+      long *ptrEvents{nullptr};
    };
   EventTable     eventTable{};
 //
@@ -341,67 +341,67 @@ private:
 //
 // ...Empty flag
 //
-      long isEmpty;
+      long isEmpty{0};
 //
 // ...MCFIO header
 //
-      long blockid;
-      long ntot;
-      const char *version;
+      long blockid{0};
+      long ntot{0};
+      const char *version{nullptr};
 //
 // ...Event header:
 //
-      long    evtnum;
-      long    storenum;
-      long    runnum;
-      long    trigMask;
-      long    nBlocks;
-      long    dimBlocks;
-      long    nNTuples;
-      long    dimNTuples;
-      long   *blockIds;
-      long   *ptrBlocks;
+      long    evtnum{0};
+      long    storenum{0};
+      long    runnum{0};
+      long    trigMask{0};
+      long    nBlocks{0};
+      long    dimBlocks{0};
+      long    nNTuples{0};
+      long    dimNTuples{0};
+      long   *blockIds{nullptr};
+      long   *ptrBlocks{nullptr};
 //
 // ...Event:
 //
-      long    nevhep;
-      long    nhep;
-      long   *isthep;
-      long   *idhep;
-      long   *jmohep;
-      long   *jdahep;
-      double *phep;
-      double *vhep;
+      long    nevhep{0};
+      long    nhep{0};
+      long   *isthep{nullptr};
+      long   *idhep{nullptr};
+      long   *jmohep{nullptr};
+      long   *jdahep{nullptr};
+      double *phep{nullptr};
+      double *vhep{nullptr};
 //
 // ...New for STDHEPEV4:
 //
-      double  eventweight;
-      double  alphaqed;
-      double  alphaqcd;
-      double *scale;
-      double *spin;
-      long   *colorflow;
-      long    idrup;
+      double  eventweight{0};
+      double  alphaqed{0};
+      double  alphaqcd{0};
+      double *scale{nullptr};
+      double *spin{nullptr};
+      long   *colorflow{nullptr};
+      long    idrup{0};
 //
 // ...Begin run record:
 //
-      long    bnevtreq;
-      long    bnevtgen;
-      long    bnevtwrt;
-      double  bstdecom;
-      double  bstdxsec;
-      double  bstdseed1;
-      double  bstdseed2;
+      long    bnevtreq{0};
+      long    bnevtgen{0};
+      long    bnevtwrt{0};
+      double  bstdecom{0};
+      double  bstdxsec{0};
+      double  bstdseed1{0};
+      double  bstdseed2{0};
 //
 // ...End run record:
 //
-      long    enevtreq;
-      long    enevtgen;
-      long    enevtwrt;
-      double  estdecom;
-      double  estdxsec;
-      double  estdseed1;
-      double  estdseed2;
+      long    enevtreq{0};
+      long    enevtgen{0};
+      long    enevtwrt{0};
+      double  estdecom{0};
+      double  estdxsec{0};
+      double  estdseed1{0};
+      double  estdseed2{0};
    };
   Event          event{};
 };

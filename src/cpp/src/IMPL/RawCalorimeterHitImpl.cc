@@ -2,16 +2,12 @@
 
 namespace IMPL{
   
-  RawCalorimeterHitImpl::RawCalorimeterHitImpl() :
-    _cellID0(0),
-    _cellID1(0),
-    _amplitude(0),
-    _timeStamp(0){
+  RawCalorimeterHitImpl::RawCalorimeterHitImpl() 
+    {
   }
   
   
-  RawCalorimeterHitImpl::~RawCalorimeterHitImpl(){
-  }
+  RawCalorimeterHitImpl::~RawCalorimeterHitImpl()= default;
   
   int RawCalorimeterHitImpl::getCellID0() const {
     return _cellID0 ;

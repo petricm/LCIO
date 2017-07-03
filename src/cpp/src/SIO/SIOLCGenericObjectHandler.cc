@@ -52,7 +52,7 @@ namespace SIO{
       // need to check whether we have fixed size objects only
       unsigned int nObj = col->getNumberOfElements() ;
       for( unsigned int i=0 ; i < nObj ; i++ ){
-	LCGenericObject* obj  =  dynamic_cast< LCGenericObject* >( col->getElementAt( i ) ) ; 
+	auto* obj  =  dynamic_cast< LCGenericObject* >( col->getElementAt( i ) ) ; 
 	if( !  obj->isFixedSize() ){ 
 	  _isFixedSize = false ;
 	  break ;
@@ -60,20 +60,20 @@ namespace SIO{
       }
       LCFlagImpl flag( col->getFlag() ) ;
       
-      LCGenericObject* gObj  =  0 ;
+      LCGenericObject* gObj  =  nullptr ;
       if( col->getNumberOfElements() > 0 ) 
 	  gObj = dynamic_cast< LCGenericObject* >( col->getElementAt( 0 ) ) ; 
 
       // if the collection doesn't have the TypeName/DataDescription parameters set,
       //  we use the ones from the first object
-      if(  col->parameters().getStringVal( "TypeName" ).size() ==  0 && gObj != 0 )
+      if(  col->parameters().getStringVal( "TypeName" ).size() ==  0 && gObj != nullptr )
 	col->parameters().setValue( "TypeName", gObj->getTypeName() ) ;
       
       if( _isFixedSize ) {
 	
 	flag.setBit( LCIO::GOBIT_FIXED ) ;
 	
-	if(  col->parameters().getStringVal( "DataDescription" ).size() ==  0 && gObj != 0 )
+	if(  col->parameters().getStringVal( "DataDescription" ).size() ==  0 && gObj != nullptr )
 	  col->parameters().setValue( "DataDescription", gObj->getDataDescription() ) ;
       }
       
@@ -86,7 +86,7 @@ namespace SIO{
       
       if( _isFixedSize ) { // need to write the size variables once
 
-	  if( gObj != 0 ){
+	  if( gObj != nullptr ){
 	      _nInt = gObj->getNInt() ;
 	      _nFloat = gObj->getNFloat() ;
 	      _nDouble = gObj->getNDouble() ;
@@ -113,7 +113,7 @@ namespace SIO{
 					       LCObject** objP ){
     unsigned int status ; 
 
-    LCGenericObjectIOImpl* obj  = new LCGenericObjectIOImpl ;	
+    auto* obj  = new LCGenericObjectIOImpl ;	
     *objP = obj ;
     
     obj->_isFixedSize = _isFixedSize ;
@@ -146,7 +146,7 @@ namespace SIO{
     
     unsigned int status ; 
     
-    const LCGenericObject* gObj = dynamic_cast<const LCGenericObject*>(obj)  ;
+    const auto* gObj = dynamic_cast<const LCGenericObject*>(obj)  ;
     
     if( ! _isFixedSize ){ 
 

@@ -22,35 +22,35 @@ namespace IMPL {
     LCRunHeaderImpl() ;
 
     /// Destructor.
-    virtual ~LCRunHeaderImpl() ; 
+    ~LCRunHeaderImpl() override ; 
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /** Returns the run number.
      */
-    virtual int getRunNumber() const ;
+    int getRunNumber() const override ;
 
     /** Returns the name of the detector setup used in the simulation.
      */
-    virtual const std::string & getDetectorName() const ;
+    const std::string & getDetectorName() const override ;
 
     /** Description of the simulation conditions, e.g. physics channels.
      */		 
-    virtual const std::string & getDescription() const ;
+    const std::string & getDescription() const override ;
 
     /** Returns the names of the active subdetectors
      *  used in the simulation.
      */ 
-    virtual const std::vector<std::string> * getActiveSubdetectors() const ;
+    const std::vector<std::string> * getActiveSubdetectors() const override ;
 
 
     /** Parameters defined for this run.
      */
-    virtual const EVENT::LCParameters & getParameters() const { return _params ; } 
+    const EVENT::LCParameters & getParameters() const override { return _params ; } 
 
     /** Parameters defined for this run.
      */
-    virtual EVENT::LCParameters & parameters() { return _params ; } 
+    EVENT::LCParameters & parameters() override { return _params ; } 
 
 
     // set methods
@@ -73,7 +73,7 @@ namespace IMPL {
 
 
   protected:
-    virtual void setReadOnly( bool readOnly ) ;
+    void setReadOnly( bool readOnly ) override ;
 
   protected:
     

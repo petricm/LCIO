@@ -65,13 +65,13 @@ namespace UTIL{
         public:
             const T* obj;
             const EVENT::LCCollection* col;
-            lcio_short(const T* t, const EVENT::LCCollection* b=NULL) : obj(t), col(b) {}
+            lcio_short(const T* t, const EVENT::LCCollection* b=nullptr) : obj(t), col(b) {}
             //lcio_short(const T* t) : obj(t) {col = NULL;}
     };
 
 
   //template to enable a "one-line" output 
-  template <class T> lcio_short<T> lcshort( const T* t, const EVENT::LCCollection* b=NULL){ return lcio_short<T>(t,b); }
+  template <class T> lcio_short<T> lcshort( const T* t, const EVENT::LCCollection* b=nullptr){ return lcio_short<T>(t,b); }
 
   /** operator for detailed output of a vertex object (e.g. cout << vertexObj << endl; ) */
   /** for printing the header of a vertex object (e.g. cout << header(vertexObj) << endl; ) */
@@ -166,8 +166,8 @@ namespace UTIL{
             const T *object(void) const {return(obj);};
             const EVENT::LCCollection *collection(void) const {return(col);};
         private: 
-            const T *obj{NULL};
-            const EVENT::LCCollection *col{NULL};
+            const T *obj{nullptr};
+            const EVENT::LCCollection *col{nullptr};
   };
 
   //test:
@@ -206,7 +206,7 @@ namespace UTIL{
   std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::LCFlag> &);
   std::ostream& operator<<( std::ostream& out, const EVENT::LCFlag &);
 
-  const std::string& header( const EVENT::LCGenericObject *, const EVENT::LCCollection *v = NULL);
+  const std::string& header( const EVENT::LCGenericObject *, const EVENT::LCCollection *v = nullptr);
   const std::string& tail( const EVENT::LCGenericObject *);
   std::ostream& operator<<( std::ostream& out, const UTIL::lcio_short<EVENT::LCGenericObject> &);
   std::ostream& operator<<( std::ostream& out, const EVENT::LCGenericObject &);

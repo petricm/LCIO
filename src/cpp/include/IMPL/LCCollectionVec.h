@@ -31,7 +31,7 @@ namespace IMPL {
      *   in the ROOT dictionary !! Should be protected really. 
      *   Every LCCollection needs to know the type of its elements.
      */
-    LCCollectionVec() :  _typeName("UNKNOWN" ), _flag(0) { }
+    LCCollectionVec() :  _typeName("UNKNOWN" ) { }
     
   public:
     
@@ -45,19 +45,19 @@ namespace IMPL {
     
     /** Destructor.
      */    
-    virtual ~LCCollectionVec() ;
+    ~LCCollectionVec() override ;
     
     /**Returns the number of entries in the collection.
      */
-    virtual int getNumberOfElements() const ;
+    int getNumberOfElements() const override ;
     
     /** Returns the type name of the collection - valid names are defined in LCIO.
      */
-    virtual const std::string & getTypeName() const ;
+    const std::string & getTypeName() const override ;
     
     /** Returns pointer to element at index - no range check !.
      */
-    virtual EVENT::LCObject * getElementAt(int index) const ;
+    EVENT::LCObject * getElementAt(int index) const override ;
     
     /** Returns flag word for collection. Bits 16-31 are reserved for LCIO
      *  Depending on the object type stored they have a special meaning, e.g. 
@@ -73,13 +73,13 @@ namespace IMPL {
      *  Bits 0-15 are subdetector/user specific.
      * @see isTransient()
      */
-    virtual int getFlag() const ;
+    int getFlag() const override ;
 
 
     /** True if collection is transient, i.e. will not be written to any LCIO file.
      *  Convenient method that checks bit 16 of the flag word.
      */
-    virtual bool isTransient() const  ;
+    bool isTransient() const override  ;
     
 
     /** Sets the transient flag for this collection. Transient collections are not written
@@ -91,7 +91,7 @@ namespace IMPL {
      *  This implies that the collection is complete and unambigous.
      *  Convenient method that checks bit BITDefault of the flag word.
      */
-    virtual bool isDefault() const ;
+    bool isDefault() const override ;
 
     /** Sets the default flag for this collection. User need to make sure this 
      * flag is unique for a type.
@@ -104,7 +104,7 @@ namespace IMPL {
      *  objects will be stored.
      *  Convenient method that checks bit BITSubset of the flag word.
      */
-    virtual bool isSubset() const ;
+    bool isSubset() const override ;
 
     /** Sets the subset flag for this collection. Collections of subsets are only 
      *  written as pointers to LCIO files, i.e. the objects have to exist in 
@@ -117,7 +117,7 @@ namespace IMPL {
 
     /** Sets the flag word for this collection.
      */
-    void setFlag(int flag) ;
+    void setFlag(int flag) override ;
     
 
     /** Adds the given element to (end of) the collection. Throws an exception 
@@ -125,29 +125,29 @@ namespace IMPL {
      *
      * @throws ReadOnlyException
      */
-    virtual void addElement(EVENT::LCObject * obj) throw (EVENT::ReadOnlyException) ;
+    void addElement(EVENT::LCObject * obj) throw (EVENT::ReadOnlyException) override ;
 
     /** Removes the i-th element from the collection. Throws an exception 
      * if the collection (event) is 'read only'.
      *
      * @throws ReadOnlyException
      */
-    virtual void removeElementAt(int i) throw (EVENT::ReadOnlyException) ;
+    void removeElementAt(int i) throw (EVENT::ReadOnlyException) override ;
     
     /** Parameters defined for this run.
      */
-    virtual const EVENT::LCParameters & getParameters() const { return _params ; } 
+    const EVENT::LCParameters & getParameters() const override { return _params ; } 
 
     /** Parameters defined for this run.
      */
-    virtual EVENT::LCParameters & parameters() { return _params ; } 
+    EVENT::LCParameters & parameters() override { return _params ; } 
     
 
   protected:
-    void setReadOnly(bool readOnly) ;
+    void setReadOnly(bool readOnly) override ;
 
     std::string _typeName ;
-    int _flag ;
+    int _flag{0} ;
     LCParametersImpl _params{} ;
 
 }; // class

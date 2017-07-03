@@ -47,24 +47,24 @@ namespace UTIL{
      * 
      * 
      */
-    LCFixedObject(LCObject* object) : 
-      _createdObject(false)  {
+    LCFixedObject(LCObject* object)  
+       {
       
       _obj = dynamic_cast<LCGenericObjectImpl*>( object )  ;
       
-      if( _obj==0 ){
+      if( _obj==nullptr ){
 
 	// could be an instance of LCFixedObject !?
-	LCFixedObject<NINT,NFLOAT,NDOUBLE>* f = 
+	auto* f = 
 	  dynamic_cast< LCFixedObject<NINT,NFLOAT,NDOUBLE>* >( object ) ;
 
-	if( f != 0 )
+	if( f != nullptr )
 	  _obj = f->obj() ;
 
       }
 
       // do some sanity checks ...
-      if( _obj==0 ){
+      if( _obj==nullptr ){
 	throw Exception("Cannot create LCFixedObject from sth."
 			" that is not LCGenericObjectImpl" ) ;
       } 
@@ -84,37 +84,37 @@ namespace UTIL{
 
     /** Clean up if we created a new LCGenericObjectImpl 
      */
-    virtual ~LCFixedObject() { 
+    ~LCFixedObject() override { 
       if( _createdObject )  delete _obj ; 
     }
     
 
     /** Return the id of the underlying LCGenericObjectImpl */
-    virtual int id() const { return _obj->id() ; }
+    int id() const override { return _obj->id() ; }
      
 
     // ---- need to implement LCGenericObject interface:
     
-    int getNInt() const    { return NINT ; } 
-    int getNFloat() const  { return NFLOAT ; }  
-    int getNDouble() const { return NDOUBLE ; } 
+    int getNInt() const override    { return NINT ; } 
+    int getNFloat() const override  { return NFLOAT ; }  
+    int getNDouble() const override { return NDOUBLE ; } 
     
-    int getIntVal(int index) const {
+    int getIntVal(int index) const override {
       return _obj->getIntVal( index ) ;
     }
-    float getFloatVal(int index) const { 
+    float getFloatVal(int index) const override { 
       return _obj->getFloatVal( index ) ;
     }
-    double getDoubleVal(int index) const {
+    double getDoubleVal(int index) const override {
       return  _obj->getDoubleVal( index ) ;
     }
-    bool isFixedSize() const { return true ; }
+    bool isFixedSize() const override { return true ; }
     
     // ---- end of LCGenericObject interface
     
   protected:
     
-    LCGenericObjectImpl* _obj{NULL} ;
+    LCGenericObjectImpl* _obj{nullptr} ;
     bool _createdObject{false} ;
     
   }; 

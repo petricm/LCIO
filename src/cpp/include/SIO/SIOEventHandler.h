@@ -28,11 +28,11 @@ namespace SIO {
 
     SIOEventHandler(const std::string& name) ;
     SIOEventHandler(const std::string& name, IOIMPL::LCEventIOImpl** evtP) ;
-    virtual ~SIOEventHandler() ;
+    ~SIOEventHandler() override ;
     
     // interface from SIO_block
-    virtual unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) ;
-    virtual unsigned int   version() ;
+    unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) override ;
+    unsigned int   version() override ;
     
     void setEvent(const EVENT::LCEvent* evt ) ; 
     void setEventPtr( IOIMPL::LCEventIOImpl** evtP ) ; 
@@ -41,9 +41,9 @@ namespace SIO {
 
   private: 
     // event implementation for reading 
-    IOIMPL::LCEventIOImpl **_evtP{NULL} ;  
+    IOIMPL::LCEventIOImpl **_evtP{nullptr} ;  
     // event data interface for writing
-    const EVENT::LCEvent *_evt{NULL} ;  
+    const EVENT::LCEvent *_evt{nullptr} ;  
     
     std::set< std::string > _colSubSet{} ;
 

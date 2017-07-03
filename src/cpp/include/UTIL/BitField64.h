@@ -39,7 +39,7 @@ namespace UTIL {
       if( c != _del  ) {
 	
 	if( _last == _del  ) {
-	  _tokens.push_back("") ; 
+	  _tokens.emplace_back("") ; 
 	}
 	_tokens.back() += c ;
       }
@@ -55,7 +55,7 @@ namespace UTIL {
   class BitFieldValue{
   
   public :
-    virtual ~BitFieldValue() {}
+    virtual ~BitFieldValue() = default;
   
     /** The default c'tor.
      * @param  bitfield      reference to the 64bit bitfield
@@ -241,15 +241,15 @@ namespace UTIL {
     void init( const std::string& initString) ;
 
     /** No default c'tor */
-    BitField64() : _value(0) , _joined(0) { }
+    BitField64()  = default;
 
 
     // -------------- data members:--------------
 
     std::vector<BitFieldValue*>  _fields{} ;
-    lcio::long64 _value ;
+    lcio::long64 _value{0} ;
     IndexMap _map{} ;
-    lcio::long64 _joined ;
+    lcio::long64 _joined{0} ;
 
 
   };

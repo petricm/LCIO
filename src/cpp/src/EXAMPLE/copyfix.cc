@@ -23,14 +23,14 @@ using namespace lcio ;
 class RunEventProcessor : public LCRunListener, public LCEventListener{
   
 protected:
-  LCWriter* lcWrt{NULL} ;
+  LCWriter* lcWrt{nullptr} ;
   int nEvent{0} ;
   
 public:
   RunEventProcessor(const RunEventProcessor&) = delete ;
   RunEventProcessor operator=(const RunEventProcessor&) = delete ;
 
-  RunEventProcessor(const char* outFileName) : nEvent(0) {
+  RunEventProcessor(const char* outFileName)  {
     
     // open outputfile
     lcWrt = LCFactory::getInstance()->createLCWriter() ;
@@ -45,15 +45,15 @@ public:
     
   }
   
-  ~RunEventProcessor(){
+  ~RunEventProcessor() override{
     // close outputfile
     lcWrt->close()  ;
     cout << endl << "      "  << nEvent << " events copied ! " << endl ; 
   }
   
-  void modifyEvent( LCEvent * /*evt*/ ) {  /*no changes to event ! */ ; }
+  void modifyEvent( LCEvent * /*evt*/ ) override {  /*no changes to event ! */ ; }
 
-  void processEvent( LCEvent * evt ) {  
+  void processEvent( LCEvent * evt ) override {  
     
     // just copy events to outputfiles  
     lcWrt->writeEvent( evt ) ;
@@ -62,10 +62,10 @@ public:
 // 	 << " [run: " << evt->getRunNumber() << "] copied" << endl ;
   }
 
-  void modifyRunHeader(LCRunHeader* /*run*/){  /*no changes to event ! */ ;}
+  void modifyRunHeader(LCRunHeader* /*run*/) override{  /*no changes to event ! */ ;}
 
   // don't manipulate run headers - use analyze 
-  void processRunHeader( LCRunHeader* run){
+  void processRunHeader( LCRunHeader* run) override{
 
     // just copy run headers to the outputfile
     lcWrt->writeRunHeader( run ) ;

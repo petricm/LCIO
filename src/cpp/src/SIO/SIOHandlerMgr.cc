@@ -29,7 +29,7 @@ using namespace EVENT ;
 
 namespace SIO {
   
-  SIOHandlerMgr* SIOHandlerMgr::_me  = 0 ;
+  SIOHandlerMgr* SIOHandlerMgr::_me  = nullptr ;
   
   
   SIOHandlerMgr::SIOHandlerMgr(){
@@ -64,7 +64,7 @@ namespace SIO {
       // just called at end of program ...
     // to make valgrind happy delete the handlers
     // -> doesn't work as destructor is not explicitely called at end of main  :(
-    for( SIOHandlerMap::iterator iter = _map.begin() ; iter  != _map.end() ; iter++ ){
+    for( auto iter = _map.begin() ; iter  != _map.end() ; iter++ ){
       //     std::cout << " deleting SIOHandler : " << iter->first << std::endl ;
       delete iter->second ;
     }
@@ -81,7 +81,7 @@ namespace SIO {
   SIOObjectHandler* SIOHandlerMgr::getHandler( const std::string& type ){
     
     if(  _map.find( type ) == _map.end( ) ) 
-      return 0 ;
+      return nullptr ;
     
     return _map[ type ] ;
   }

@@ -42,7 +42,7 @@ int main(int argc, char** argv ){
     }
     
     for(int i=firstFile ; i < argc ; i++){
-      FILEN.push_back( argv[i] )  ;
+      FILEN.emplace_back(argv[i] )  ;
     }
 
     int nFiles = argc - firstFile ;
@@ -58,7 +58,7 @@ int main(int argc, char** argv ){
 	  
 	  FILE* f = fopen( FILEN[i].c_str()  , "r+") ;
 	  
-	  if( f != 0 ){
+	  if( f != nullptr ){
 	    
 	    fseek( f ,  -( LCSIO_RANDOMACCESS_SIZE ) , SEEK_END ) ; 
 	    std::string bla("") ;

@@ -62,7 +62,7 @@ public:
   RunEventProcessor(const RunEventProcessor&) = delete ;
   RunEventProcessor operator=(const RunEventProcessor&) = delete ;
 
-  RunEventProcessor() : nEvent(0) {
+  RunEventProcessor()  {
     
     // open outputfile
     lcWrt = LCFactory::getInstance()->createLCWriter() ;
@@ -80,7 +80,7 @@ public:
     
   }
   
-  ~RunEventProcessor(){
+  ~RunEventProcessor() override{
 
     // close outputfile
     lcWrt->close()  ;
@@ -93,7 +93,7 @@ public:
     delete lcWrt ;
   }
   
-  void processEvent( LCEvent* evt ) { /* used for 'read only' access*/ 
+  void processEvent( LCEvent* evt ) override { /* used for 'read only' access*/ 
 
 
     // this is our event loop code
@@ -129,9 +129,9 @@ public:
     int nTrackerRawDatas = tpcHits->getNumberOfElements() ;
 
     for(int j=0;j<nTrackerRawDatas;j++){
-      TrackerHitImpl* trkHit = new TrackerHitImpl ;
+      auto* trkHit = new TrackerHitImpl ;
 
-      TrackerRawData* tpcRawHit =  dynamic_cast<TrackerRawData*> ( tpcHits->getElementAt(j)  ) ;
+      auto* tpcRawHit =  dynamic_cast<TrackerRawData*> ( tpcHits->getElementAt(j)  ) ;
 
       trkHit->setTime(   tpcRawHit->getTime() ) ;
 
@@ -160,7 +160,7 @@ public:
     // decode this sort of meta information
     StringVec typeNames ;
     IntVec typeValues ;
-    typeNames.push_back( LCIO::TPCHIT ) ;
+    typeNames.emplace_back(LCIO::TPCHIT ) ;
     typeValues.push_back( 1 ) ;
     trkhitVec->parameters().setValues("TrackerHitTypeNames" , typeNames ) ;
     trkhitVec->parameters().setValues("TrackerHitTypeValues" , typeValues ) ;
@@ -182,7 +182,7 @@ public:
     int nTrk = 5 ;
     for( int i=0; i < nTrk ; i ++ ){
       
-      TrackImpl* trk = new TrackImpl ;
+      auto* trk = new TrackImpl ;
       trk->setTypeBit( 7 ) ;
       trk->setOmega(  (i+1)*1.1 ) ;
       trk->setTanLambda( (i+1)* M_PI / 10. ) ;
@@ -220,9 +220,9 @@ public:
       trk->setReferencePoint( ref ) ;
       
       // add some random hits 
-      int iHit1 = (int) ( double (trkhitVec->size()) * rand() / RAND_MAX )    ;
-      int iHit2 = (int) ( double (trkhitVec->size()) * rand() / RAND_MAX )    ;
-      int iHit3 = (int) ( double (trkhitVec->size()) * rand() / RAND_MAX )    ;
+      auto iHit1 = (int) ( double (trkhitVec->size()) * rand() / RAND_MAX )    ;
+      auto iHit2 = (int) ( double (trkhitVec->size()) * rand() / RAND_MAX )    ;
+      auto iHit3 = (int) ( double (trkhitVec->size()) * rand() / RAND_MAX )    ;
       
       trk->addHit( dynamic_cast<TrackerHit*>( (*trkhitVec)[iHit1] ) ) ;
       trk->addHit( dynamic_cast<TrackerHit*>( (*trkhitVec)[iHit2] ) ) ;
@@ -264,8 +264,8 @@ public:
     int nSimHits = simcalHits->getNumberOfElements() ;
     for(int j=0;j<nSimHits;j++){
 
-      CalorimeterHitImpl* calHit = new CalorimeterHitImpl ;
-      SimCalorimeterHit* simcalHit =  dynamic_cast<SimCalorimeterHit*> ( simcalHits->getElementAt(j)  ) ;
+      auto* calHit = new CalorimeterHitImpl ;
+      auto* simcalHit =  dynamic_cast<SimCalorimeterHit*> ( simcalHits->getElementAt(j)  ) ;
 
       //      std::cout << " adding new calorimeter hit and relation : " << j << " : "  << calHit << " - " << simcalHit << std::endl ;
 
@@ -313,7 +313,7 @@ public:
 
       int nCalHits = calHits->getNumberOfElements() ;
       for(int j=0; j < nCalHits ; j++){
-	CalorimeterHit* calHit = dynamic_cast<CalorimeterHit*>( calHits->getElementAt(j) ) ;
+	auto* calHit = dynamic_cast<CalorimeterHit*>( calHits->getElementAt(j) ) ;
 	
 	std::cout << "   relations for object " << dec << calHit->id()  
 	  ; // << std::endl ;
@@ -337,9 +337,9 @@ public:
       LCCollectionVec* calVec = new LCCollectionVec( LCIO::LCGENERICOBJECT )  ;
       for(int j=0;j<nCalHits;j++){
 	
-	CalorimeterHit* calHit = dynamic_cast<CalorimeterHit*>( calHits->getElementAt(j) ) ;
+	auto* calHit = dynamic_cast<CalorimeterHit*>( calHits->getElementAt(j) ) ;
 	
-	CalibrationConstant* cCon  = new CalibrationConstant( calHit->getCellID0() ,
+	auto* cCon  = new CalibrationConstant( calHit->getCellID0() ,
 							      1.*j , 0.01*j );
 	calVec->addElement( cCon ) ;
       }    
@@ -360,12 +360,12 @@ public:
     clusterVec->setFlag( UTIL::make_bitset32( LCIO::CLBIT_HITS )) ; 
    
     StringVec shapeParams ;
-    shapeParams.push_back("Shape_trans") ;
-    shapeParams.push_back("Shape_long") ;
-    shapeParams.push_back("Shape_axis_x") ;
-    shapeParams.push_back("Shape_axis_y") ;
-    shapeParams.push_back("Shape_axis_z") ;
-    shapeParams.push_back("Shape_quality") ;
+    shapeParams.emplace_back("Shape_trans") ;
+    shapeParams.emplace_back("Shape_long") ;
+    shapeParams.emplace_back("Shape_axis_x") ;
+    shapeParams.emplace_back("Shape_axis_y") ;
+    shapeParams.emplace_back("Shape_axis_z") ;
+    shapeParams.emplace_back("Shape_quality") ;
     
     clusterVec->parameters().setValues( "ClusterShapeParameters" , shapeParams ) ;
     
@@ -400,9 +400,9 @@ public:
       PIDHandler cluPidHandler( clusterVec ) ;
 	
       StringVec pNames ;
-      pNames.push_back( "param0" );
-      pNames.push_back( "param1" );
-      pNames.push_back( "param2" );
+      pNames.emplace_back("param0" );
+      pNames.emplace_back("param1" );
+      pNames.emplace_back("param2" );
 	
       IntVec algoIDs(3) ;
       algoIDs[0] = cluPidHandler.addAlgorithm( "recojobRunEventProcessor" , pNames ) ;
@@ -411,7 +411,7 @@ public:
 	
       for( int i=0; i < nCluster ; i ++ ){
 	
-	ClusterImpl* cluster = new ClusterImpl ;
+	auto* cluster = new ClusterImpl ;
 
 	// 	int type = ( Cluster::COMBINED << 16 | Cluster::CHARGED  ) ;
 	cluster->setTypeBit( 1 ) ;
@@ -486,9 +486,9 @@ public:
 	cluster->subdetectorEnergies()[ HCALINDEX ] = 24.24 ;
 
 	// add some random hits 
-	int iHit1 = (int) ( double (calHits->size()) * rand() / RAND_MAX )    ;
-	int iHit2 = (int) ( double (calHits->size()) * rand() / RAND_MAX )    ;
-	int iHit3 = (int) ( double (calHits->size()) * rand() / RAND_MAX )    ;
+	auto iHit1 = (int) ( double (calHits->size()) * rand() / RAND_MAX )    ;
+	auto iHit2 = (int) ( double (calHits->size()) * rand() / RAND_MAX )    ;
+	auto iHit3 = (int) ( double (calHits->size()) * rand() / RAND_MAX )    ;
 	
 	cluster->addHit( dynamic_cast<CalorimeterHit*>( (*calHits)[iHit1] ) , 1.0 ) ;
 	cluster->addHit( dynamic_cast<CalorimeterHit*>( (*calHits)[iHit2] ) , 2.0 ) ;
@@ -516,7 +516,7 @@ public:
     //UTIL::IndexMap imvtx(vertexVec, "AlgorithmNames", "AlgorithmTypes");
     
     for(int i=0; i < (nRecP+1); i++){
-      VertexImpl* vtx = new VertexImpl ;
+      auto* vtx = new VertexImpl ;
       if(i==0){
 	vtx->setPrimary(true);
       }else{
@@ -574,11 +574,11 @@ public:
       PIDHandler recPIDHandler ( particleVec ) ;
 	
       StringVec pNames ;
-      pNames.push_back( "param0" );
-      pNames.push_back( "param1" );
-      pNames.push_back( "param2" );
-      pNames.push_back( "param3" );
-      pNames.push_back( "param4" );
+      pNames.emplace_back("param0" );
+      pNames.emplace_back("param1" );
+      pNames.emplace_back("param2" );
+      pNames.emplace_back("param3" );
+      pNames.emplace_back("param4" );
 
       IntVec aIDs(4) ;
       aIDs[0] = recPIDHandler.addAlgorithm( "recojobRunEventProcessor" , pNames ) ;
@@ -587,7 +587,7 @@ public:
       aIDs[3] = recPIDHandler.addAlgorithm( "andEvenAFourthAlgorithm" , pNames ) ;
 	
       for(int i=0;i<nRecP;i++){
-	ReconstructedParticleImpl * part = new ReconstructedParticleImpl ;
+	auto * part = new ReconstructedParticleImpl ;
 	part->setType( 42 ) ;
 	  
 	float p[3] = { 1.1 , 2.2 , 3.3 } ;
@@ -607,7 +607,7 @@ public:
 	  
 	//associate vertices
 	part->setStartVertex( dynamic_cast<Vertex*>( vertexVec->getElementAt(i) )  ) ;
-	VertexImpl* v = dynamic_cast<VertexImpl*>( vertexVec->getElementAt(i+1) ) ;
+	auto* v = dynamic_cast<VertexImpl*>( vertexVec->getElementAt(i+1) ) ;
 	//part->setEndVertex( v ) ;
 	//associate particles to vertices
 	v->setAssociatedParticle( dynamic_cast<ReconstructedParticle*>( part ) ) ;
@@ -663,21 +663,21 @@ public:
 	  
 	// some other particles
 	if( i > 1  ){
-	  ReconstructedParticle* p1 = 
+	  auto* p1 = 
 	    dynamic_cast<ReconstructedParticle*> ( particleVec->getElementAt(i-1) ) ;
-	  ReconstructedParticle* p2 = 
+	  auto* p2 = 
 	    dynamic_cast<ReconstructedParticle*> ( particleVec->getElementAt(i-2) ) ;
 	  part->addParticle( p1 ) ;
 	  part->addParticle( p2 ) ;
 	}
 	//a track
-	int iTrk = (int) ( double (trkVec->size()) * rand() / RAND_MAX )    ;
-	Track* trk = dynamic_cast<Track*> ( trkVec->getElementAt( iTrk ) ) ;
+	auto iTrk = (int) ( double (trkVec->size()) * rand() / RAND_MAX )    ;
+	auto* trk = dynamic_cast<Track*> ( trkVec->getElementAt( iTrk ) ) ;
 	part->addTrack( trk ) ;
 	  
 	// a cluster 
-	int iClu = (int) ( double (clusterVec->size()) *  rand() / RAND_MAX )  ;
-	Cluster* clu = dynamic_cast<Cluster*> ( clusterVec->getElementAt( iClu ) ) ;
+	auto iClu = (int) ( double (clusterVec->size()) *  rand() / RAND_MAX )  ;
+	auto* clu = dynamic_cast<Cluster*> ( clusterVec->getElementAt( iClu ) ) ;
 	part->addCluster( clu ) ;
 	  
 	//       // and finaly an MCParticle
@@ -702,7 +702,7 @@ public:
     lcWrt->writeEvent( evt ) ;
   }
 
-  void modifyEvent( LCEvent * evt ) {
+  void modifyEvent( LCEvent * evt ) override {
 
     // here we can modify existing objects that have been read from a stream:
     LCCollection* mcVec = evt->getCollection( LCIO::MCPARTICLE )  ;
@@ -710,11 +710,11 @@ public:
     for(int i=0 ; i< NMCPART ; i++ ){
       // in order to have access to the set-methods we need to cast to the implementation
       // of MCParticle 
-      MCParticleImpl* part =  dynamic_cast<MCParticleImpl*>( mcVec->getElementAt(i)) ;
+      auto* part =  dynamic_cast<MCParticleImpl*>( mcVec->getElementAt(i)) ;
       part->setPDG(1234) ;   // <<<<< modifying persistent data
     }
     // or we could add sth. to existing collections
-    MCParticleImpl* part = new MCParticleImpl ;
+    auto* part = new MCParticleImpl ;
     part->setPDG( 1234 ) ;
     part->addParent( dynamic_cast<MCParticle*>( mcVec->getElementAt(0) )) ;
     mcVec->addElement( part ) ;  // <<<< adding to collections
@@ -722,13 +722,13 @@ public:
   }
   
 
-  void processRunHeader( LCRunHeader* run){
+  void processRunHeader( LCRunHeader* run) override{
 
     // just copy run headers to the outputfile
     lcWrt->writeRunHeader( run ) ;
   }
 
-  void modifyRunHeader(LCRunHeader*  /*run*/){/*  we don't modify anything */;}
+  void modifyRunHeader(LCRunHeader*  /*run*/) override{/*  we don't modify anything */;}
 
 
 } ;

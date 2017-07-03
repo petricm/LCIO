@@ -35,46 +35,46 @@ namespace IMPL {
 
     
     // Destructor.
-    virtual ~VertexImpl() ; 
+    ~VertexImpl() override ; 
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
     
     /** Checks if the Vertex is the primary vertex of the event.
      *  Only one primary vertex per event is allowed
      */
-    virtual bool isPrimary() const ;
+    bool isPrimary() const override ;
      
     /** Type code for the algorithm that has been used to create the vertex - check/set the
      *  collection parameters AlgorithmName and  AlgorithmType.
      */
     //virtual int getAlgorithmType() const ;
-    virtual const std::string& getAlgorithmType() const ;
+    const std::string& getAlgorithmType() const override ;
 
     /** Chi squared of the vertex fit.
      */
-    virtual float getChi2() const;
+    float getChi2() const override;
                                                                                                          
     /** Probability of the vertex fit.
      */
-    virtual float getProbability() const;
+    float getProbability() const override;
                                                                                                          
     /** Position of the vertex 
      */
-    virtual const float* getPosition() const;
+    const float* getPosition() const override;
                                                                                                          
     /** Covariance matrix of the position (stored as lower triangle matrix, i.e.
      *  cov(xx),cov(y,x),cov(y,y) ).
      */
-    virtual const EVENT::FloatVec & getCovMatrix() const;
+    const EVENT::FloatVec & getCovMatrix() const override;
 
     /** Additional parameters related to this vertex - check/set the collection
      *  parameter "VertexParameterNames" for the parameters' meaning.
      */
-    virtual const EVENT::FloatVec & getParameters() const;
+    const EVENT::FloatVec & getParameters() const override;
 
     /** Returns Reconstructed Particle associated to the Vertex
      */
-    virtual EVENT::ReconstructedParticle * getAssociatedParticle() const;
+    EVENT::ReconstructedParticle * getAssociatedParticle() const override;
 
     // setters
     void setPrimary( bool primary ) ;
@@ -90,14 +90,14 @@ namespace IMPL {
     void addParameter( float p );
 
   protected:
-    int _primary ;
+    int _primary{0} ;
     std::string _type ;
-    float _chi2 ;
-    float _probability ;
+    float _chi2{0} ;
+    float _probability{0} ;
     float _vpos[3] ={0,0,0} ;
     EVENT::FloatVec _cov ;
     EVENT::FloatVec _par ;
-    EVENT::ReconstructedParticle* _aParticle ;
+    EVENT::ReconstructedParticle* _aParticle{nullptr} ;
    
 }; // class
 

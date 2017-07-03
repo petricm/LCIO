@@ -26,13 +26,13 @@ class LCFloatVec : public LCObject, public FloatVec {
 
 public: 
     /// Destructor.
-    virtual ~LCFloatVec() { /* nop */; }
+    ~LCFloatVec() override { /* nop */; }
 
 
-    typedef LCFloatVec lcobject_type ;
+    using lcobject_type = EVENT::LCFloatVec ;
 
     public:
-      int id() const { return _acc.simpleUID() ; } 
+      int id() const override { return _acc.simpleUID() ; } 
     protected:
       IMPL::AccessChecked _acc{} ;
 }; // class

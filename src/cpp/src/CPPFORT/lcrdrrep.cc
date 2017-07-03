@@ -7,7 +7,7 @@ using namespace lcio ;
 #include "lcrdrrep.icc"
 int lcrdreventprocessor( PTRTYPE filenamevec ){
   
-    StringVec* filenameVec = reinterpret_cast<StringVec*>(filenamevec);
+    auto* filenameVec = reinterpret_cast<StringVec*>(filenamevec);
 
     // create reader and writer for input and output streams 
     LCReader* lcReader = LCFactory::getInstance()->createLCReader() ;

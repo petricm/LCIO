@@ -24,13 +24,13 @@ PTRTYPE lccolcreate( const char* colname ){
   return reinterpret_cast<PTRTYPE>( col ) ;
 }
 int lccoldelete( PTRTYPE collection ){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
   delete col ;
   return LCIO::SUCCESS ;
 }
 
 int lccolgetnumberofelements( PTRTYPE collection ){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
   return col->getNumberOfElements() ;
 }
 
@@ -40,45 +40,45 @@ char* lccolgettypename( PTRTYPE collection ){
 }
 
 PTRTYPE lccolgetelementat( PTRTYPE collection, int index ){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
 //  return  reinterpret_cast<PTRTYPE>( col->getElementAt( index - 1 )  ) ;
   return C2F_POINTER( LCObject*, col->getElementAt( index - 1 )  ) ;
 }
 
 int lccolgetflag(PTRTYPE collection){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
   return col->getFlag() ;
 }
 
 bool lccolistransient(PTRTYPE collection){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
   return col->isTransient() ;
 }
 
 int lccolsettransient(PTRTYPE collection, bool value){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
   col->setTransient( value) ;
   return LCIO::SUCCESS ;
 }
 bool lccolisdefault(PTRTYPE collection){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
   return col->isDefault() ;
 }
 
 int lccolsetdefault(PTRTYPE collection, bool value){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
   col->setDefault( value) ;
   return LCIO::SUCCESS ;
 }
  
 int lccolsetflag(PTRTYPE collection, int flag){
-  LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+  auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
   col->setFlag( flag) ;
   return LCIO::SUCCESS ;
 }
 int lccoladdelement(PTRTYPE collection, PTRTYPE object){
   try{
-    LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+    auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
     col->addElement( reinterpret_cast<LCObject*>(object) ) ;
 
   }catch(...){ return LCIO::ERROR ; }
@@ -87,7 +87,7 @@ int lccoladdelement(PTRTYPE collection, PTRTYPE object){
 
 int lccolremoveelementat(PTRTYPE collection, int i){
   try{
-    LCCollectionVec* col = reinterpret_cast<LCCollectionVec*>(collection) ;
+    auto* col = reinterpret_cast<LCCollectionVec*>(collection) ;
     col->removeElementAt( i ) ;
   }catch(...){ return LCIO::ERROR ; }
   return LCIO::SUCCESS ;

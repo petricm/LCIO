@@ -6,16 +6,15 @@ using namespace EVENT ;
 namespace IMPL{
 
   VertexImpl::VertexImpl() :
-    _primary(0),
+    
     _type("Unknown"),
-    _chi2(0),
-    _probability(0),
+    
     _cov( VTXCOVMATRIX ),
-    _par(0),
-    _aParticle(0)
+    _par(0)
+    
   {}
 
-  VertexImpl::~VertexImpl(){ }
+  VertexImpl::~VertexImpl()= default;
  
   bool VertexImpl::isPrimary() const { return _primary ; }
   //int VertexImpl::getAlgorithmType() const { return _type ; }

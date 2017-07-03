@@ -38,7 +38,7 @@ namespace UTIL {
   template <class T>
   class LCIterator{
   
-    LCIterator<T>() {} 
+    LCIterator<T>() = default; 
   
   public:
 
@@ -47,7 +47,7 @@ namespace UTIL {
      *  this will behave the same as an empty collection - use operator() to
      *  test, if the collection exists.
      */
-    LCIterator<T>( EVENT::LCEvent* evt, const std::string& name ) : _i(0), _col(0) {
+    LCIterator<T>( EVENT::LCEvent* evt, const std::string& name ) : _i(0), _col(nullptr) {
     
     
       try{
@@ -60,9 +60,9 @@ namespace UTIL {
     
       if( _n > 0 ){
       
-	T* t = dynamic_cast<T*>(  _col->getElementAt(0)  );
+	auto* t = dynamic_cast<T*>(  _col->getElementAt(0)  );
 
-	if( t == 0 ){
+	if( t == nullptr ){
 
 	  std::stringstream s ;
 	  s << " invalid iterator type  : " << typeid( t ).name() << " for collection " <<  name  << std::endl ; 
@@ -80,7 +80,7 @@ namespace UTIL {
     
       if( _n > 0 ){
       
-	T* t = dynamic_cast<T*>(  _col->getElementAt(0)  );
+	auto* t = dynamic_cast<T*>(  _col->getElementAt(0)  );
       
 	if( t == 0 ){
 	
@@ -99,7 +99,7 @@ namespace UTIL {
 	return (T*)_col->getElementAt( _i++ )  ;
       //      return dynamic_cast<T*>( _col->getElementAt( _i++ ) ) ;
       else
-	return 0 ;
+	return nullptr ;
     }
   
     /** Size of the collection.

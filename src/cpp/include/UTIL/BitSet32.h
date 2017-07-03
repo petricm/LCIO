@@ -90,7 +90,7 @@ namespace UTIL {
    */
   inline int unset_bit( int flag , int bit ){
     BitSet32 bs( flag ) ;
-    bs.set( bit, 0 ) ;
+    bs.set( bit, false ) ;
     return (int) bs ;
   }
 

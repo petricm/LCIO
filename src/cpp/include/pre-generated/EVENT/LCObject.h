@@ -16,7 +16,7 @@ namespace EVENT {
 
 class LCObject ;
 /**Vector of (pointers to) LCObjects.*/
-typedef std::vector<LCObject*> LCObjectVec ;
+using LCObjectVec = std::vector<LCObject *> ;
 using namespace lcrtrel ;
 /** The generic object that is held in an LCCollection. 
  *  Every object stored in an LCCollection, i.e. in an LCEvent has to 
@@ -31,7 +31,7 @@ class LCObject : public LCRTRelations {
 
 public: 
     /// Destructor.
-    virtual ~LCObject() { /* nop */; }
+    ~LCObject() override { /* nop */; }
 
     /** Returns an object id for internal (debugging) use in LCIO.
      */
@@ -49,7 +49,7 @@ public:
      *  Do not use this method.
      */
     public:
-	 virtual LCObject* clone() const {  return 0 ; } 
+	 virtual LCObject* clone() const {  return nullptr ; } 
 }; // class
 } // namespace EVENT
 #endif /* ifndef EVENT_LCOBJECT_H */

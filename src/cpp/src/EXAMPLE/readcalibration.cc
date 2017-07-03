@@ -36,7 +36,7 @@ int main(int argc, char** argv ){
   int nEvents = 0 ;
   
   //----------- the event loop -----------
-  while( (evt = lcReader->readNextEvent()) != 0 ) {
+  while( (evt = lcReader->readNextEvent()) != nullptr ) {
 
     // loop over collections  and check if we have objects of user defined 
     // type "CalibrationConstant" 

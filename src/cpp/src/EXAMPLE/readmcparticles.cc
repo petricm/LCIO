@@ -32,7 +32,7 @@ int main(int argc, char** argv ){
   double e_evt = 0. ;
 
  //----------- the event loop -----------
-  while( (evt = lcReader->readNextEvent()) != 0 ) {
+  while( (evt = lcReader->readNextEvent()) != nullptr ) {
     
     
     LCCollection* col = evt->getCollection("MCParticle") ;
@@ -41,7 +41,7 @@ int main(int argc, char** argv ){
 
     for( unsigned i=0,N=col->getNumberOfElements() ; i< N ; ++i){
       
-      MCParticle* p = (MCParticle*) col->getElementAt(i) ;
+      auto* p = (MCParticle*) col->getElementAt(i) ;
 
       if( p->getGeneratorStatus() == 1) 
 	e_mcp += p->getEnergy() ;

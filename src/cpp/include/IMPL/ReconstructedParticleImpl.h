@@ -34,81 +34,81 @@ namespace IMPL {
     ReconstructedParticleImpl& operator=(const ReconstructedParticleImpl&) = default ;
 
     /// Destructor.
-    virtual ~ReconstructedParticleImpl() ; 
+    ~ReconstructedParticleImpl() override ; 
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
 
     /** Type of reconstructed particle.
      *  Check/set collection parameterrs ReconstructedParticleTypeNames and 
      *  ReconstructedParticleTypeValues.
      */
-    virtual int getType() const ;
+    int getType() const override ;
 
     /** Convenient method - same as (getParticles().size() > 0 ).
      */
-    virtual bool isCompound() const { return getParticles().size() > 0 ; }
+    bool isCompound() const override { return getParticles().size() > 0 ; }
 
     /** The magnitude of the reconstructed particle's momentum,
      */
-    virtual const double* getMomentum() const ;
+    const double* getMomentum() const override ;
 
     /** Energy of the  reconstructed particle.
      */
-    virtual double getEnergy() const ;
+    double getEnergy() const override ;
 
     /** Covariance matrix of the reconstructed particle's 4vector (10 parameters).
      */
-    virtual const EVENT::FloatVec & getCovMatrix() const ;
+    const EVENT::FloatVec & getCovMatrix() const override ;
 
     /** Mass of the  reconstructed particle, set independently from four vector quantities.
      */
-    virtual double getMass() const ;
+    double getMass() const override ;
 
     /** Charge of the reconstructed particle.
      */
-    virtual float getCharge() const ;
+    float getCharge() const override ;
 
     /** Reference point of the reconstructedParticle parameters.
      */
-    virtual const float* getReferencePoint() const ;
+    const float* getReferencePoint() const override ;
 
     /** The particle Id's sorted by their likelihood.
      * @see ParticleID
      */
-    virtual const EVENT::ParticleIDVec & getParticleIDs() const ;
+    const EVENT::ParticleIDVec & getParticleIDs() const override ;
 
     /** The particle Id used for the kinematics of this particle.
      * @see ParticleID
      */
-    virtual  EVENT::ParticleID * getParticleIDUsed() const ;
+     EVENT::ParticleID * getParticleIDUsed() const override ;
 
 
     /** The overall goodness of the PID on a scale of [0;1].
      */
-    virtual float getGoodnessOfPID() const ;
+    float getGoodnessOfPID() const override ;
 
     /** The reconstructed particles that have been combined to this particle.
      */
-    virtual const EVENT::ReconstructedParticleVec & getParticles() const ;
+    const EVENT::ReconstructedParticleVec & getParticles() const override ;
 
     /** The clusters that have been used for this particle.
      */
-    virtual const EVENT::ClusterVec & getClusters() const ;
+    const EVENT::ClusterVec & getClusters() const override ;
 
 
     /** The tracks that have been used for this particle.
      */
-    virtual const EVENT::TrackVec & getTracks() const ;
+    const EVENT::TrackVec & getTracks() const override ;
 
     /** The start vertex associated to this particle
     */
-    virtual EVENT::Vertex * getStartVertex() const ;
+    EVENT::Vertex * getStartVertex() const override ;
 
     /** The vertex where the particle decays
      *  This method actually returns the start vertex from the first daughter particle found
     */
-    virtual EVENT::Vertex * getEndVertex() const ;
+    EVENT::Vertex * getEndVertex() const override ;
 
 
     // setters
@@ -123,12 +123,12 @@ namespace IMPL {
     void setMass( float mass ) ;
     void setCharge( float charge ) ;
     void setReferencePoint( const float* reference ) ;
-    void addParticleID( EVENT::ParticleID*  pid ) ;
+    void addParticleID( EVENT::ParticleID*  pid ) override ;
     void setParticleIDUsed( EVENT::ParticleID*  pid ) ;
     void setGoodnessOfPID( float goodness ) ;
-    void addParticle( EVENT::ReconstructedParticle* particle ) ;
-    void addCluster( EVENT::Cluster* cluster) ;
-    void addTrack( EVENT::Track* track) ;
+    void addParticle( EVENT::ReconstructedParticle* particle ) override ;
+    void addCluster( EVENT::Cluster* cluster) override ;
+    void addTrack( EVENT::Track* track) override ;
 //     void addMCParticle( EVENT::MCParticle* mcParticle , float weight = 1.0 ) ;
     void setStartVertex( EVENT::Vertex * sv ) ;
     //void setEndVertex( EVENT::Vertex * ev ) ;
@@ -142,7 +142,7 @@ namespace IMPL {
     double _mass{0.} ;
     float _charge{} ;
     float _reference[3] = {0.,0.,0.}  ;
-    EVENT::ParticleID* _pidUsed{ NULL} ;
+    EVENT::ParticleID* _pidUsed{ nullptr} ;
     float _goodnessOfPID{0.} ;
     EVENT::ParticleIDVec _pid{} ;
     EVENT::ReconstructedParticleVec _particles{} ;

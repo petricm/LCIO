@@ -24,7 +24,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    CalorimeterHitIOImpl* hit  = new CalorimeterHitIOImpl ;
+    auto* hit  = new CalorimeterHitIOImpl ;
     *objP = hit ;
 	
     SIO_DATA( stream ,  &(hit->_cellID0) , 1  ) ;
@@ -82,7 +82,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const CalorimeterHit* hit = dynamic_cast<const CalorimeterHit*>(obj)  ;
+    const auto* hit = dynamic_cast<const CalorimeterHit*>(obj)  ;
     
     LCFlagImpl lcFlag(_flag) ;
 
@@ -104,7 +104,7 @@ namespace SIO{
     // as SIO doesn't provide a write function with const arguments
     // we have to cast away the constness 
     if( lcFlag.bitSet( LCIO::RCHBIT_LONG ) ){
-      float* pos = const_cast<float*> ( hit->getPosition() ) ; 
+      auto* pos = const_cast<float*> ( hit->getPosition() ) ; 
       SIO_DATA( stream,  pos , 3 ) ;
     }
 

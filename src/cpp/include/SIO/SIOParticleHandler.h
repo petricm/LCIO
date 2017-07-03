@@ -20,14 +20,14 @@ namespace SIO {
 	
     /** Reads lcio MCParticle objects from an SIO stream.
      */
-    virtual unsigned int read(SIO_stream* stream, 
-			      EVENT::LCObject** objP)  ;
+    unsigned int read(SIO_stream* stream, 
+			      EVENT::LCObject** objP) override  ;
 	
     /** Writes lcio MCParticle objects to an SIO stream.
      */
 	
-    virtual unsigned int write(SIO_stream* stream, 
-			       const EVENT::LCObject* obj) ;
+    unsigned int write(SIO_stream* stream, 
+			       const EVENT::LCObject* obj) override ;
 
 
     static void restoreParentDaughterRelations( EVENT::LCEvent* evt) ;

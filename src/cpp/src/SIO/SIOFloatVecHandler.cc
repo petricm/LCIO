@@ -17,7 +17,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    LCFloatVec* vec  = new LCFloatVec ;
+    auto* vec  = new LCFloatVec ;
     *objP = vec ;
 	
     int nElements ;
@@ -44,7 +44,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const LCFloatVec* vec = dynamic_cast<const LCFloatVec*>(obj)  ;
+    const auto* vec = dynamic_cast<const LCFloatVec*>(obj)  ;
     
     int nElements = vec->size() ;
 

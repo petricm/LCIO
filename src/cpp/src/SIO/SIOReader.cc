@@ -38,7 +38,7 @@ using namespace IMPL ;
 
 #include <assert.h>
 
-typedef EVENT::long64 long64 ;
+using long64 = EVENT::long64 ;
 
 //#define EVENTKEY(RN,EN)  ( EVENT::long64( RN ) << 32 ) | EN 
  
@@ -46,12 +46,12 @@ namespace SIO {
 
 
   SIOReader::SIOReader( int lcReaderFlag ) :
-    _dummyRecord(0), _stream(0) , _defaultEvt(0) ,
+    _dummyRecord(nullptr), _stream(nullptr) , _defaultEvt(nullptr) ,
     _myFilenames(0), _currentFileIndex(0) ,
     _readEventMap( lcReaderFlag & LCReader::directAccess  ) {
     
-    _evt = 0 ;
-    _run = 0 ;
+    _evt = nullptr ;
+    _run = nullptr ;
 
 
     _runHandler = new SIORunHeaderHandler( LCSIO_RUNBLOCKNAME, &_run ) ;
@@ -143,7 +143,7 @@ namespace SIO {
     std::string stream_name = LCSIO::getValidSIOName(sioFilename) ;
     _stream = SIO_streamManager::add(  stream_name.c_str() , 64 * SIO_KBYTE ) ;
 
-    if( _stream == 0 )
+    if( _stream == nullptr )
       throw IOException( std::string( "[SIOReader::open()] Bad stream name: " 
     				      + stream_name  )) ;
 
@@ -208,7 +208,7 @@ namespace SIO {
 
     const RunEventMap& map =  _raMgr.getEventMap() ;
 
-    RunEventMap::Map_cIT it = map.begin() ;   
+    auto it = map.begin() ;   
     
     // std::cout << " SIOReader::getRuns() - nRuns =  " << nRun << std::endl ;
 
@@ -236,7 +236,7 @@ namespace SIO {
     // std::cout << " SIOReader::getEvents() - nRuns =  " << nRun 
     // 	      << " nEvents = " << nEvt << std::endl ;
 
-    RunEventMap::Map_cIT it = map.begin() ;   
+    auto it = map.begin() ;   
 
     for(int i=0 ; i <nRun ; ++i , ++it ) ;
 
@@ -316,11 +316,11 @@ namespace SIO {
       readRecord() ;
     }
     catch(EndOfDataException){
-      return 0 ;
+      return nullptr ;
     }
     
     // set the proper acces mode before returning the event
-    if( _run != 0 ) {
+    if( _run != nullptr ) {
 
         _run->setReadOnly(  accessMode == LCIO::READ_ONLY   ) ;
     }
@@ -335,27 +335,27 @@ namespace SIO {
     
     // use event _evt to setup the block readers from header information ....
     const std::vector<std::string>* strVec = _evt->getCollectionNames() ;
-    for( std::vector<std::string>::const_iterator name = strVec->begin() ; name != strVec->end() ; name++){
+    for( auto name = strVec->begin() ; name != strVec->end() ; name++){
       
       const LCCollection* col = _evt->getCollection( *name ) ;
       
       
       // check if block handler exists in manager
-      SIOCollectionHandler* ch = dynamic_cast<SIOCollectionHandler*>
+      auto* ch = dynamic_cast<SIOCollectionHandler*>
       ( SIO_blockManager::get( name->c_str() )  ) ;
       
       // check if it is still the correct block handler
-      if( ch != 0 && ch->getTypeName().compare(col->getTypeName()) != 0 ){
+      if( ch != nullptr && ch->getTypeName().compare(col->getTypeName()) != 0 ){
         // The type changed, so destroy the old handler and get a new one.
         std::string chName = ch->getTypeName();
         std::string colName= col->getTypeName();
         std::cout << "ch name: " << chName << " col name: " << colName << std::endl;
         delete ch;
-        ch = 0;
+        ch = nullptr;
       }
       
       // if not, create a new block handler
-      if( ch == 0 ) {
+      if( ch == nullptr ) {
         
         // create collection handler for event
         try{
@@ -364,12 +364,12 @@ namespace SIO {
         }
         catch(Exception& ex){   // unsuported type !
           delete ch ;
-          ch =  0 ;
+          ch =  nullptr ;
         }
         
       }
       // else { // handler already exists
-      if( ch != 0 )
+      if( ch != nullptr )
         ch->setEvent( &_evt ) ; 
       //      }
     }
@@ -396,7 +396,7 @@ namespace SIO {
 	readRecord() ;
       }
       catch(EndOfDataException){
-	return 0 ;
+	return nullptr ;
       }
       
     }// -- end of scope for unpacking evt header --
@@ -409,7 +409,7 @@ namespace SIO {
 	readRecord() ;
       }
       catch(EndOfDataException){
-	return 0 ;
+	return nullptr ;
       }
       
 //       //---debug------------------------
@@ -502,7 +502,7 @@ namespace SIO {
 	//       std::cout << " could not find run header " << runNumber << std::endl 
 	// 		<< _raMgr ;
 	
-	return 0 ;
+	return nullptr ;
       }
 
 
@@ -515,7 +515,7 @@ namespace SIO {
 
     }
 
-    return 0 ;
+    return nullptr ;
   }
 
 
@@ -546,7 +546,7 @@ namespace SIO {
 	//       std::cout << " could not find event " << runNumber <<  "," << evtNumber << std::endl 
 	// 		<< _raMgr ;
 	
-	return 0 ;
+	return nullptr ;
       }
 
 
@@ -563,19 +563,19 @@ namespace SIO {
       bool runFound = false ;
       bool evtFound = false ;
       // check current run - if any
-      if( _run != 0 ){
+      if( _run != nullptr ){
 	if( _run->getRunNumber() == runNumber ) runFound = true ;
       }
       // skip through run headers until run found or EOF
       while (!runFound ) {
-	if( readNextRunHeader() == 0 ) break ; 
+	if( readNextRunHeader() == nullptr ) break ; 
 	runFound = ( _run->getRunNumber() == runNumber ) ;
       }
       if( !runFound ){
 	//       std::stringstream message ;
 	//       message << " run not found: " << runNumber << std::ends ;
 	//       throw NotAvailableException( message.str()  ) ;
-	return 0 ;
+	return nullptr ;
       }
       { // -- scope for unpacking evt header --------
 	//      SIORecordUnpack hdrUnp( SIOWriter::_hdrRecord ) ;
@@ -587,14 +587,14 @@ namespace SIO {
 	    readRecord() ;
 	  }
 	  catch(EndOfDataException){
-	    return 0 ;
+	    return nullptr ;
 	  }
 	  
 	  evtFound = ( _evt->getEventNumber() == evtNumber ) ;
 	}
       }// -- end of scope for unpacking evt header --
       
-      if( !evtFound ) return 0 ;
+      if( !evtFound ) return nullptr ;
       
       { // now read the event record
 	SIORecords::Unpack evtUnp( SIORecords::Unpack::Event ) ;
@@ -603,7 +603,7 @@ namespace SIO {
 	  readRecord() ;
 	}
 	catch(EndOfDataException){
-	  return 0 ;
+	  return nullptr ;
 	}
 	
 	// set the proper acces mode before returning the event
@@ -699,7 +699,7 @@ namespace SIO {
 	
 	recordsRead++ ;
 
-	std::set<IO::LCRunListener*>::iterator iter = _runListeners.begin() ;
+	auto iter = _runListeners.begin() ;
 	while( iter != _runListeners.end() ){
 
 	  _run->setReadOnly( false ) ;
@@ -716,7 +716,7 @@ namespace SIO {
 	
 	recordsRead++ ;
 
-	std::set<IO::LCEventListener*>::iterator iter = _evtListeners.begin() ;
+	auto iter = _evtListeners.begin() ;
 	while( iter != _evtListeners.end() ){
 
 // 	  // restore the daughter relations from the parent relations
@@ -750,7 +750,7 @@ namespace SIO {
 
     char* rColChar = getenv ("LCIO_IGNORE_NULL_IN_SUBSET_COLLECTIONS");
 
-    if ( rColChar == 0 ) {
+    if ( rColChar == nullptr ) {
       
       const std::vector< std::string >* strVec = _evt->getCollectionNames() ;
       std::vector< std::string >::const_iterator name ;
@@ -760,7 +760,7 @@ namespace SIO {
 	if( col->isSubset()  ) {
 	  
 	  for( int i=0,N=col->getNumberOfElements() ; i<N ; ++i ){
-	    if( col->getElementAt( i ) == 0 ){
+	    if( col->getElementAt( i ) == nullptr ){
 	      
 	      std::stringstream sts ;
 	      sts << " SIOReader::postProcessEvent: null pointer in subset collection " 

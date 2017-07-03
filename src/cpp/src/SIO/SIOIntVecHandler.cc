@@ -17,7 +17,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    LCIntVec* vec  = new LCIntVec ;
+    auto* vec  = new LCIntVec ;
     *objP = vec ;
 	
     int nElements ;
@@ -44,7 +44,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const LCIntVec* vec = dynamic_cast<const LCIntVec*>(obj)  ;
+    const auto* vec = dynamic_cast<const LCIntVec*>(obj)  ;
     
     int nElements = vec->size() ;
 
@@ -55,7 +55,7 @@ namespace SIO{
 //       //cout <<  (*vec)[i] <<   ", " ; 
 //     }    
 
-    int*  v_0 = const_cast<int*> ( & (*vec)[0] ) ;
+    auto*  v_0 = const_cast<int*> ( & (*vec)[0] ) ;
 
     SIO_DATA( stream , v_0 , nElements ) ;
 

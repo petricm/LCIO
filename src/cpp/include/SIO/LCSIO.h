@@ -127,7 +127,7 @@ namespace SIO {
      * So the return value needs to be copied to its final memory destination.
      * len holds the length of the string (can contain '\0').
      */
-    static unsigned int read( SIO_stream* stream ,char** c , int* len=0) ;
+    static unsigned int read( SIO_stream* stream ,char** c , int* len=nullptr) ;
 
 //     /** This version checks the versionId to be able to read 'old' files with 
 //      * trailing '\00' (version <= 00-02).

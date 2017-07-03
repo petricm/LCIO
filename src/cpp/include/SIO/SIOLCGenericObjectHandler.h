@@ -20,17 +20,17 @@ namespace SIO {
 	
     /** Reads lcio LCGenericObject objects from an SIO stream.
      */
-    virtual unsigned int read(SIO_stream* stream, 
-			      EVENT::LCObject** objP)  ;
+    unsigned int read(SIO_stream* stream, 
+			      EVENT::LCObject** objP) override  ;
 	
     /** Writes lcio LCGenericObject objects to an SIO stream.
      */
 	
-    virtual unsigned int write(SIO_stream* stream, 
-			       const EVENT::LCObject* obj) ;
+    unsigned int write(SIO_stream* stream, 
+			       const EVENT::LCObject* obj) override ;
 
-  virtual unsigned int  init( SIO_stream* stream, SIO_operation op,  
-			      EVENT::LCCollection* col  , unsigned int vers ) ; 
+  unsigned int  init( SIO_stream* stream, SIO_operation op,  
+			      EVENT::LCCollection* col  , unsigned int vers ) override ; 
 
 
   protected:

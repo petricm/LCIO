@@ -15,7 +15,7 @@ namespace EVENT {
 
 class ParticleID ;
 /**Vector of (pointers to) ParticleIDs.*/
-typedef std::vector<ParticleID*> ParticleIDVec ;
+using ParticleIDVec = std::vector<ParticleID *> ;
 /** Persistent interface for LCIO ParticleIDs.
  *  Used by ReconstructedParticle and Cluster  
  *  for different hypotheses on the particle type.
@@ -29,11 +29,11 @@ class ParticleID : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~ParticleID() { /* nop */; }
+    ~ParticleID() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef ParticleID lcobject_type ;
+    using lcobject_type = EVENT::ParticleID ;
 
     /** Type - userdefined.
      */

@@ -12,7 +12,7 @@ namespace HEPEVTIMPL{
 
   void HEPEVT::fromHepEvt(LCEvent * evt, const char* mcpColName){
 
-      float* p = new float[3] ;
+      auto* p = new float[3] ;
 
       // create and add mc particles from stdhep COMMON
       LCCollectionVec* mcVec = new LCCollectionVec( LCIO::MCPARTICLE )  ;
@@ -22,7 +22,7 @@ namespace HEPEVTIMPL{
       int* NMCPART = &FTNhep.nhep;
       for(int j=0;j < *NMCPART;j++)
       {
-        MCParticleImpl* mcp = new MCParticleImpl ;
+        auto* mcp = new MCParticleImpl ;
         mcp->setPDG( FTNhep.idhep[j] ) ;
         mcp->setGeneratorStatus( FTNhep.isthep[j] ) ;
         mcp->setSimulatorStatus( 0 ) ;
@@ -44,32 +44,32 @@ namespace HEPEVTIMPL{
       // referred to as daughter in the hepevt common block refers to the corresponding 
       // particle as mother
       for(int j=0;j < *NMCPART;j++) {
-	MCParticleImpl* mcp = dynamic_cast<MCParticleImpl*>( mcVec->getElementAt( j ) ) ;
+	auto* mcp = dynamic_cast<MCParticleImpl*>( mcVec->getElementAt( j ) ) ;
 	
         // now get parents if required and set daughter if parent1 is defined
         int parent1 = FTNhep.jmohep[j][0] ;
         int parent2 = FTNhep.jmohep[j][1] ;
 
 	if( parent1 > 0 ) {
-	  MCParticle* mom = dynamic_cast<MCParticle*>( mcVec->getElementAt( parent1-1 ) ) ;
+	  auto* mom = dynamic_cast<MCParticle*>( mcVec->getElementAt( parent1-1 ) ) ;
 	  mcp->addParent( mom ) ;
 	  if( parent2 > 0 )
 	    for(int i = parent1 ; i < parent2 ; i++ ){ 
-	      MCParticle* mom2 = dynamic_cast<MCParticle*>( mcVec->getElementAt( i ) ) ;
+	      auto* mom2 = dynamic_cast<MCParticle*>( mcVec->getElementAt( i ) ) ;
 	      mcp->addParent( mom2 ) ;
 	    }
         }
       }
 
       std::string colName("MCParticle") ;
-      if( mcpColName != 0 )
+      if( mcpColName != nullptr )
 	colName = mcpColName ;
 
       // add all collection to the event
       evt->addCollection( (LCCollection*) mcVec , colName ) ;
 
       // now fill pointers for MCParticle collection
-      LCEventImpl* evtimpl = reinterpret_cast<LCEventImpl*>(evt) ;
+      auto* evtimpl = reinterpret_cast<LCEventImpl*>(evt) ;
       LCCollection* getmcVec = evtimpl->getCollection( "MCParticle" ) ;
       int nelem = getmcVec->getNumberOfElements() ;
       for(int j=0;j < nelem; j++)
@@ -84,15 +84,15 @@ namespace HEPEVTIMPL{
 
   void HEPEVT::toHepEvt(const LCEvent* evt, const char* mcpColName){
 
-      int* kmax      = new int ;
-      double* maxxyz = new double;
+      auto* kmax      = new int ;
+      auto* maxxyz = new double;
 
 
       // set event number in stdhep COMMON
       FTNhep.nevhep = evt->getEventNumber() ;
 
       std::string colName("MCParticle") ;
-      if( mcpColName != 0 )
+      if( mcpColName != nullptr )
 	colName = mcpColName ;
 
       // fill MCParticles into stdhep COMMON
@@ -104,7 +104,7 @@ namespace HEPEVTIMPL{
       {
 
         //for each MCParticle fill hepevt common line
-        const MCParticle* mcp = 
+        const auto* mcp = 
         dynamic_cast<const MCParticle*>( mcVec->getElementAt( j ) ) ;
 
         FTNhep.idhep[j] = mcp->getPDG() ;
@@ -113,7 +113,7 @@ namespace HEPEVTIMPL{
         // store mother indices
         FTNhep.jmohep[j][0] = 0 ;
         FTNhep.jmohep[j][1] = 0 ;
-        const MCParticle* mcpp  = 0 ;
+        const MCParticle* mcpp  = nullptr ;
         int nparents = mcp->getParents().size() ;
 	if(  nparents > 0 ) mcpp = mcp->getParents()[0] ;
 	
@@ -130,7 +130,7 @@ namespace HEPEVTIMPL{
         if (  FTNhep.jmohep[j][0] > 0 )
         {
           try{
-	    const MCParticle* mcpsp  = 0 ;
+	    const MCParticle* mcpsp  = nullptr ;
 	    if(  mcp->getParents().size() > 1 ) mcpsp = mcp->getParents()[ nparents-1 ] ;
 
             for(int jjj=0;jjj < *NMCPART;jjj++)
@@ -160,7 +160,7 @@ namespace HEPEVTIMPL{
              const MCParticle* mcpd = mcp->getDaughters()[0] ;
              for (int jjj=0; jjj < *NMCPART; jjj++)
              {
-               const MCParticle* mcpdtest = dynamic_cast<const MCParticle*>(mcVec->getElementAt( jjj )) ;
+               const auto* mcpdtest = dynamic_cast<const MCParticle*>(mcVec->getElementAt( jjj )) ;
                if ( mcpd == mcpdtest )
                {
                  FTNhep.jdahep[j][0] = jjj + 1 ;
@@ -186,7 +186,7 @@ namespace HEPEVTIMPL{
             *kmax = k ;
           }
         }
-        if ( mcpp != 0 && *maxxyz > 0. )
+        if ( mcpp != nullptr && *maxxyz > 0. )
         {
           FTNhep.vhep[j][3] = FTNhep.vhep[FTNhep.jmohep[j][0]-1][3]
                               + (mcp->getVertex()[*kmax] - mcpp->getVertex()[*kmax]) * mcpp->getEnergy()

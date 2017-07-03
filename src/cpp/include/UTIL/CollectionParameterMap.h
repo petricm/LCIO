@@ -58,7 +58,7 @@ namespace UTIL{
  
     std::string _keyName{} ;
     std::string _valueName{} ;
-    LCCollection* _col{NULL} ;
+    LCCollection* _col{nullptr} ;
     map_type _map{} ;
 
 

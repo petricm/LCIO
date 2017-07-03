@@ -27,9 +27,7 @@ namespace UTIL{
 // reading, the file cannot be written to, and v.v.
 //
 lStdHep::lStdHep(const char *filename, bool open_for_write) : 
-  lXDR(filename, open_for_write),
-  ntot(0),version(0),title(0),comment(0),date(0),closingDate(0),numevts_expect(0),numevts(0),
-  firstTable(0),dimTable(0),nNTuples(0),nBlocks(0),blockIds(0),blockNames(0)
+  lXDR(filename, open_for_write)
 {
    if (open_for_write) {
       setError(LSH_NOTSUPPORTED);
@@ -59,7 +57,7 @@ lStdHep::~lStdHep()
 
 void lStdHep::printFileHeader(FILE *fp)
 {
-   if (fp == 0) fp = stdout;
+   if (fp == nullptr) fp = stdout;
 
    fprintf(fp, "====== File Header ===========\n");
    fprintf(fp, "    total blocks: %ld\n", ntot);
@@ -84,28 +82,28 @@ void lStdHep::printFileHeader(FILE *fp)
 
 void lStdHep::printEventTable(FILE *fp)
 {
-   if (fp == 0) fp = stdout;
+   if (fp == nullptr) fp = stdout;
    eventTable.print(fp);
    return;
 }
 
 void lStdHep::printEventHeader(FILE *fp)
 {
-   if (fp == 0) fp = stdout;
+   if (fp == nullptr) fp = stdout;
    event.printHeader(fp);
    return;
 }
 
 void lStdHep::printEvent(FILE *fp)
 {
-   if (fp == 0) fp = stdout;
+   if (fp == nullptr) fp = stdout;
    event.print(fp);
    return;
 }
 
 void lStdHep::printTrack(int i, FILE *fp)
 {
-   if (fp == 0) fp = stdout;
+   if (fp == nullptr) fp = stdout;
    if (i < event.nhep) {
       fprintf(fp, "    Track: id: %ld, vtx: (%g, %g, %g, %g), mom: (%g, %g, %g, %g, %g)\n",
                    pid(i), X(i), Y(i), Z(i), T(i), Px(i), Py(i), Pz(i), E(i), M(i));
@@ -117,13 +115,13 @@ void lStdHep::printTrack(int i, FILE *fp)
 
 void lStdHep::printBeginRunRecord(FILE *fp)
 {
-   if (fp == 0) fp = stdout;
+   if (fp == nullptr) fp = stdout;
    return;
 }
 
 void lStdHep::printEndRunRecord(FILE *fp)
 {
-   if (fp == 0) fp = stdout;
+   if (fp == nullptr) fp = stdout;
    return;
 }
 
@@ -138,7 +136,7 @@ long lStdHep::readEvent(void)
 // Look for an event or an event table
 //
    event.isEmpty = 1;
-   while (1) {
+   while (true) {
       if (eventTable.ievt < eventTable.numEvts) {
          if (filePosition(eventTable.ptrEvents[eventTable.ievt]) !=
                           eventTable.ptrEvents[eventTable.ievt]) return(getError());
@@ -293,10 +291,7 @@ long lStdHep::writeEvent(lStdEvent &lse)
    return(setEvent(lse));
 }
 
-lStdHep::EventTable::EventTable() :
-   isEmpty(1), ievt(0), blockid(0), ntot(0), version(0),
-   nextlocator(-3), numEvts(0), evtnums(0),
-   storenums(0), runnums(0), trigMasks(0), ptrEvents(0)
+lStdHep::EventTable::EventTable()  
 {
    return;
 }
@@ -309,12 +304,12 @@ lStdHep::EventTable::~EventTable()
 
 void lStdHep::EventTable::cleanup(void)
 {
-   delete [] version;    version   = 0;
-   delete [] evtnums;    evtnums   = 0;
-   delete [] storenums;  storenums = 0;
-   delete [] runnums;    runnums   = 0;
-   delete [] trigMasks;  trigMasks = 0;
-   delete [] ptrEvents;  ptrEvents = 0;
+   delete [] version;    version   = nullptr;
+   delete [] evtnums;    evtnums   = nullptr;
+   delete [] storenums;  storenums = nullptr;
+   delete [] runnums;    runnums   = nullptr;
+   delete [] trigMasks;  trigMasks = nullptr;
+   delete [] ptrEvents;  ptrEvents = nullptr;
    isEmpty = 1;
    ievt    = ntot = blockid = numEvts = 0; // leave nextlocator alone!
    return;
@@ -360,13 +355,7 @@ long lStdHep::EventTable::print(FILE *fp)
    return(0);
 }
 
-lStdHep::Event::Event() :
-   isEmpty(0), blockid(0),ntot(0),version(0),evtnum(0),storenum(0),runnum(0),
-   trigMask(0),nBlocks(0),dimBlocks(0),nNTuples(0),dimNTuples(0),blockIds(0),
-   ptrBlocks(0),nevhep(0),nhep(0),isthep(0),idhep(0),jmohep(0),jdahep(0),phep(0),
-   vhep(0),eventweight(0),alphaqed(0),alphaqcd(0),scale(0),spin(0),colorflow(0),idrup(0),
-   bnevtreq(0),bnevtgen(0),bnevtwrt(0),bstdecom(0),bstdxsec(0),bstdseed1(0),bstdseed2(0),
-   enevtreq(0),enevtgen(0),enevtwrt(0),estdecom(0),estdxsec(0),estdseed1(0),estdseed2(0)
+lStdHep::Event::Event() 
  
 {
    return;
@@ -379,18 +368,18 @@ lStdHep::Event::~Event()
 
 void lStdHep::Event::cleanup(void)
 {
-   delete [] version;     version   = 0;
-   delete [] ptrBlocks;   ptrBlocks = 0;
-   delete [] blockIds;    blockIds  = 0;
-   delete [] isthep;      isthep    = 0;
-   delete [] idhep;       idhep     = 0;
-   delete [] jmohep;      jmohep    = 0;
-   delete [] jdahep;      jdahep    = 0;
-   delete [] phep;        phep      = 0;
-   delete [] vhep;        vhep      = 0;
-   delete [] scale;       scale     = 0;
-   delete [] spin;        spin      = 0;
-   delete [] colorflow;   colorflow = 0;
+   delete [] version;     version   = nullptr;
+   delete [] ptrBlocks;   ptrBlocks = nullptr;
+   delete [] blockIds;    blockIds  = nullptr;
+   delete [] isthep;      isthep    = nullptr;
+   delete [] idhep;       idhep     = nullptr;
+   delete [] jmohep;      jmohep    = nullptr;
+   delete [] jdahep;      jdahep    = nullptr;
+   delete [] phep;        phep      = nullptr;
+   delete [] vhep;        vhep      = nullptr;
+   delete [] scale;       scale     = nullptr;
+   delete [] spin;        spin      = nullptr;
+   delete [] colorflow;   colorflow = nullptr;
    blockid = ntot = nevhep = nhep = 0;
    isEmpty = 1;
    return;

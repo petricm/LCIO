@@ -31,15 +31,12 @@ using namespace EVENT ;
 namespace IMPL {
 
   MCParticleImpl::MCParticleImpl() :
-    _pdg(0),
-    _genstatus(0),
+    
     _simstatus(0),
-    _mass(0),
-    _charge(0),
-    _time(0),
+    
     _parents(0),
-    _daughters(0),
-    _endpointSet(false)
+    _daughters(0)
+    
   {
     _vertex[0] = 0.0 ;
     _vertex[1] = 0.0 ;
@@ -62,8 +59,7 @@ namespace IMPL {
     _colorFlow[1] = 0 ;
   }
 
-  MCParticleImpl::~MCParticleImpl(){
-  }
+  MCParticleImpl::~MCParticleImpl()= default;
   
   const MCParticleVec & MCParticleImpl::getParents() const {
     return _parents ;
@@ -227,7 +223,7 @@ namespace IMPL {
 
     _parents.push_back( parent ) ;
 
-    MCParticleImpl* mom = dynamic_cast<MCParticleImpl*>( parent ) ;
+    auto* mom = dynamic_cast<MCParticleImpl*>( parent ) ;
     if( mom ) mom->addDaughter( this ) ;
     
   }

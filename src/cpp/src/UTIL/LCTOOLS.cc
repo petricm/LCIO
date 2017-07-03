@@ -37,7 +37,7 @@
 #include <cstdio>
 
 
-typedef std::vector<std::string> LCStrVec ;
+using LCStrVec = std::vector<std::string> ;
 
 using namespace std ;
 using namespace EVENT ;
@@ -67,7 +67,7 @@ namespace UTIL {
         const std::vector< std::string >* strVec = evt->getCollectionNames() ;
 
         // loop over collections:
-        for( std::vector< std::string >::const_iterator name = strVec->begin() ; name != strVec->end() ; name++){
+        for( auto name = strVec->begin() ; name != strVec->end() ; name++){
 
             cout.width(30); cout << left << *name;
             cout.width(25); cout << left << evt->getCollection( *name )->getTypeName();
@@ -248,7 +248,7 @@ namespace UTIL {
         int nPrint = nTracks > MAX_HITS ? MAX_HITS : nTracks ;
 
         cout << endl;
-        Track* trk=NULL;
+        Track* trk=nullptr;
         cout << header(trk);
         cout << tail(trk);
 
@@ -284,7 +284,7 @@ namespace UTIL {
         int nPrint = nHits > MAX_HITS ? MAX_HITS : nHits ;
 
         cout << endl;
-        SimTrackerHit* hit=NULL;
+        SimTrackerHit* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -319,7 +319,7 @@ namespace UTIL {
         int nPrint = nHits > MAX_HITS ? MAX_HITS : nHits ;
 
         cout << endl;
-        TrackerHit* hit=NULL;
+        TrackerHit* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -362,7 +362,7 @@ namespace UTIL {
         int nPrint = nHits > MAX_HITS ? MAX_HITS : nHits ;
 
         cout << endl;
-        TrackerHitPlane* hit=NULL;
+        TrackerHitPlane* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -405,7 +405,7 @@ namespace UTIL {
         int nPrint = nHits > MAX_HITS ? MAX_HITS : nHits ;
 
         cout << endl;
-        TrackerHitZCylinder* hit=NULL;
+        TrackerHitZCylinder* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -449,7 +449,7 @@ namespace UTIL {
         int nPrint = nHits > MAX_HITS ? MAX_HITS : nHits ;
 
         cout << endl;
-        TrackerRawData* hit=NULL;
+        TrackerRawData* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -485,7 +485,7 @@ namespace UTIL {
         CellIDDecoder<TrackerData> id( col ) ;
 
         cout << endl;
-        TrackerData* hit=NULL;
+        TrackerData* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -522,7 +522,7 @@ namespace UTIL {
         CellIDDecoder<TrackerPulse> id( col ) ;
 
         cout << endl;
-        TrackerPulse* pul=NULL;
+        TrackerPulse* pul=nullptr;
         cout << header(pul);
         cout << tail(pul);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -564,7 +564,7 @@ namespace UTIL {
 
         for( int i=0 ; i< nPrint ; i++ ){
 
-            TPCHit* hit = 
+            auto* hit = 
                 dynamic_cast<TPCHit*>( col->getElementAt( i ) ) ;
 
             int id0 = hit->getCellID()  ;
@@ -630,7 +630,7 @@ namespace UTIL {
 
         for( int i=0 ; i< nPrint ; i++ ){
 
-            LCStrVec* vec =
+            auto* vec =
                 dynamic_cast<LCStrVec*>( col->getElementAt( i ) ) ;
 
             std::cout << i << ": " ;
@@ -670,7 +670,7 @@ namespace UTIL {
         int nPrint = nHits > MAX_HITS ? MAX_HITS : nHits ;
 
         cout << endl;
-        LCFloatVec* vec=NULL;
+        LCFloatVec* vec=nullptr;
         cout << header(vec);
         cout << tail(vec);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -700,7 +700,7 @@ namespace UTIL {
         int nHits =  col->getNumberOfElements() ;
         int nPrint = nHits > MAX_HITS ? MAX_HITS : nHits ;
         cout << endl;
-        LCIntVec* vec=NULL;
+        LCIntVec* vec=nullptr;
         cout << header(vec);
         cout << tail(vec);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -740,7 +740,7 @@ namespace UTIL {
         CellIDDecoder<SimCalorimeterHit> idDecoder( col ) ; 
 
         cout << endl;
-        SimCalorimeterHit* hit=NULL;
+        SimCalorimeterHit* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -781,7 +781,7 @@ namespace UTIL {
         CellIDDecoder<CalorimeterHit> idDecoder( col ) ; 
 
         cout << endl;
-        CalorimeterHit* hit=NULL;
+        CalorimeterHit* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -821,7 +821,7 @@ namespace UTIL {
         CellIDDecoder<RawCalorimeterHit> idDecoder( col ) ; 
 
         cout << endl;
-        RawCalorimeterHit* hit=NULL;
+        RawCalorimeterHit* hit=nullptr;
         cout << header(hit);
         cout << tail(hit);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -853,7 +853,7 @@ namespace UTIL {
         int nPrint = nClusters > MAX_HITS ? MAX_HITS : nClusters ;
 
         cout << endl;
-        Cluster* clu = NULL;
+        Cluster* clu = nullptr;
         cout << header(clu);
         cout << tail(clu);
         for( int i=0 ; i< nPrint ; i++ ){
@@ -883,7 +883,7 @@ namespace UTIL {
 
                 const StringVec& pNames = pidH.getParameterNames( ids[i] ) ;
 
-                for( StringVec::const_iterator it = pNames.begin() ; it != pNames.end() ; ++it ){
+                for( auto it = pNames.begin() ; it != pNames.end() ; ++it ){
 
                     cout << " " << *it  ;
                 }
@@ -903,7 +903,7 @@ namespace UTIL {
 
         for( int i=0 ; i< nPrint ; i++ ){
 
-            Cluster* clu1 = 
+            auto* clu1 = 
                 dynamic_cast<Cluster*>( col->getElementAt( i ) ) ;
 
             printf("   [%8.8x] " , clu1->id() ) ;
@@ -964,7 +964,7 @@ namespace UTIL {
         int nPrint = nVertices > MAX_HITS ? MAX_HITS : nVertices ;
 
         for( int i=0 ; i< nPrint ; i++ ){
-            Vertex* v = dynamic_cast<Vertex*>( col->getElementAt( i ) ) ;
+            auto* v = dynamic_cast<Vertex*>( col->getElementAt( i ) ) ;
 
             if( i==0) { cout<<header(v); }
             //cout<<lcshort(v,col);
@@ -993,7 +993,7 @@ namespace UTIL {
         int nPrint = nReconstructedParticles > MAX_HITS ? MAX_HITS : nReconstructedParticles ;
 
         cout << endl;
-        ReconstructedParticle* recP=NULL;
+        ReconstructedParticle* recP=nullptr;
         cout << header(recP);
         cout << tail(recP);
 
@@ -1024,7 +1024,7 @@ namespace UTIL {
 
                 const StringVec& pNames = pidH.getParameterNames( ids[i] ) ;
 
-                for( StringVec::const_iterator it = pNames.begin() ; it != pNames.end() ; ++it ){
+                for( auto it = pNames.begin() ; it != pNames.end() ; ++it ){
 
                     cout << " " << *it  ;
                 }
@@ -1044,7 +1044,7 @@ namespace UTIL {
 
         for( int i=0 ; i< nPrint ; i++ ){
 
-            ReconstructedParticle* recP1 = 
+            auto* recP1 = 
                 dynamic_cast<ReconstructedParticle*>( col->getElementAt( i ) ) ;
 
             printf("   [%8.8x] " , recP1->id() ) ;
@@ -1115,7 +1115,7 @@ namespace UTIL {
         //bool isFixedSize  =  BitSet32( col->getFlag() ).test( LCIO::GOBIT_FIXED );
 
         cout << endl;
-        LCGenericObject* obj=NULL;
+        LCGenericObject* obj=nullptr;
         cout << header(obj, col);
         cout << tail(obj);
 
@@ -1171,7 +1171,7 @@ namespace UTIL {
          */
 
         for( int k=0; k<nParticles; k++){
-            MCParticle* part =  dynamic_cast<MCParticle*>( col->getElementAt( k ) ) ;
+            auto* part =  dynamic_cast<MCParticle*>( col->getElementAt( k ) ) ;
             p2i_map[ part ] = k ; 
 
             moms.push_back( part ) ;
@@ -1185,7 +1185,7 @@ namespace UTIL {
         // loop over collection - preserve order
         for(  int index = 0 ; index < nParticles ; index++){
 
-            MCParticle* part =  dynamic_cast<MCParticle*>( col->getElementAt( index ) ) ;
+            auto* part =  dynamic_cast<MCParticle*>( col->getElementAt( index ) ) ;
 
             printf("[%8.8d]", part->id() );
             printf("%5d|"   , index );
@@ -1263,7 +1263,7 @@ namespace UTIL {
         cout << " toType : "   << col->getParameters().getStringVal("ToType")    << endl ;
 
         cout << endl;
-        LCRelation* rel=NULL;
+        LCRelation* rel=nullptr;
         cout << header(rel);
         cout << tail(rel);
 
@@ -1294,7 +1294,7 @@ namespace UTIL {
                 <<  d->getVertex()[0]    << ", "
                 <<  d->getVertex()[1]    << ", "
                 <<  d->getVertex()[2]    << ") | (" ;
-            if( part->getEndpoint() != 0 ){
+            if( part->getEndpoint() != nullptr ){
                 cout <<  part->getEndpoint()[0]  << ", "
                     <<  part->getEndpoint()[1]  << ", "
                     <<  part->getEndpoint()[2]  << ") | " ;
@@ -1377,7 +1377,7 @@ namespace UTIL {
 
     std::string LCTOOLS::getSimulatorStatusString(const MCParticle* mcp){
 
-        if( mcp == 0  ) {
+        if( mcp == nullptr  ) {
 
             std::stringstream str ;
 
@@ -1440,7 +1440,7 @@ namespace UTIL {
 
     std::string LCTOOLS::getQualityBits(const SimTrackerHit* sth){
 
-        if( sth == 0  ) {
+        if( sth == nullptr  ) {
 
             std::stringstream str ;
 

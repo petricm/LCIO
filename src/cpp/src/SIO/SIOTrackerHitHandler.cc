@@ -25,7 +25,7 @@ namespace SIO{
         unsigned int status ; 
 
         // create a new object :
-        TrackerHitIOImpl* hit  = new TrackerHitIOImpl ;
+        auto* hit  = new TrackerHitIOImpl ;
         *objP = hit ;
 
         LCFlagImpl lcFlag(_flag) ;
@@ -84,7 +84,7 @@ namespace SIO{
 
         unsigned int status ; 
 
-        const TrackerHit* hit = dynamic_cast<const TrackerHit*>(obj)  ;
+        const auto* hit = dynamic_cast<const TrackerHit*>(obj)  ;
 
         LCFlagImpl lcFlag(_flag) ;
 
@@ -98,7 +98,7 @@ namespace SIO{
 
         // as SIO doesn't provide a write function with const arguments
         // we have to cast away the constness 
-        double* pos = const_cast<double*> ( hit->getPosition() ) ; 
+        auto* pos = const_cast<double*> ( hit->getPosition() ) ; 
         SIO_DATA( stream,  pos , 3 ) ;
 
         const FloatVec& cov = hit->getCovMatrix() ;

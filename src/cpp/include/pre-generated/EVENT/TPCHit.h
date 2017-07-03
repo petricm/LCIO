@@ -23,11 +23,11 @@ class TPCHit : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~TPCHit() { /* nop */; }
+    ~TPCHit() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef TPCHit lcobject_type ;
+    using lcobject_type = EVENT::TPCHit ;
 
     /** Returns the detector specific cell id.
      */

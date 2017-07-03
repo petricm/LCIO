@@ -21,7 +21,7 @@ class TrackState;
 
 class Track ;
 /**Vector of (pointers to) Tracks.*/
-typedef std::vector<Track*> TrackVec ;
+using TrackVec = std::vector<Track *> ;
 /** The LCIO track class. The helix parameterization follows that of the L3 experiment at LEP.
  *  A detailed description of the track parameters is given in the LC-Note LC-DET-2006-004 
  *  "Track Parameters in LCIO" <a href="http://www-flc.desy.de/lcnotes/notes/LC-DET-2006-004.pdf">(pdf)</a>.
@@ -34,11 +34,11 @@ class Track : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~Track() { /* nop */; }
+    ~Track() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef Track lcobject_type ;
+    using lcobject_type = EVENT::Track ;
 
     /** Flagword that defines the type of track. Bits 0-15 can be used to denote the subdetectors
      *  that have contributed hits used in the track fit.  For the definition of the bits 

@@ -25,27 +25,27 @@ namespace IMPL {
     RawCalorimeterHitImpl() ;
 
     /// Destructor.
-    virtual ~RawCalorimeterHitImpl() ;
+    ~RawCalorimeterHitImpl() override ;
     
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /** Returns the detector specific (geometrical) cell id.
      */
-    virtual int getCellID0() const ;
+    int getCellID0() const override ;
 
     /** Returns the second detector specific (geometrical) cell id. Optional, check/set 
      *  flag(LCIO::RCHBIT_ID1)==1.
      */
-    virtual int getCellID1() const ;
+    int getCellID1() const override ;
 
     /** Returns the amplitude of the hit in ADC counts.
      */
-    virtual int getAmplitude() const ;
+    int getAmplitude() const override ;
 
     /** Returns a time stamp for the hit. Optional, check/set 
      *  flag(LCIO::RCHBIT_TIME)==1.
      */
-    virtual int getTimeStamp() const ;
+    int getTimeStamp() const override ;
 
     
     void setCellID0(int id0) ;
@@ -66,10 +66,10 @@ namespace IMPL {
 
   protected:
 
-    int _cellID0 ;
-    int _cellID1 ;
-    int _amplitude ;
-    int _timeStamp ;
+    int _cellID0{0} ;
+    int _cellID1{0} ;
+    int _amplitude{0} ;
+    int _timeStamp{0} ;
     
   }; // class
 } // namespace IMPL

@@ -42,7 +42,7 @@ namespace UTIL{
 	(*this)[i] = dynamic_cast<T*>( _col->getElementAt(i) ) ;
 	
 	// check the first element for the proper type
-	if( i == 0 && (*this)[i] == 0  ){
+	if( i == 0 && (*this)[i] == nullptr  ){
 
 	  std::stringstream str ;
 	  str << "LCTypedVector: cannot convert " << _col->getTypeName() << " to " 

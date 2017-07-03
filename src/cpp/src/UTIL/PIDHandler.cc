@@ -28,7 +28,7 @@ namespace UTIL{
   
   
   PIDHandler::PIDHandler(  const LCCollection* col ) : 
-    _col( 0 ) , // not needed 
+    _col( nullptr ) , // not needed 
     _cpm( "PIDAlgorithmTypeName",  "PIDAlgorithmTypeID" ,  col ),
     _type(-1) , 
     _maxID(-1) {
@@ -43,7 +43,7 @@ namespace UTIL{
     // ---- get the information on existing ParticleID objects ----------
 
 
-    for( CPM::map_type::iterator it = _cpm.map().begin() ; it != _cpm.map().end() ; ++it) {
+    for( auto it = _cpm.map().begin() ; it != _cpm.map().end() ; ++it) {
       
       int id = it->second ;
      
@@ -53,7 +53,7 @@ namespace UTIL{
 	_maxID = id ;
 
       // ensure id is unique for collection
-      PNM::iterator nit = _pNames.find( id ) ;
+      auto nit = _pNames.find( id ) ;
 
       if( nit != _pNames.end() ){
 
@@ -109,10 +109,10 @@ namespace UTIL{
   PIDHandler::~PIDHandler() {
   
 
-    if (_col != 0 ) {
+    if (_col != nullptr ) {
       // save the collection parameters
       
-      for( PNM::iterator pnm = _pNames.begin() ; pnm != _pNames.end() ; ++pnm) {
+      for( auto pnm = _pNames.begin() ; pnm != _pNames.end() ; ++pnm) {
 	
 	int id = pnm->first ;
 	
@@ -127,7 +127,7 @@ namespace UTIL{
     
     CPM::map_type& map = _cpm.map() ;
     
-    CPM::map_type::iterator it = map.find( algoName ) ; 
+    auto it = map.find( algoName ) ; 
     
     if( it != map.end() ){
       
@@ -156,7 +156,7 @@ namespace UTIL{
   
   int PIDHandler::getAlgorithmID( const std::string& algoName ) {
 
-    CPM::map_type::iterator it = _cpm.map().find( algoName ) ; 
+    auto it = _cpm.map().find( algoName ) ; 
     
     if( it == _cpm.map().end() ){
 
@@ -168,7 +168,7 @@ namespace UTIL{
   
   const std::string& PIDHandler::getAlgorithmName(  int algoID ) {
     
-    CPMINV::iterator it = _cpmInv.find( algoID ) ; 
+    auto it = _cpmInv.find( algoID ) ; 
 
     if( it == _cpmInv.end() ){
       
@@ -184,7 +184,7 @@ namespace UTIL{
   int PIDHandler::getParameterIndex( int algorithmID, const std::string& name ) {
     
     
-    PNM::iterator nit = _pNames.find( algorithmID ) ;
+    auto nit = _pNames.find( algorithmID ) ;
     
     if( nit == _pNames.end() ){
 
@@ -210,7 +210,7 @@ namespace UTIL{
   
   const StringVec&  PIDHandler::getParameterNames( int id  ) {
 
-    PNM::iterator nit = _pNames.find( id ) ;
+    auto nit = _pNames.find( id ) ;
     
     if( nit == _pNames.end() ){
 
@@ -230,7 +230,7 @@ namespace UTIL{
 
   void PIDHandler::setParticleIDUsed(  ReconstructedParticleImpl* p , int id  ) {
 
-    PNM::iterator nit = _pNames.find( id ) ;
+    auto nit = _pNames.find( id ) ;
     
     if( nit == _pNames.end() ){
 
@@ -238,7 +238,7 @@ namespace UTIL{
       throw UnknownAlgorithm( ss.str().c_str()  ) ;
     }
 
-    ParticleID* pid = 0 ;
+    ParticleID* pid = nullptr ;
     
 //     const ParticleIDVec* idv = 0 ;	 
 //     if( _type == ReconstructedParticle  ){
@@ -265,7 +265,7 @@ namespace UTIL{
       }
     }
     
-    if( pid == 0 ) {
+    if( pid == nullptr ) {
       std::stringstream err ; 
       err << "pid object not found in particle for algorithmId: "<< id ;
       throw UnknownAlgorithm( err.str() ) ;
@@ -278,7 +278,7 @@ namespace UTIL{
 
   ParticleIDVec PIDHandler::getParticleIDs( LCObject* p , int id ) {
 
-    PNM::iterator nit = _pNames.find( id ) ;
+    auto nit = _pNames.find( id ) ;
     
     if( nit == _pNames.end() ){
       
@@ -287,7 +287,7 @@ namespace UTIL{
     }
 
     
-    const ParticleIDVec* idv = 0 ;	 
+    const ParticleIDVec* idv = nullptr ;	 
 
     if( _type == ReconstructedParticle  ){
       
@@ -321,7 +321,7 @@ namespace UTIL{
 
   const ParticleID& PIDHandler::getParticleID( LCObject* p , int id ) {
 
-    PNM::iterator nit = _pNames.find( id ) ;
+    auto nit = _pNames.find( id ) ;
     
     if( nit == _pNames.end() ){
 
@@ -330,7 +330,7 @@ namespace UTIL{
     }
 
     
-    const ParticleIDVec* idv = 0 ;	 
+    const ParticleIDVec* idv = nullptr ;	 
 
     if( _type == ReconstructedParticle  ){
       
@@ -359,7 +359,7 @@ namespace UTIL{
 	
     // not returned, i.e. we need to create a new pid objects
 
-    ParticleIDImpl* pid = new ParticleIDImpl ;
+    auto* pid = new ParticleIDImpl ;
 
 
     if( _type == ReconstructedParticle  ){
@@ -383,7 +383,7 @@ namespace UTIL{
 				  const FloatVec& params ) {
     
 
-    PNM::iterator nit = _pNames.find( id ) ;
+    auto nit = _pNames.find( id ) ;
     
     if( nit == _pNames.end() ){
       
@@ -406,9 +406,9 @@ namespace UTIL{
 
     }
 
-    ParticleIDImpl* pid = 0 ;
+    ParticleIDImpl* pid = nullptr ;
     
-    const ParticleIDVec* idv = 0 ;	 
+    const ParticleIDVec* idv = nullptr ;	 
     
     if( _type == ReconstructedParticle  ){
       
@@ -441,7 +441,7 @@ namespace UTIL{
     
     bool isNewPID = false ;
     
-    if( pid == 0 ) {
+    if( pid == nullptr ) {
 
       pid = new ParticleIDImpl ;
 

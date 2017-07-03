@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-typedef EVENT::long64 long64 ;
+using long64 = EVENT::long64 ;
 
 namespace SIO{ // IO or IMPL ?
 
@@ -15,11 +15,11 @@ namespace SIO{ // IO or IMPL ?
    *  in RunNum and EvtNum where all run records (EvtNum=-1) are orderd first. 
    */
   struct RunEvent{
-    RunEvent(): RunNum( 0 ), EvtNum( 0 ) {}
+    RunEvent() = default;
     RunEvent(int run, int evt): RunNum( run ), EvtNum( evt ) {}
     RunEvent(long64 runEvt): RunNum( (runEvt >> 32 ) & 0xffffffff  ), EvtNum( runEvt &  0xffffffff ) {}
-    int RunNum ;
-    int EvtNum ;
+    int RunNum{ 0 } ;
+    int EvtNum{ 0 } ;
     
     operator long64() const {  return  ( long64( RunNum ) << 32  |  ( long64(EvtNum) & 0xffffffff )  ) ; } 
   };

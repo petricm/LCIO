@@ -7,14 +7,12 @@ using namespace EVENT ;
 namespace IMPL {
   
   TrackerHitImpl::TrackerHitImpl() :
-    _cellID0(0),
-    _cellID1(0),
-    _type(0),
+    
     //_dEdx(0),
     _EDep(0),
     _EDepError(0),
     _time(0),
-    _quality(0),
+    
     _rawHits(0) {
     _pos[0] = 0. ;
     _pos[1] = 0. ;
@@ -26,8 +24,7 @@ namespace IMPL {
     //     }
   }
   
-  TrackerHitImpl::~TrackerHitImpl(){  
-  } 
+  TrackerHitImpl::~TrackerHitImpl()= default; 
 
 
   int TrackerHitImpl::getCellID0() const {

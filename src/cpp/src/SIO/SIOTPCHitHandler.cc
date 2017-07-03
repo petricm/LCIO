@@ -23,7 +23,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    TPCHitIOImpl* hit  = new TPCHitIOImpl ;
+    auto* hit  = new TPCHitIOImpl ;
     *objP = hit ;
 	
     SIO_DATA( stream ,  &(hit->_cellID) , 1  ) ;
@@ -64,7 +64,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const TPCHit* hit = dynamic_cast<const TPCHit*>(obj)  ;
+    const auto* hit = dynamic_cast<const TPCHit*>(obj)  ;
 
     LCSIO_WRITE( stream, hit->getCellID()  ) ;
     LCSIO_WRITE( stream, hit->getTime()  ) ;

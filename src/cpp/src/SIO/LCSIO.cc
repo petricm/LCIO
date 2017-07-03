@@ -36,7 +36,7 @@ namespace SIO {
     
     rec = SIO_recordManager::add( name ) ; 
 
-    if( rec == 0 ) {
+    if( rec == nullptr ) {
       std::string err("[LCSIO::SIORecords]: Could not add SIO record: ") ;
       err+=name ;
       throw IO::IOException( err ) ;
@@ -145,7 +145,7 @@ namespace SIO {
     dummy[ strLen ] = '\0' ; // still needed for char* ...
     
     *c = dummy  ;
-    if(len!=0) 
+    if(len!=nullptr) 
       *len = strLen ;
 
     return status ;
@@ -224,7 +224,7 @@ std::string LCSIO::getValidSIOName(const std::string& aName ) {
 
   const char* name  = aName.c_str()  ;
 
-  char* newName =  new char[  aName.length() + 1 ];
+  auto* newName =  new char[  aName.length() + 1 ];
   const char * returnStrP = newName ;
   std::stringstream returnStr ;
 

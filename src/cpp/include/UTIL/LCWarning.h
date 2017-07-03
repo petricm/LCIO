@@ -37,8 +37,8 @@ private:
     // singleton settings
     LCWarning( std::ostream& outstream=std::cerr );
     ~LCWarning(); //{}
-    LCWarning( const LCWarning& ) ;
-    LCWarning & operator=(const LCWarning &);
+    LCWarning( const LCWarning& ) = delete ;
+    LCWarning & operator=(const LCWarning &) = delete;
     static LCWarning& instance ;
 
 

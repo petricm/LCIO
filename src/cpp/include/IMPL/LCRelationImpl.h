@@ -22,7 +22,7 @@ namespace IMPL {
     
     public:
 
-    LCRelationImpl() : _from(0) , _to(0) , _weight(1.0f) { }
+    LCRelationImpl()  = default;
     LCRelationImpl( EVENT::LCObject* from, EVENT::LCObject* to , float weight=1.0f ) : _from(from),
 											  _to(to),
 											  _weight(weight) {}
@@ -32,13 +32,13 @@ namespace IMPL {
     /// default assignment operator - use with care
     LCRelationImpl& operator=(const LCRelationImpl&) = default ;
 
-    ~LCRelationImpl(){}
+    ~LCRelationImpl() override= default;
 
-    int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
-    EVENT::LCObject * getFrom() const { return _from ; }
-    EVENT::LCObject * getTo() const { return _to ; } 
-    float getWeight() const { return _weight ; } 
+    EVENT::LCObject * getFrom() const override { return _from ; }
+    EVENT::LCObject * getTo() const override { return _to ; } 
+    float getWeight() const override { return _weight ; } 
     
     void setFrom( EVENT::LCObject* from ) { _from = from ; }
     void setTo( EVENT::LCObject* to ) { _to = to ; }
@@ -46,9 +46,9 @@ namespace IMPL {
     
 
   protected:
-    EVENT::LCObject* _from ;
-    EVENT::LCObject* _to ;
-    float _weight ;
+    EVENT::LCObject* _from{nullptr} ;
+    EVENT::LCObject* _to{nullptr} ;
+    float _weight{1.0f} ;
 
 }; // class
 } // namespace IMPL

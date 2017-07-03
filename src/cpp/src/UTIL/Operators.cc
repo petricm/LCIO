@@ -39,7 +39,7 @@
 #include <cstdio>
 #include <sstream>
 
-typedef std::vector<std::string> LCStrVec ;
+using LCStrVec = std::vector<std::string> ;
 
 using namespace std ;
 using namespace EVENT ;
@@ -115,7 +115,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCCollection " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::LCCOLLECTION){
                 out << "Warning: collection not of type " << LCIO::LCCOLLECTION << endl ;
                 return(out);
@@ -135,7 +135,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCCollection &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -177,7 +177,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCEvent " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::LCEVENT){
                 out << "Warning: collection not of type " << LCIO::LCEVENT << endl ;
                 return(out);
@@ -196,7 +196,7 @@ namespace UTIL{
 
         out << setw(30) << setfill(' ') << left << "Collection Names" << endl;
         const std::vector< std::string >* strVec = hit->getCollectionNames() ;
-        for(std::vector< std::string >::const_iterator name = strVec->begin() ; name != strVec->end() ; name++){
+        for(auto name = strVec->begin() ; name != strVec->end() ; name++){
             out << "      " << "Name: " << setw(20) << left << *name;
             out << " Type: " << left << setw(10) <<  hit->getCollection( *name )->getTypeName();
             out << " Number of Elements: "<< left << setw(20) << hit->getCollection( *name )->getNumberOfElements() << endl;
@@ -205,7 +205,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCEvent  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -242,7 +242,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCFlag " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             // if(col->getTypeName() != LCIO::LCFLAG){
             //      out << "Warning: collection not of type " << LCIO::LCFLAG << endl ;
             //      return(out);
@@ -257,7 +257,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCFlag  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -275,7 +275,7 @@ namespace UTIL{
         header.str("");
 
         header << " [   id   ] ";
-        if(col != NULL){
+        if(col != nullptr){
             header << col->getParameters().getStringVal("DataDescription");
             header << " - isFixedSize: "   <<  ( isFixedSize ? "true" : "false" );
             header << endl;
@@ -319,7 +319,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCGenericObject " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::LCGENERICOBJECT){
                 out << "Warning: collection not of type " << LCIO::LCGENERICOBJECT << endl ;
                 return(out);
@@ -339,7 +339,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCGenericObject  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -387,7 +387,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCIntVec " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::LCINTVEC){
                 out << "Warning: collection not of type " << LCIO::LCINTVEC << endl ;
                 return(out);
@@ -403,7 +403,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCIntVec  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -451,7 +451,7 @@ namespace UTIL{
         out << noshowpos;
 
         out << setw(41) <<  std::setfill('-') << right << " LCFloatVec " << setfill('-') << setw(29) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::LCFLOATVEC){
                 out << "Warning: collection not of type " << LCIO::LCFLOATVEC << endl ;
                 return(out);
@@ -465,7 +465,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCFloatVec &v){
-        out << lcio_long(v,NULL);
+        out << lcio_long(v,nullptr);
         return out;
     }
 
@@ -559,7 +559,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCObject " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             //if(col->getTypeName() != LCIO::LCOBJECT){
             //    out << "Warning: collection not of type " << LCIO::LCOBJECT << endl ;
             //    return(out);
@@ -576,7 +576,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCObject  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -612,7 +612,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCParameters " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             //if(col->getTypeName() != LCIO::LCPARAMETERS){
             //    out << "Warning: collection not of type " << LCIO::LCPARAMETERS << endl ;
             //    return(out);
@@ -684,7 +684,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCParameters  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -724,7 +724,7 @@ namespace UTIL{
         out << noshowpos;
 
         out << setw(41) <<  std::setfill('-') << right << " LCRelation " << setfill('-') << setw(29) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::LCRELATION){
                 out << "Warning: collection not of type " << LCIO::LCRELATION << endl ;
                 return(out);
@@ -739,7 +739,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCRelation &v){
-        out << lcio_long(v,NULL);
+        out << lcio_long(v,nullptr);
         return out;
     }
 
@@ -779,7 +779,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCRunHeader " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::LCRUNHEADER){
                 out << "Warning: collection not of type " << LCIO::LCRUNHEADER << endl ;
                 return(out);
@@ -798,7 +798,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCRunHeader  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -834,7 +834,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " LCIO " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             //if(col->getTypeName() != LCIO::LCIO){
             //    out << "Warning: collection not of type " << LCIO::LCIO << endl ;
             //    return(out);
@@ -849,7 +849,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::LCIO  &hit){ //hauke
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -889,7 +889,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " ParticleID " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::PARTICLEID){
                 out << "Warning: collection not of type " << LCIO::PARTICLEID << endl ;
                 return(out);
@@ -907,7 +907,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::ParticleID  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -960,7 +960,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " RawCalorimeterHit " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::RAWCALORIMETERHIT){
                 out << "Warning: collection not of type " << LCIO::RAWCALORIMETERHIT << endl ;
                 return(out);
@@ -981,7 +981,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::RawCalorimeterHit  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -1094,7 +1094,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " TrackerData " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::TRACKERDATA){
                 out << "Warning: collection not of type " << LCIO::TRACKERDATA << endl ;
                 return(out);
@@ -1111,7 +1111,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::TrackerData  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -1144,7 +1144,7 @@ namespace UTIL{
         out << dec << setw(8) << setfill(' ') << hit->getCharge() << "|";
         out << dec << setw(10) << setfill(' ') << hit->getQuality() << endl;
         TrackerData* corr =  hit->getTrackerData() ;
-        if( corr != 0 ){
+        if( corr != nullptr ){
             out << "|" << dec << setfill('0') << setw(10)  << corr->id() << "]";
         }else{
             out << "|[" << dec << setfill('0') << setw(10)  << '0' << "]";
@@ -1176,7 +1176,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " TrackerPulse " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::TRACKERPULSE){
                 out << "Warning: collection not of type " << LCIO::TRACKERPULSE << endl ;
                 return(out);
@@ -1196,7 +1196,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::TrackerPulse  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -1253,7 +1253,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " TrackerRawData " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){
+        if(col != nullptr){
             if(col->getTypeName() != LCIO::TRACKERRAWDATA){
                 out << "Warning: collection not of type " << LCIO::TRACKERRAWDATA << endl ;
                 return(out);
@@ -1270,7 +1270,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::TrackerRawData  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -1356,7 +1356,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(46) <<  std::setfill('-') << right << " SimCalorimeterHit " << setfill('-') << setw(24) << "-" << endl;
 
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::SIMCALORIMETERHIT){
                 out << "Warning: collection not of type " << LCIO::SIMCALORIMETERHIT << endl ;
                 return(out);
@@ -1390,7 +1390,7 @@ namespace UTIL{
 
         tmp.str("");
         tmp  << hit->getPosition()[0] << ", " << hit->getPosition()[1]  << ", " << hit->getPosition()[2]; 
-        if(col != NULL){ 
+        if(col != nullptr){ 
             BitSet32 flag(col->getFlag());
             if(flag.test(LCIO::CHBIT_LONG)){
                 out <<setw(30) << left << showpos << "Position (x,y,z) " << setfill(' ') << right <<setw(40) << tmp.str() << endl;
@@ -1422,7 +1422,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::SimCalorimeterHit  &hit){
-        out<<lcio_long(hit,NULL);
+        out<<lcio_long(hit,nullptr);
         return out;
     }
 
@@ -1469,7 +1469,7 @@ namespace UTIL{
         }
         try{
             for( i=0 ; i < rawHits.size() ; i++ ){
-                if( rawHits[i] == 0 ) continue ;
+                if( rawHits[i] == nullptr ) continue ;
                 out << dec << "[" << rawHits[i]->id() << "], " <<  dec ;
             }
         }catch(std::exception& e){}
@@ -1494,7 +1494,7 @@ namespace UTIL{
         stringstream tmp;
         out << noshowpos;
         out << setw(41) <<  setfill('-') << right << " TrackerHit " << setfill('-') << setw(29) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::TRACKERHIT){
                 out << "Warning: collection not of type " << LCIO::TRACKERHIT << endl ;
                 return(out);
@@ -1536,7 +1536,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::TrackerHit &hit){ //hauke
-        out << lcio_long(hit,NULL);
+        out << lcio_long(hit,nullptr);
         return out;
     }
 
@@ -1590,7 +1590,7 @@ namespace UTIL{
         }
         try{
             for( i=0 ; i < rawHits.size() ; i++ ){
-                if( rawHits[i] == 0 ) continue ;
+                if( rawHits[i] == nullptr ) continue ;
                 out << dec << "[" << rawHits[i]->id() << "], " <<  dec ;
             }
         }catch(std::exception& e){}
@@ -1615,7 +1615,7 @@ namespace UTIL{
         stringstream tmp;
         out << noshowpos;
         out << setw(41) <<  setfill('-') << right << " TrackerHitPlane " << setfill('-') << setw(29) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::TRACKERHITPLANE){
                 out << "Warning: collection not of type " << LCIO::TRACKERHITPLANE << endl ;
                 return(out);
@@ -1663,7 +1663,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::TrackerHitPlane &hit){
-        out << lcio_long(hit,NULL);
+        out << lcio_long(hit,nullptr);
         return out;
     }
 
@@ -1716,7 +1716,7 @@ namespace UTIL{
         }
         try{
             for( i=0 ; i < rawHits.size() ; i++ ){
-                if( rawHits[i] == 0 ) continue ;
+                if( rawHits[i] == nullptr ) continue ;
                 out << dec << "[" << rawHits[i]->id() << "], " <<  dec ;
             }
         }catch(std::exception& e){}
@@ -1741,7 +1741,7 @@ namespace UTIL{
         stringstream tmp;
         out << noshowpos;
         out << setw(41) <<  setfill('-') << right << " TrackerHitZCylinder " << setfill('-') << setw(29) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::TRACKERHITZCYLINDER){
                 out << "Warning: collection not of type " << LCIO::TRACKERHITZCYLINDER << endl ;
                 return(out);
@@ -1789,7 +1789,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::TrackerHitZCylinder &hit){
-        out << lcio_long(hit,NULL);
+        out << lcio_long(hit,nullptr);
         return out;
     }
 
@@ -1901,7 +1901,7 @@ namespace UTIL{
         out << noshowpos;
 
         out << setw(42) <<  std::setfill('-') << right << " SimTrackerHit " << setfill('-') << setw(28) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::SIMTRACKERHIT){
                 out << "Warning: collection not of type " << LCIO::SIMTRACKERHIT << endl ;
                 return(out);
@@ -1934,7 +1934,7 @@ namespace UTIL{
         out <<setw(30) << std::left << "Position [mm] (x,y,z) " << dec << setfill(' ') << right <<setw(40) << tmp.str() << endl;
         out <<setw(30) << std::left << "dE/dx [GeV]" << setfill(' ') << right <<setw(40) << hit->getEDep() << endl;
         out <<setw(30) << std::left << "Time [ns]" << setfill(' ') << right <<setw(40) << hit->getTime() << endl;
-        if(hit->getMCParticle() != NULL){
+        if(hit->getMCParticle() != nullptr){
           out <<std::setw(30) << std::left << "PDG of MCParticle " << setfill(' ') << right <<setw(40) << hit->getMCParticle()->getPDG() << std::endl;
           out <<std::setw(30) << std::left << "ID  of MCParticle " << setfill(' ') << right <<setw(40) << hit->getMCParticle()->id() << std::endl;
         }else{
@@ -1943,7 +1943,7 @@ namespace UTIL{
 
         tmp.str("");
         tmp  << hit->getMomentum()[0] << ", " << hit->getMomentum()[1]  << ", " << hit->getMomentum()[2]; 
-        if(col != NULL){ 
+        if(col != nullptr){ 
             BitSet32 flag(col->getFlag());
             if(flag.test(LCIO::THBIT_MOMENTUM)){
                 out <<setw(40) << left << "Momentum [GeV] (x,y,z) [not verified]" << setfill(' ') << right <<setw(30) << tmp.str() << endl;
@@ -1961,7 +1961,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::SimTrackerHit &hit){ //hauke
-        out << lcio_long(hit,NULL);
+        out << lcio_long(hit,nullptr);
         return(out);
     }
 
@@ -2021,7 +2021,7 @@ namespace UTIL{
 
         out << setw(42) <<  std::setfill('-') << right << " CalorimeterHit " << setfill('-') << setw(28) << "-" << endl;
 
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::CALORIMETERHIT){
                 out << "Warning: collection not of type " << LCIO::CALORIMETERHIT << endl ;
                 return(out);
@@ -2052,7 +2052,7 @@ namespace UTIL{
         out << setw(30) << setfill(' ') << left << "Energy Error [GeV]" <<   right << setw(40) << hit->getEnergyError() << endl;
         tmp.str("");
         tmp  << hit->getPosition()[0] << ", " << hit->getPosition()[1]  << ", " << hit->getPosition()[2]; 
-        if(col != NULL){ 
+        if(col != nullptr){ 
             BitSet32 flag(col->getFlag());
             if(flag.test(LCIO::CHBIT_LONG)){
                 out <<setw(30) << left << showpos << "Position (x,y,z) " << setfill(' ') << right <<setw(40) << tmp.str() << endl;
@@ -2072,7 +2072,7 @@ namespace UTIL{
 
 
     std::ostream& operator<<( std::ostream& out, const EVENT::CalorimeterHit &hit){ //hauke
-        out << lcio_long(hit,NULL);
+        out << lcio_long(hit,nullptr);
         //out << lcio_long(a,NULL);
 
         return(out);
@@ -2142,7 +2142,7 @@ namespace UTIL{
 
         //out << setprecision(5) << fixed;
         out << setw(41) <<  std::setfill('-') << right << " MCParticle " << setfill('-') << setw(29) << "-" << std::endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::MCPARTICLE){
                 out << "Warning: collection not of type " << LCIO::MCPARTICLE << endl ;
                 return(out);
@@ -2242,7 +2242,7 @@ namespace UTIL{
      */
 
     std::ostream& operator<<( std::ostream& out, const EVENT::MCParticle &mcp){ //hauke
-        out << lcio_long(mcp,NULL);
+        out << lcio_long(mcp,nullptr);
         return out;
     }
 
@@ -2287,7 +2287,7 @@ namespace UTIL{
         out << tmp.str() << "|";
 
         out << dec << setw(7) << setfill('0');
-        if(part->getParticleIDUsed() != 0 ){
+        if(part->getParticleIDUsed() != nullptr ){
             out << part->getParticleIDUsed()->id();
         }else{ 
             out << 0;
@@ -2353,23 +2353,23 @@ namespace UTIL{
         }
         out << endl ;
 
-        Vertex* sv = dynamic_cast<Vertex*>(part->getStartVertex());
-        Vertex* ev = dynamic_cast<Vertex*>(part->getEndVertex());
-        ReconstructedParticle* svr=0;
-        ReconstructedParticle* evr=0;
+        auto* sv = dynamic_cast<Vertex*>(part->getStartVertex());
+        auto* ev = dynamic_cast<Vertex*>(part->getEndVertex());
+        ReconstructedParticle* svr=nullptr;
+        ReconstructedParticle* evr=nullptr;
 
-        if(sv!=0){
+        if(sv!=nullptr){
             svr = dynamic_cast<ReconstructedParticle*>(sv->getAssociatedParticle());
         }
-        if(ev!=0){
+        if(ev!=nullptr){
             evr = dynamic_cast<ReconstructedParticle*>(ev->getAssociatedParticle());
         }
 
         out << setfill('0') << noshowpos << dec;
-        out << "    vertices: startVertex( id:[ " << setw(8) << (sv !=0? sv->id(): 0);
-        out << "id_aRP: "<< setw(8) << ((sv != 0 && svr != 0) ? svr->id() : 0 );
-        out <<  "]  endVertex( id:[" << setw(8) << ( ev != 0 ? ev->id() : 0 );
-        out << "], id_aRP:[" << setw(8) << ((ev != 0 && evr != 0) ? evr->id() : 0 ) << "]";
+        out << "    vertices: startVertex( id:[ " << setw(8) << (sv !=nullptr? sv->id(): 0);
+        out << "id_aRP: "<< setw(8) << ((sv != nullptr && svr != nullptr) ? svr->id() : 0 );
+        out <<  "]  endVertex( id:[" << setw(8) << ( ev != nullptr ? ev->id() : 0 );
+        out << "], id_aRP:[" << setw(8) << ((ev != nullptr && evr != nullptr) ? evr->id() : 0 ) << "]";
 
         out << noshowpos << setfill(' ') << dec; 
         out << endl;
@@ -2384,7 +2384,7 @@ namespace UTIL{
         stringstream tmp;
 
         out << setw(41) << setfill('-') << right << " ReconstructedParticle " << setfill('-') << setw(29) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::RECONSTRUCTEDPARTICLE){
                 out << "Warning: collection not of type " << LCIO::RECONSTRUCTEDPARTICLE << endl ;
                 return(out);
@@ -2420,7 +2420,7 @@ namespace UTIL{
         out << setw(30) << setfill(' ') << left << "ParticleIDUsed";
 
 
-        if(part->getParticleIDUsed() != 0 ){
+        if(part->getParticleIDUsed() != nullptr ){
             tmp.str("");
             tmp  << dec << part->getParticleIDUsed()->id() << dec;
             out << dec << right << setw(40) << tmp.str() << endl;
@@ -2485,7 +2485,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::ReconstructedParticle &part){ //hauke
-        out << lcio_long(part,NULL);
+        out << lcio_long(part,nullptr);
         return(out);
     }
 
@@ -2548,7 +2548,7 @@ namespace UTIL{
         //out << scientific << setprecision (2) << showpos;
         out << noshowpos;
         out << setw(41) << setfill('-') << right << "-- TrackState ---" << setfill('-') << setw(29) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::TRACKSTATE){
                 out << "Warning: collection not of type " << LCIO::TRACKSTATE << endl ;
                 return(out);
@@ -2606,7 +2606,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::TrackState &part){
-        out << lcio_long(part,NULL);
+        out << lcio_long(part,nullptr);
         return(out);
     }
 
@@ -2631,7 +2631,7 @@ namespace UTIL{
         const EVENT::Track *trk = sV.obj;
         BitSet32 flag(0) ;
 
-        if(sV.col != NULL){
+        if(sV.col != nullptr){
             const EVENT::LCCollection *col = sV.col;
             flag=BitSet32(col->getFlag());
         }
@@ -2678,7 +2678,7 @@ namespace UTIL{
 	}
 
         out << endl;
-        if(sV.col != NULL){
+        if(sV.col != nullptr){
             if(flag.test(LCIO::TRBIT_HITS)){
                 out << " hits ->";
                 const TrackerHitVec& hits= trk->getTrackerHits() ;
@@ -2712,7 +2712,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << "-- Track ---" << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::TRACK){
                 out << "Warning: collection not of type " << LCIO::TRACK << endl ;
                 return(out);
@@ -2766,7 +2766,7 @@ namespace UTIL{
         const TrackVec& tracks = part->getTracks() ;
 
         for(unsigned l=0;l<tracks.size();l++){
-            if( tracks[l] != 0  )
+            if( tracks[l] != nullptr  )
                 out << tracks[l]->id();
             else
                 out << 0;
@@ -2809,7 +2809,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::Track &part){ //hauke
-        out << lcio_long(part,NULL);
+        out << lcio_long(part,nullptr);
         return(out);
     }
 
@@ -2893,7 +2893,7 @@ namespace UTIL{
         out << noshowpos;
         out << setw(41) << setfill('-') << right << " Cluster " << setfill('-') << setw(29) << "-" << endl;
 
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::CLUSTER){
                 out << "Warning: collection not of type " << LCIO::CLUSTER << endl ;
                 return(out);
@@ -2956,7 +2956,7 @@ namespace UTIL{
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::Cluster &clu){ //hauke
-        out << lcio_long(clu,NULL);
+        out << lcio_long(clu,nullptr);
         return(out);
     }
 
@@ -2990,7 +2990,7 @@ namespace UTIL{
             v->getPosition()[0] << ", " << v->getPosition()[1] << ", " << v->getPosition()[2] << " | [" ;
 
         out << setw(3) << v->getParameters().size() << "] | [";
-        out << setw(8) << dec << (v->getAssociatedParticle()!=NULL?v->getAssociatedParticle()->id():0) << "]\n";
+        out << setw(8) << dec << (v->getAssociatedParticle()!=nullptr?v->getAssociatedParticle()->id():0) << "]\n";
 
         out << noshowpos; 
         return out;
@@ -3004,7 +3004,7 @@ namespace UTIL{
         out << noshowpos;
 
         out << setw(41) <<  std::setfill('-') << right << " Vertex " << setfill('-') << setw(29) << "-" << endl;
-        if(col != NULL){ 
+        if(col != nullptr){ 
             if(col->getTypeName() != LCIO::VERTEX){
                 out << "Warning: collection not of type " << LCIO::VERTEX << endl ;
                 return(out);
@@ -3044,13 +3044,13 @@ namespace UTIL{
             out << scientific << setprecision(5) << v->getParameters()[i] << endl;
         }
 
-        out << setw(30) << setfill(' ') << left << "ARP ID" <<   right << setw(40) << (v->getAssociatedParticle()!=NULL?v->getAssociatedParticle()->id():0) << endl;
+        out << setw(30) << setfill(' ') << left << "ARP ID" <<   right << setw(40) << (v->getAssociatedParticle()!=nullptr?v->getAssociatedParticle()->id():0) << endl;
 
         return out;
     }
 
     std::ostream& operator<<( std::ostream& out, const EVENT::Vertex &v){
-        out << lcio_long(v,NULL);
+        out << lcio_long(v,nullptr);
         return out;
     }
 

@@ -48,13 +48,13 @@ void LCStdHepRdrNew::printHeader(std::ostream& os) {
 
 void LCStdHepRdrNew::updateNextEvent(IMPL::LCEventImpl* evt, const char* colName) {
 
-    if (evt == 0) {
+    if (evt == nullptr) {
         throw EVENT::Exception(" LCStdHepRdrNew::updateEvent - null pointer for event ");
     }
 
     IMPL::LCCollectionVec* mcpCol = readEvent();
 
-    if (mcpCol == 0) {
+    if (mcpCol == nullptr) {
 
         throw IO::EndOfDataException(" LCStdHepRdrNew::updateEvent: EOF ");
     }
@@ -85,7 +85,7 @@ void LCStdHepRdrNew::updateNextEvent(IMPL::LCEventImpl* evt, const char* colName
 // Read an event and return a LCCollectionVec of MCParticles
 //
 IMPL::LCCollectionVec * LCStdHepRdrNew::readEvent() {
-    IMPL::LCCollectionVec * mcVec = 0;
+    IMPL::LCCollectionVec * mcVec = nullptr;
     double c_light = 299.792;  // mm/ns
     //
     //  Read the event, check for errors
@@ -106,7 +106,7 @@ IMPL::LCCollectionVec * LCStdHepRdrNew::readEvent() {
 
         else {
 
-            return 0;
+            return nullptr;
             // throw IO::EndOfDataException( " LCStdHepRdrNew::readEvent EOF " ) ;
         }
     }
@@ -163,7 +163,7 @@ IMPL::LCCollectionVec * LCStdHepRdrNew::readEvent() {
         //
         //  Create a MCParticle and fill it from stdhep info
         //
-        MCParticleImpl* mcp = new MCParticleImpl();
+        auto* mcp = new MCParticleImpl();
 
         // and add it to the collection (preserving the order of the hepevt block)
         mcVec->at(IHEP) = mcp;
@@ -294,7 +294,7 @@ IMPL::LCCollectionVec * LCStdHepRdrNew::readEvent() {
         //
         //  Get the MCParticle
         //
-        MCParticleImpl* mcp = dynamic_cast<MCParticleImpl*>(mcVec->getElementAt(IHEP));
+        auto* mcp = dynamic_cast<MCParticleImpl*>(mcVec->getElementAt(IHEP));
         //
         //  Get the daughter information, discarding extra information
         //  sometimes stored in daughter variables.
@@ -413,7 +413,7 @@ IMPL::LCCollectionVec * LCStdHepRdrNew::readEvent() {
     int nic = 0;
     for (int IHEP = 0; IHEP < NHEP; IHEP++) {
 
-        MCParticleImpl* mcp = dynamic_cast<MCParticleImpl*>(mcVec->getElementAt(IHEP));
+        auto* mcp = dynamic_cast<MCParticleImpl*>(mcVec->getElementAt(IHEP));
 
         // find inconsistencies
         if ((mcp->getGeneratorStatus() == 2) && (mcp->getDaughters().size() == 0)) {
@@ -463,9 +463,9 @@ IMPL::LCCollectionVec * LCStdHepRdrNew::readEvent() {
         int mom2 = _reader->mother2(IHEP) - 1;
         // int dau1 = _reader->daughter1(IHEP) - 1;
         // int dau2 = _reader->daughter1(IHEP) - 1;
-        MCParticleImpl* mcDau = (MCParticleImpl*) mcVec->getElementAt(IHEP);
+        auto* mcDau = (MCParticleImpl*) mcVec->getElementAt(IHEP);
         if (mom1 > 0 && mom2 == -1) {
-            MCParticleImpl* mcPar = (MCParticleImpl*) mcVec->getElementAt(mom1);
+            auto* mcPar = (MCParticleImpl*) mcVec->getElementAt(mom1);
             EVENT::MCParticleVec dauVec = mcPar->getDaughters();
             bool hasDau = (std::find(dauVec.begin(), dauVec.end(), mcDau) != dauVec.end());
             if (!hasDau) {
@@ -473,7 +473,7 @@ IMPL::LCCollectionVec * LCStdHepRdrNew::readEvent() {
             }
         } else if (mom1 > -1 && mom2 > -1) {
             for (int i = mom1; i <= mom2; i++) {
-                MCParticleImpl* mcPar = (MCParticleImpl*) mcVec->getElementAt(i);
+                auto* mcPar = (MCParticleImpl*) mcVec->getElementAt(i);
                 EVENT::MCParticleVec dauVec = mcPar->getDaughters();
                 bool hasDau = (std::find(dauVec.begin(), dauVec.end(), mcDau) != dauVec.end());
                 if (!hasDau) {

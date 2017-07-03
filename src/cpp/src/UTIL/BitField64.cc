@@ -15,8 +15,7 @@ namespace UTIL{
     _name( theName ), 
     _offset( theOffset ),
     _width( abs( signedWidth ) ),
-    _minVal(0),
-    _maxVal(0),
+    
     _isSigned( signedWidth < 0 ) {
     
     // sanity check
@@ -96,7 +95,7 @@ namespace UTIL{
 
   size_t BitField64::index( const std::string& name) const {
     
-    IndexMap::const_iterator it = _map.find( name ) ;
+    auto it = _map.find( name ) ;
     
     if( it != _map.end() ) 
       
@@ -172,7 +171,7 @@ namespace UTIL{
   void BitField64::addField( const std::string& name,  unsigned offset, int width ){
 
       
-    BitFieldValue* bfv =  new  BitFieldValue( _value, name, offset, width ) ;
+    auto* bfv =  new  BitFieldValue( _value, name, offset, width ) ;
 
     _fields.push_back(  bfv ) ;
     
@@ -253,7 +252,7 @@ namespace UTIL{
     os << " bitfield:  0x" << std::hex // << std::ios::width(16) << std::ios::fill('0') <<
        << b._value << std::dec << std::endl ;
 
-    for( BitField64::IndexMap::const_iterator it = b._map.begin()  ;
+    for( auto it = b._map.begin()  ;
 	 it !=  b._map.end() ; ++it ){
       
       os << "  " << it->first << " [" <<  b[ it->second ].offset()  << ":"  ;

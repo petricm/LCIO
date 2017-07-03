@@ -50,7 +50,7 @@ int main(int /*argc*/, char** /*argv*/ ){
         for(int i=0;i<NEVENT;i++){
 
             // we need to use the implementation classes here 
-            LCEventImpl*  evt = new LCEventImpl() ;
+            auto*  evt = new LCEventImpl() ;
 
 
             evt->setRunNumber( 4711  ) ;
@@ -60,7 +60,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
             for(int j=0;j<NHITS;j++){
 
-                TrackerHitZCylinderImpl* trkHit = new TrackerHitZCylinderImpl ;
+                auto* trkHit = new TrackerHitZCylinderImpl ;
 
                 trkHit->setEDep( i*j*117. ) ;
                 // trkHit->setdEdx( i*j*117. ) ;
@@ -107,7 +107,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
                 //std::cout << " testing hit " << j << std::endl ;
 
-                TrackerHitZCylinder* trkHit = dynamic_cast<TrackerHitZCylinder*>(trkHits->getElementAt(j)) ;
+                auto* trkHit = dynamic_cast<TrackerHitZCylinder*>(trkHits->getElementAt(j)) ;
 
                 //std::cout << *trkHit << std::endl ;
 

@@ -19,13 +19,13 @@ namespace SIO {
 	
     /** Reads lcio TrackerData objects from an SIO stream.
      */
-    virtual unsigned int read(SIO_stream* stream, 
-			      EVENT::LCObject** objP)  ;
+    unsigned int read(SIO_stream* stream, 
+			      EVENT::LCObject** objP) override  ;
 	
     /** Writes TrackerData hit objects to an SIO stream.
      */
-    virtual unsigned int write(SIO_stream* stream, 
-			       const EVENT::LCObject* obj) ;
+    unsigned int write(SIO_stream* stream, 
+			       const EVENT::LCObject* obj) override ;
 	
   }; // class
 } // namespace

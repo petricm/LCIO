@@ -82,7 +82,7 @@ int main(int argc, char** argv ){
       // 'createLCWriter/open' and 'close/delete' will be outside the run loop...
 
 
-      LCRunHeaderImpl* runHdr = new LCRunHeaderImpl ; 
+      auto* runHdr = new LCRunHeaderImpl ; 
       runHdr->setRunNumber( rn ) ;
       
       string detName("D09TileHcal")  ;
@@ -116,7 +116,7 @@ int main(int argc, char** argv ){
       for(int i=0;i<NEVENT;i++){
 	
 	// we need to use the implementation classes here 
-	LCEventImpl*  evt = new LCEventImpl() ;
+	auto*  evt = new LCEventImpl() ;
 	
 	
 	evt->setRunNumber(  rn   ) ;
@@ -145,7 +145,7 @@ int main(int argc, char** argv ){
 	// debug only - add the same particle to more than one collection
 	//LCCollectionVec* mcVec2 = new LCCollectionVec( LCIO::MCPARTICLE )  ;
 
-	MCParticleImpl* mom = new MCParticleImpl ;
+	auto* mom = new MCParticleImpl ;
 	mom->setPDG( 1  ) ;
 	float p0[3] = { 0. , 0. , 1000. } ;
 	mom->setMomentum( p0 ) ;
@@ -154,7 +154,7 @@ int main(int argc, char** argv ){
 
 	for(int j=0;j<NMCPART;j++){
 
-	  MCParticleImpl* mcp = new MCParticleImpl ;
+	  auto* mcp = new MCParticleImpl ;
 
 	  mcp->setPDG( 1000 * (j+1)  ) ;
 	  float p[3] = { float(j*1.) , float(4./1024.) , float(8./1024.) } ;
@@ -163,7 +163,7 @@ int main(int argc, char** argv ){
 
 	  // create and add some daughters
 	  for(int k=0;k<3;k++){
-	    MCParticleImpl* d1 = new MCParticleImpl ;
+	    auto* d1 = new MCParticleImpl ;
 
 	    d1->setPDG( 1000 * (j+1) + 100 * (k+1)  ) ;
 	    float pd1[3] = {  float(k*1.) ,  float(4.1) ,  float(8.1) } ;
@@ -171,7 +171,7 @@ int main(int argc, char** argv ){
 	    d1->setMass( .135 ) ;
 
 	    for(int l=0;l<2;l++){
-	      MCParticleImpl* d2 = new MCParticleImpl ;
+	      auto* d2 = new MCParticleImpl ;
 	      
 	      d2->setPDG( 1000 * (j+1) + 100 * (k+1) + 10 *  (l+1)  ) ;
 	      float pd2[3] = {  float(l*1.) ,  float(0.41) ,  float(4.1) } ;
@@ -225,7 +225,7 @@ int main(int argc, char** argv ){
 
 	for(int j=0;j<NHITS;j++){
 	  
-	  SimCalorimeterHitImpl* hit = new SimCalorimeterHitImpl ;
+	  auto* hit = new SimCalorimeterHitImpl ;
 	  
 	  hit->setEnergy( 3.1415 * rand()/RAND_MAX   )  ;
 	  
@@ -249,7 +249,7 @@ int main(int argc, char** argv ){
 	  
 	  // assign the hits randomly to MC particles
 	  double rnd =   .99999*rand()/RAND_MAX ;
-	  int mcIndx = static_cast<int>( NMCPART * rnd ) ;
+	  auto mcIndx = static_cast<int>( NMCPART * rnd ) ;
 	  
 	  // in order to access a MCParticle,  we need a dynamic cast as the 
 	  // LCCollection returns an LCIOObject - this is like vectors in Java 
@@ -261,7 +261,7 @@ int main(int argc, char** argv ){
 	// -------- data can be modified as long as is not not made persistent --------
 
 	for(int j=0;j<NHITS;j++){
-	  SimCalorimeterHitImpl* existingHit 
+	  auto* existingHit 
 	    = dynamic_cast<SimCalorimeterHitImpl*>( calVec->getElementAt(j) ) ; // << Ok now
 
  	  //	    = dynamic_cast<SimCalorimeterHitImpl*>( (*calVec)[j] ) ;  // << not needed 
@@ -317,7 +317,7 @@ int main(int argc, char** argv ){
 	
 	for(int j=0;j<NHITS;j++){
 	  
-	  SimTrackerHitImpl* hit = new SimTrackerHitImpl ;
+	  auto* hit = new SimTrackerHitImpl ;
 
 	  cd["i"] = j ;
 	  cd["j"] = j + 100 ;
@@ -325,8 +325,8 @@ int main(int argc, char** argv ){
 
 	  cd.setCellID( hit ) ;
 
-	  LCFloatVec* extF = new LCFloatVec ;
-	  LCIntVec*   extI = new LCIntVec ;
+	  auto* extF = new LCFloatVec ;
+	  auto*   extI = new LCIntVec ;
 	  
 	  //hit->setdEdx( 30e-9 ) ; 
 	  hit->setEDep( 30e-9 ) ; 
@@ -337,7 +337,7 @@ int main(int argc, char** argv ){
 	  
 	  // assign the hits randomly to MC particles
 	  float rnd =  .99999*rand()/RAND_MAX ;
-	  int mcIndx = static_cast<int>( NMCPART * rnd ) ;
+	  auto mcIndx = static_cast<int>( NMCPART * rnd ) ;
 	  
 
 // 	  hit->setMCParticle( dynamic_cast<MCParticle*>(mcVec->getElementAt( mcIndx ) ) ) ;
@@ -375,7 +375,7 @@ int main(int argc, char** argv ){
 // 	if( rn == NRUN-1 && i == 0 ) { // first event o last run
 	if( rn == 1 && i == 0 ) { // first event o last run
 	  LCCollectionVec* addExtVec = new LCCollectionVec( LCIO::LCFLOATVEC )  ;
-	  LCFloatVec* addExt = new LCFloatVec ;
+	  auto* addExt = new LCFloatVec ;
 	  addExt->push_back( 1. );
 	  addExt->push_back( 2. );
 	  addExt->push_back( 3. );
@@ -389,7 +389,7 @@ int main(int argc, char** argv ){
 	
  	for(int j=0;j< mcVec->getNumberOfElements() ; j++ ){
 	  
- 	  MCParticle* p = dynamic_cast< MCParticle*>( mcVec->getElementAt(j) )  ;
+ 	  auto* p = dynamic_cast< MCParticle*>( mcVec->getElementAt(j) )  ;
 	  if( p->getDaughters().size() == 0 )
 	    mcSubVec->addElement( p ) ;
  	}
@@ -407,7 +407,7 @@ int main(int argc, char** argv ){
 	
 	for(int j=0;j<NHITS;j++){
 
-	  TrackerRawDataImpl* tpcRaw = new TrackerRawDataImpl ;
+	  auto* tpcRaw = new TrackerRawDataImpl ;
 	  
 	  tpcRaw->setCellID0( j ) ;
 	  tpcRaw->setTime( -j  ) ;
@@ -449,7 +449,7 @@ int main(int argc, char** argv ){
 	
 	for(int j=0;j<NHITS;j++){
 
-	  TrackerDataImpl* tpcCorrected = new TrackerDataImpl ;
+	  auto* tpcCorrected = new TrackerDataImpl ;
 	  
 	  tpcCorrected->setCellID0( j ) ;
 	  tpcCorrected->setTime( -j  ) ;
@@ -472,15 +472,15 @@ int main(int argc, char** argv ){
 	qualityBits.push_back(1) ;
 
 	StringVec bitNames ;
-	bitNames.push_back("GOOD") ;
-	bitNames.push_back("BAD") ;
+	bitNames.emplace_back("GOOD") ;
+	bitNames.emplace_back("BAD") ;
 
 	tpcPulseVec->parameters().setValues("TrackerPulseQualityNames", bitNames ); 
 	tpcPulseVec->parameters().setValues("TrackerPulseQualityValues", qualityBits ); 
 	
 	for(int j=0;j<NHITS;j++){
 
-	  TrackerPulseImpl* tpcPulse = new TrackerPulseImpl ;
+	  auto* tpcPulse = new TrackerPulseImpl ;
 	  
 	  tpcPulse->setCellID0( j ) ;
 	  tpcPulse->setTime( 3.1415 + 0.1 * j  ) ;
@@ -492,7 +492,7 @@ int main(int argc, char** argv ){
 
 	    tpcPulse->setQualityBit( qualityBits[1] ) ;
 	    
-	    TrackerData* corr = 
+	    auto* corr = 
 	      dynamic_cast<TrackerData*> ( tpcCorrectedVec->getElementAt(j) ) ; 
 	    tpcPulse->setTrackerData( corr ) ;
 	  }
@@ -512,7 +512,7 @@ int main(int argc, char** argv ){
 	
 	for(int j=0;j<NHITS;j++){
 
-	  TrackerPulseImpl* vtxRaw = new TrackerPulseImpl ;
+	  auto* vtxRaw = new TrackerPulseImpl ;
 	  
 	  vtxRaw->setCellID0( 0xBebaFeca ) ;
 	  vtxRaw->setCellID1( 0xCafeBabe ) ;

@@ -19,7 +19,7 @@ namespace SIO  {
   }
  
 
-  SIORandomAccessHandler::~SIORandomAccessHandler(){ }
+  SIORandomAccessHandler::~SIORandomAccessHandler()= default;
 
   
   unsigned int SIORandomAccessHandler::xfer( SIO_stream* stream, SIO_operation op, 
@@ -32,7 +32,7 @@ namespace SIO  {
 
     if( op == SIO_OP_READ ){ 
 
-      LCIORandomAccess* ra = new LCIORandomAccess ;
+      auto* ra = new LCIORandomAccess ;
 
       SIO_DATA( stream ,  &(ra->_minRunEvt.RunNum) , 1  ) ;
       SIO_DATA( stream ,  &(ra->_minRunEvt.EvtNum) , 1  ) ;
@@ -60,7 +60,7 @@ namespace SIO  {
     }  else if( op == SIO_OP_WRITE ){ 
     
 
-      LCIORandomAccess* ra = const_cast<LCIORandomAccess*> ( _raMgr->lastLCIORandomAccess() ) ;
+      auto* ra = const_cast<LCIORandomAccess*> ( _raMgr->lastLCIORandomAccess() ) ;
       // these SIO functions really should also exist for const arguments ....
 
       SIO_DATA( stream ,  &(ra->_minRunEvt.RunNum) , 1  ) ;

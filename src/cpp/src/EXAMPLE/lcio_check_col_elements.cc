@@ -68,20 +68,20 @@ static const char *optString = "s:n:x:m:M:pavh?" ;
 
 // getopt long options declarations
 static const struct option longOpts[] = {
-    { "verbose", no_argument, NULL, 'v' },
-    { "pedantic", no_argument, NULL, 'p' },
-    { "average", no_argument, NULL, 'a' },
-    { "startevent", required_argument, NULL, 's' },
-    { "maxevents", required_argument, NULL, 'n' },
-    { "expelements", required_argument, NULL, 'x' },
-    { "minelements", required_argument, NULL, 'm' },
-    { "maxelements", required_argument, NULL, 'M' },
-    { "abselementerror", required_argument, NULL, 0 },
-    { "abseventerror", required_argument, NULL, 0 },
-    { "relelementerror", required_argument, NULL, 0 },
-    { "releventerror", required_argument, NULL, 0 },
-    { "help", no_argument, NULL, 'h' },
-    { NULL, no_argument, NULL, 0 }
+    { "verbose", no_argument, nullptr, 'v' },
+    { "pedantic", no_argument, nullptr, 'p' },
+    { "average", no_argument, nullptr, 'a' },
+    { "startevent", required_argument, nullptr, 's' },
+    { "maxevents", required_argument, nullptr, 'n' },
+    { "expelements", required_argument, nullptr, 'x' },
+    { "minelements", required_argument, nullptr, 'm' },
+    { "maxelements", required_argument, nullptr, 'M' },
+    { "abselementerror", required_argument, nullptr, 0 },
+    { "abseventerror", required_argument, nullptr, 0 },
+    { "relelementerror", required_argument, nullptr, 0 },
+    { "releventerror", required_argument, nullptr, 0 },
+    { "help", no_argument, nullptr, 'h' },
+    { nullptr, no_argument, nullptr, 0 }
 };
 
 /* Display program usage, and exit.
@@ -206,8 +206,8 @@ int main(int argc, char** argv ){
 
     /* Initialize opts before we get to work. */
     opts.verbosity = 0;
-    opts.colName = NULL;      // COLLECTION_NAME
-    opts.inputFiles = NULL;   // INPUT_FILE(S)
+    opts.colName = nullptr;      // COLLECTION_NAME
+    opts.inputFiles = nullptr;   // INPUT_FILE(S)
     opts.inputFilesNum = 0;   // # of INPUT_FILE(S)
     opts.pedantic = false;
     opts.average = false;
@@ -479,7 +479,7 @@ int main(int argc, char** argv ){
 
     for( int i=0 ; i < opts.inputFilesNum ; i++ ){
         //cout << opts.inputFiles[ i ] << endl;
-        inputFilesVec.push_back( opts.inputFiles[ i ] );
+        inputFilesVec.emplace_back(opts.inputFiles[ i ] );
     }
 
     LCReader* lcReader = LCFactory::getInstance()->createLCReader() ;
@@ -491,12 +491,12 @@ int main(int argc, char** argv ){
     }
 
 
-    LCEvent* event = NULL ;
-    LCCollection* elements = NULL ;
+    LCEvent* event = nullptr ;
+    LCCollection* elements = nullptr ;
 
     //----------- the event loop -----------
     try{
-        while( (event = lcReader->readNextEvent()) != 0 )
+        while( (event = lcReader->readNextEvent()) != nullptr )
         {
             try
             {
@@ -506,10 +506,10 @@ int main(int argc, char** argv ){
             {
                 //cerr << "error in event [" << opts.eventsTotal << "] no elements were found" << endl;
                 //cerr << e.what() << endl ;
-                elements = NULL ;
+                elements = nullptr ;
             }
 
-            if( elements != NULL )
+            if( elements != nullptr )
             {
                 int nelements = elements->getNumberOfElements() ;
                 // cout << opts.colName << " : " << nelements << endl;

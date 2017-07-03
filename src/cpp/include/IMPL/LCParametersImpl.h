@@ -43,82 +43,82 @@ namespace IMPL {
     LCParametersImpl() ; 
     
     /// Destructor.
-    virtual ~LCParametersImpl() { /* nop */; }
+    ~LCParametersImpl() override { /* nop */; }
     
     /** Returns the first integer value for the given key.
      */
-    virtual int getIntVal(const std::string & key) const  ;
+    int getIntVal(const std::string & key) const override  ;
     
     /** Returns the first float value for the given key.
      */
-    virtual float getFloatVal(const std::string & key) const ;
+    float getFloatVal(const std::string & key) const override ;
     
     /** Returns the first string value for the given key.
      */
-    virtual const std::string & getStringVal(const std::string & key) const ;
+    const std::string & getStringVal(const std::string & key) const override ;
     
     /** Adds all integer values for the given key to values.
      *  Returns a reference to values for convenience.
      */
-    virtual EVENT::IntVec & getIntVals(const std::string & key, EVENT::IntVec & values) const ;
+    EVENT::IntVec & getIntVals(const std::string & key, EVENT::IntVec & values) const override ;
     
     /** Adds all float values for the given key to values.
      *  Returns a reference to values for convenience.
      */
-    virtual EVENT::FloatVec & getFloatVals(const std::string & key, EVENT::FloatVec & values) const ;
+    EVENT::FloatVec & getFloatVals(const std::string & key, EVENT::FloatVec & values) const override ;
     
     /** Adds all float values for the given key to values.
      *  Returns a reference to values for convenience.
      */
-    virtual  EVENT::StringVec & getStringVals(const std::string & key, EVENT::StringVec & values) const ;
+     EVENT::StringVec & getStringVals(const std::string & key, EVENT::StringVec & values) const override ;
     
     /** Returns a list of all keys of integer parameters.
      */
-    virtual const EVENT::StringVec & getIntKeys( EVENT::StringVec & keys) const  ;
+    const EVENT::StringVec & getIntKeys( EVENT::StringVec & keys) const override  ;
 
     /** Returns a list of all keys of float parameters.
      */
-    virtual const EVENT::StringVec & getFloatKeys(EVENT::StringVec & keys)  const ;
+    const EVENT::StringVec & getFloatKeys(EVENT::StringVec & keys)  const override ;
 
     /** Returns a list of all keys of string parameters.
      */
-    virtual const EVENT::StringVec & getStringKeys(EVENT::StringVec & keys)  const ;
+    const EVENT::StringVec & getStringKeys(EVENT::StringVec & keys)  const override ;
     
     /** The number of integer values stored for this key.
      */ 
-    virtual int getNInt(const std::string & key) const ;
+    int getNInt(const std::string & key) const override ;
     
     /** The number of float values stored for this key.
      */ 
-    virtual int getNFloat(const std::string & key) const ;
+    int getNFloat(const std::string & key) const override ;
     
     /** The number of string values stored for this key.
      */ 
-    virtual int getNString(const std::string & key) const ;
+    int getNString(const std::string & key) const override ;
     
     /** Set integer value for the given key.
      */
-    virtual void setValue(const std::string & key, int value) ;
+    void setValue(const std::string & key, int value) override ;
 
     /** Set float value for the given key.
      */
-    virtual void setValue(const std::string & key, float value) ;
+    void setValue(const std::string & key, float value) override ;
 
     /** Set string value for the given key.
      */
-    virtual void setValue(const std::string & key, const std::string & value) ;
+    void setValue(const std::string & key, const std::string & value) override ;
 
     /** Set integer values for the given key.
      */
-    virtual void setValues(const std::string & key, const EVENT::IntVec & values);
+    void setValues(const std::string & key, const EVENT::IntVec & values) override;
 
     /** Set float values for the given key.
      */
-    virtual void setValues(const std::string & key, const EVENT::FloatVec & values);
+    void setValues(const std::string & key, const EVENT::FloatVec & values) override;
 
     /** Set string values for the given key.
      */
-    virtual void setValues(const std::string & key, const EVENT::StringVec & values);
+    void setValues(const std::string & key, const EVENT::StringVec & values) override;
 
 
   protected:

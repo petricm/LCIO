@@ -25,8 +25,8 @@ namespace SIO {
   public:
 
     typedef std::map< RunEvent, long64> MapType ;
-    typedef MapType::iterator Map_IT ;
-    typedef MapType::const_iterator Map_cIT ;
+    using Map_IT = MapType::iterator ;
+    using Map_cIT = MapType::const_iterator ;
 
     static const int NPos = -1 ;
 

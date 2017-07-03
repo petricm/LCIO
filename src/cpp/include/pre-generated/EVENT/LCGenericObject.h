@@ -28,11 +28,11 @@ class LCGenericObject : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~LCGenericObject() { /* nop */; }
+    ~LCGenericObject() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef LCGenericObject lcobject_type ;
+    using lcobject_type = EVENT::LCGenericObject ;
 
     /** Number of integer values stored in this object.
      */
@@ -80,7 +80,7 @@ public:
 
 	/** Provide default implementation for id
 	 */
-	virtual int id() const {  return 0 ; }  
+	int id() const override {  return 0 ; }  
     }; // class
 } // namespace EVENT
 #endif /* ifndef EVENT_LCGENERICOBJECT_H */

@@ -31,17 +31,17 @@ namespace IMPL {
 //     MCParticleImpl(const EVENT::MCParticle& p) ;
     
     /// Destructor.
-    virtual ~MCParticleImpl() ;
+    ~MCParticleImpl() override ;
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /** Returns the parents of this particle. 
      */
-    virtual const EVENT::MCParticleVec & getParents() const ;
+    const EVENT::MCParticleVec & getParents() const override ;
 
     /** Returns the daughters of this particle. 
      */
-    virtual const EVENT::MCParticleVec & getDaughters() const ;
+    const EVENT::MCParticleVec & getDaughters() const override ;
 
 
     // /** Returns the i-th daughter of this particle.
@@ -67,7 +67,7 @@ namespace IMPL {
      *  Definition of the enpoint depends on the application that created 
      *  the particle, e.g. the start point of the shower in a calorimeter.
      */
-    virtual const double* getEndpoint() const ;
+    const double* getEndpoint() const override ;
 
     // /** Returns the number of daughters of this particle.
     //  */
@@ -76,7 +76,7 @@ namespace IMPL {
 
     /** Returns the PDG code of the particle.
      */
-    virtual int getPDG() const ;
+    int getPDG() const override ;
 
     /** Returns the status for particles from the generator
      * <br> 0  empty line
@@ -84,7 +84,7 @@ namespace IMPL {
      * <br> 2  particle decayed in the generator
      * <br> 3  documentation line
      */
-    virtual int getGeneratorStatus() const ;
+    int getGeneratorStatus() const override ;
 
     /** Returns the status for particles from the simulation, e.g.
      * decayed in flight. Bits 31-16 are used to decode the information.
@@ -99,81 +99,81 @@ namespace IMPL {
      * @see isStopped() 
      * @see isOverlay() 
      */
-    virtual int getSimulatorStatus() const ;
+    int getSimulatorStatus() const override ;
 
     /** True if the particle has been created by the simulation program (rather than the generator).
      */
-    virtual bool isCreatedInSimulation() const ;
+    bool isCreatedInSimulation() const override ;
 
     /** True if the particle is the result of a backscatter from a calorimeter shower.
      */
-    virtual bool isBackscatter() const ;
+    bool isBackscatter() const override ;
 
     /** True if the particle's vertex is not the endpoint of the  parent particle.
      */
-    virtual bool vertexIsNotEndpointOfParent() const ;
+    bool vertexIsNotEndpointOfParent() const override ;
 
     /** True if the particle has interacted in a tracking region.
      */
-    virtual bool isDecayedInTracker() const ;
+    bool isDecayedInTracker() const override ;
 
     /** True if the particle has interacted in a calorimeter region.
      */
-    virtual bool isDecayedInCalorimeter() const ;
+    bool isDecayedInCalorimeter() const override ;
 
     /** True if the particle has left the world volume undecayed.
      */
-    virtual bool hasLeftDetector() const ;
+    bool hasLeftDetector() const override ;
 
     /** True if the particle has been stopped by the simulation program.
      */
-    virtual bool isStopped() const ;
+    bool isStopped() const override ;
 
     /** True if the particle has been overlayed by the simulation (or digitization)  program.
      */
-    virtual bool isOverlay() const ;
+    bool isOverlay() const override ;
 
     /** Returns the production vertex of the particle.
      */
-    virtual const double* getVertex() const ;
+    const double* getVertex() const override ;
 
     /** The creation time of the particle in [ns] wrt. the event,
      *  e.g. for preassigned decays or decays in flight from 
      *  the simulator.
      */
-    virtual float getTime() const ;
+    float getTime() const override ;
 
     /** Returns the particle momentum at the production vertex.
      */
-    virtual const double * getMomentum() const ;
+    const double * getMomentum() const override ;
 
 
     /** Returns the particle momentum at the endpoint.
      */
-    virtual const double* getMomentumAtEndpoint() const ;
+    const double* getMomentumAtEndpoint() const override ;
 
     /** Returns the mass of the particle in [GeV].
      */
-    virtual double getMass() const ;
+    double getMass() const override ;
 
     /** Returns the particle's charge.
      */
-    virtual float getCharge() const ;
+    float getCharge() const override ;
 
 
     /** Returns the energy of the particle (at the vertex) in [GeV] computed from
      * the particle's momentum and mass.
      */
-    virtual double getEnergy() const ;
+    double getEnergy() const override ;
 
    /** Returns the spin
      */
-    virtual const float* getSpin() const ;
+    const float* getSpin() const override ;
 
 
    /** Returns the color flow
      */
-    virtual const int* getColorFlow() const ;
+    const int* getColorFlow() const override ;
 
 
     // set methods
@@ -275,20 +275,20 @@ namespace IMPL {
 
 //     EVENT::MCParticle* _mother0 ;
 //     EVENT::MCParticle* _mother1 ;
-    int _pdg ;
-    int _genstatus ;
+    int _pdg{0} ;
+    int _genstatus{0} ;
     //    int _simstatus ;
     std::bitset<32> _simstatus ;
     double _vertex[3] ;
     double _endpoint[3] ;
     double _pEndpoint[3] ;
     double _p[3] ;
-    double _mass ;
-    float _charge ;
-    float _time ;
+    double _mass{0} ;
+    float _charge{0} ;
+    float _time{0} ;
     EVENT::MCParticleVec _parents ;
     EVENT::MCParticleVec _daughters ;
-    bool _endpointSet ;
+    bool _endpointSet{false} ;
     float _spin[3] ;
     int _colorFlow[2] ;
 

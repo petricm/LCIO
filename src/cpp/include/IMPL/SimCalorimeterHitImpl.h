@@ -12,11 +12,8 @@ namespace IMPL {
 
   // helper class for particle contributions to hits
   struct MCParticleCont{
-    MCParticleCont():
-      Particle(0) ,
-      Energy(0.) ,
-      Time(0.) ,
-      PDG(0)  {   
+    MCParticleCont()
+       {   
       StepPosition[0] = 0. ;
       StepPosition[1] = 0. ;
       StepPosition[2] = 0. ;
@@ -32,14 +29,14 @@ namespace IMPL {
       StepPosition[2] = step[2] ;
     }
     
-    EVENT::MCParticle* Particle ;
-    float Energy ;
-    float Time ;
-    int   PDG ;
+    EVENT::MCParticle* Particle{nullptr} ;
+    float Energy{0.} ;
+    float Time{0.} ;
+    int   PDG{0} ;
     float StepPosition[3] ;
   } ;
   
-  typedef std::vector< IMPL::MCParticleCont* > MCParticleContVec ;
+  using MCParticleContVec = std::vector<IMPL::MCParticleCont *> ;
   
 /** Implementation of the generic SimCalorimeterHit.
  * 
@@ -61,9 +58,9 @@ namespace IMPL {
     SimCalorimeterHitImpl(const EVENT::SimCalorimeterHit& hit) ;
 
     /// Destructor.
-    virtual ~SimCalorimeterHitImpl() ;
+    ~SimCalorimeterHitImpl() override ;
     
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
 //     /** Create a deep copy of itself.
 //      * Overwrites return type in LCObject::clone().
@@ -76,30 +73,30 @@ namespace IMPL {
     
     /**Returns the detector specific (geometrical) cell id.
      */
-    virtual int getCellID0() const ;
+    int getCellID0() const override ;
     
     /**Returns the second detector specific (geometrical) cell id.
      *  0 if information is not stored -  check the flag word (bit CHBIT_ID1) 
      *  of the collection. Default is to store only cellid0.
      */
-    virtual int getCellID1() const ;
+    int getCellID1() const override ;
     
     /** Returns the energy of the hit.
      */
-    virtual float getEnergy() const ;
+    float getEnergy() const override ;
     
     /** Returns the position of the hit in world coordinates.
      *  NULL if information is not stored. Ask collection for flag, only 
      * available if bit LCIO.CHBIT_LONG is set.
      */
     
-    virtual const float * getPosition() const ;
+    const float * getPosition() const override ;
 
 
     /** Returns the position where the energy deposited (step) occurred
      * optional, only if bit LCIO::CHBIT_STEP is set.
      */
-    virtual const float* getStepPosition( int i ) const ;
+    const float* getStepPosition( int i ) const override ;
 
     
     /** Returns the number of MC contributions to the hit. 0 if 
@@ -107,7 +104,7 @@ namespace IMPL {
      * @deprecated
      * @see getNMCContributions()
      */
-    virtual int getNMCParticles() const ;
+    int getNMCParticles() const override ;
     
     /** Returns the number of MC contributions to the hit. 0 if 
      * information is not stored. There are two levels of detail: if 
@@ -115,31 +112,31 @@ namespace IMPL {
      * contributions to the hit are stored, otherwise there is only one 
      * contribution for every particle entering the calorimeter.
      */
-    virtual int getNMCContributions() const ;
+    int getNMCContributions() const override ;
 
     /** Returns the energy in [GeV] of the i-th contribution to the hit.
      * @see getNMCContributions()
      */ 
-    virtual float getEnergyCont(int i) const ;
+    float getEnergyCont(int i) const override ;
 
     /** Returns the time of the i-th in [ns]  contribution to the hit.
      * @see getNMCContributions()
      */ 
-    virtual float getTimeCont(int i) const ;
+    float getTimeCont(int i) const override ;
 
     /** Returns the PDG code of the shower particle that caused this contribution.
      *  Check the flag word bit LCIO.CHBIT_STEP of the collection whether this information 
      *  is available. 
      * @see getNMCContributions()
      */ 
-    virtual int getPDGCont(int i) const ;
+    int getPDGCont(int i) const override ;
 
     /** Returns the MCParticle that caused the shower responsible for this contribution to the hit.
      *  This is the particle that flew into the calorimeter and not the shower particle that made the 
      *  energy deposition.
      * @see getNMCContributions()
      */
-    virtual EVENT::MCParticle * getParticleCont(int i) const ;
+    EVENT::MCParticle * getParticleCont(int i) const override ;
 
     // setters
     /** Sets the first cell id;
@@ -181,7 +178,7 @@ namespace IMPL {
 				    float en,
 				    float t,
 				    int pdg, 
-				    float* stepPos=0
+				    float* stepPos=nullptr
 				    ) ; 
     
     
@@ -189,9 +186,9 @@ namespace IMPL {
 
   protected:
 
-    int _cellID0 ;
-    int _cellID1 ;
-    float _energy ;
+    int _cellID0{0} ;
+    int _cellID1{0} ;
+    float _energy{0} ;
     float _position[3] ;
 
     MCParticleContVec _vec{} ;

@@ -24,7 +24,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    SimCalorimeterHitIOImpl* hit  = new SimCalorimeterHitIOImpl ;
+    auto* hit  = new SimCalorimeterHitIOImpl ;
     *objP = hit ;
 	
     SIO_DATA( stream ,  &(hit->_cellID0) , 1  ) ;
@@ -49,7 +49,7 @@ namespace SIO{
 
     for(int i=0; i< nCon ; i++){
 
-      MCParticleCont* mcCon = new MCParticleCont ;
+      auto* mcCon = new MCParticleCont ;
       SIO_PNTR( stream , &(mcCon->Particle)  ) ;
       SIO_DATA( stream , &(mcCon->Energy) , 1 ) ;
       SIO_DATA( stream , &(mcCon->Time)   , 1 ) ;
@@ -85,7 +85,7 @@ namespace SIO{
     
     unsigned int status ; 
 	
-    const SimCalorimeterHit* hit = dynamic_cast<const SimCalorimeterHit*>(obj)  ;
+    const auto* hit = dynamic_cast<const SimCalorimeterHit*>(obj)  ;
     
     LCSIO_WRITE( stream, hit->getCellID0()  ) ;
     if( LCFlagImpl(_flag).bitSet( LCIO::CHBIT_ID1 ) ){
@@ -96,7 +96,7 @@ namespace SIO{
     // we have to cast away the constness 
 
     if( LCFlagImpl(_flag).bitSet( LCIO::CHBIT_LONG ) ){
-      float* pos = const_cast<float*> ( hit->getPosition() ) ; 
+      auto* pos = const_cast<float*> ( hit->getPosition() ) ; 
       SIO_DATA( stream,  pos , 3 ) ;
     }
     // now the MCParticle contributions
@@ -119,7 +119,7 @@ namespace SIO{
 	// LCSIO_WRITE( stream, sp[0] ) ;
 	// LCSIO_WRITE( stream, sp[1] ) ;
 	// LCSIO_WRITE( stream, sp[2] ) ;
-	float* sp = const_cast<float*> ( hit->getStepPosition(i) ) ; 
+	auto* sp = const_cast<float*> ( hit->getStepPosition(i) ) ; 
 	SIO_DATA( stream,  sp , 3 ) ;
       }
     }

@@ -18,16 +18,16 @@ namespace SIO  {
 
   SIORunHeaderHandler::SIORunHeaderHandler(const std::string& bname) : 
     SIO_block( bname.c_str() ),
-    _rhP(0), 
-    _hdr(0) {
+    _rhP(nullptr), 
+    _hdr(nullptr) {
   }
 
   SIORunHeaderHandler::SIORunHeaderHandler(const std::string& bname, IOIMPL::LCRunHeaderIOImpl** aRhP) : 
     SIO_block( bname.c_str() ),
     _rhP( aRhP ), 
-    _hdr(0) {
+    _hdr(nullptr) {
     
-    *_rhP = 0 ;
+    *_rhP = nullptr ;
   }
 
 
@@ -57,7 +57,7 @@ namespace SIO  {
 
       // delete the old run header object 
       // -> for every handler there will only be one RunHeader object at any given time
-      if (*_rhP != 0 )  delete *_rhP ;
+      if (*_rhP != nullptr )  delete *_rhP ;
       *_rhP = new IOIMPL::LCRunHeaderIOImpl ;
 
       // for the run header we read all the data into temporary variables
@@ -103,7 +103,7 @@ namespace SIO  {
 	int nSDN = strVec->size() ;
 	SIO_DATA( stream, &nSDN, 1 ) ;
 	
-	for( std::vector<std::string>::const_iterator nameI = strVec->begin() ; nameI != strVec->end() ; ++nameI){
+	for( auto nameI = strVec->begin() ; nameI != strVec->end() ; ++nameI){
 	  LCSIO_WRITE( stream, *nameI ) ;
 	} 
 	

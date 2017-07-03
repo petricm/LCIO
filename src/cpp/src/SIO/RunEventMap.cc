@@ -9,12 +9,11 @@ namespace SIO  {
 
   const int RunEventMap::NPos ;
 
-  RunEventMap::RunEventMap() : 
-    _nRun( 0 ) ,  
-    _nEvt( 0 ) {
+  RunEventMap::RunEventMap()   
+    {
   }
 
-  RunEventMap::~RunEventMap(){ }
+  RunEventMap::~RunEventMap()= default;
 
 
   void RunEventMap::add(const RunEvent& re, long64 pos ) {
@@ -46,7 +45,7 @@ namespace SIO  {
 
   long64  RunEventMap::getPosition( long64 re ) {
     
-    Map_IT it = _map.find( re ) ;
+    auto it = _map.find( re ) ;
 
     return ( it != _map.end() ? it->second  :  NPos ) ;
   } 
@@ -66,7 +65,7 @@ namespace SIO  {
     if( _map.empty() )
       return RunEvent( -1 , -1 ) ;
 
-    Map_IT it =  _map.end() ;
+    auto it =  _map.end() ;
 
     --it ;
 
@@ -78,7 +77,7 @@ namespace SIO  {
 
     os << " ------- RunEventMap : " << std::endl ;
 
-    for( RunEventMap::Map_cIT it = rm.begin() ; it != rm.end() ; ++it ){
+    for( auto it = rm.begin() ; it != rm.end() ; ++it ){
       
       os << "  " << RunEvent( it->first).RunNum 
 	 << ", " << RunEvent( it->first).EvtNum << "  :  " << it->second << std::endl;    }

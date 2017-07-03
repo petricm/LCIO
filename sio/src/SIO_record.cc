@@ -40,7 +40,7 @@ SIO_record::SIO_record
 // ----------------------------------------------------------------------------
 // Destructor.
 // ----------------------------------------------------------------------------
-SIO_record::~SIO_record() {}
+SIO_record::~SIO_record() = default;
 
 // ----------------------------------------------------------------------------
 // Connect a block to a record (by name).
@@ -64,7 +64,7 @@ std::string
 // Validate the name.
 //
 block = SIO_blockManager::get( i_name );
-if( block == NULL )
+if( block == nullptr )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -99,7 +99,7 @@ std::string
 //
 // Validate the block pointer.
 //
-if( block == NULL )
+if( block == nullptr )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -225,7 +225,7 @@ std::string
 // Validate the name.
 //
 block = SIO_blockManager::get( i_name );
-if( block == NULL )
+if( block == nullptr )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -260,7 +260,7 @@ std::string
 //
 // Validate the block pointer.
 //
-if( block == NULL )
+if( block == nullptr )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -355,7 +355,7 @@ if( (iter = connectMap.find( s_name )) == connectMap.end() )
                   << "Block is not connected" 
                   << std::endl;
     }
-    return( NULL );
+    return( nullptr );
 }
 
 if( verbosity >= SIO_ALL )
@@ -485,7 +485,7 @@ while( stream->buffer < stream->recmax )
     SIO_DATA( stream, &tmplen, 1 );
 
     tmploc = static_cast<char *>(malloc( tmplen + 1 ));
-    if( tmploc == NULL )
+    if( tmploc == nullptr )
     {
         if( verbosity >= SIO_ERRORS )
         {
@@ -511,7 +511,7 @@ while( stream->buffer < stream->recmax )
     //
     // Try to unpack the block.
     //
-    if( block != NULL )
+    if( block != nullptr )
     {
         status = block->xfer( stream, SIO_OP_READ, version );
         if( !(status & 1) )

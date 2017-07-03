@@ -8,10 +8,8 @@ namespace IMPL{
 
 
 
-  SimCalorimeterHitImpl::SimCalorimeterHitImpl() :
-    _cellID0(0),
-    _cellID1(0),
-    _energy(0){
+  SimCalorimeterHitImpl::SimCalorimeterHitImpl() 
+    {
     _position[0] = 0. ;
     _position[1] = 0. ;
     _position[2] = 0. ; 
@@ -34,7 +32,7 @@ namespace IMPL{
     // now copy all the MCParticle contributions
     for(int i=0; i<nMC ;i++){
 
-      MCParticleCont* con = new  MCParticleCont( hit.getParticleCont(i),
+      auto* con = new  MCParticleCont( hit.getParticleCont(i),
 						 hit.getEnergyCont(i),
 						 hit.getTimeCont(i),
 						 hit.getPDGCont(i),
@@ -51,7 +49,7 @@ namespace IMPL{
 
   SimCalorimeterHitImpl::~SimCalorimeterHitImpl(){
     // delete all MCParticle contributions
-    MCParticleContVec::iterator iter = _vec.begin() ;
+    auto iter = _vec.begin() ;
 
     while( iter != _vec.end() ){
       delete *iter++ ;
@@ -151,7 +149,7 @@ namespace IMPL{
     static const float nullStep[3] = { 0.,0.,0. } ;
 
     // if we already have the particle, just add the energy
-    for( std::vector<MCParticleCont*>::iterator it=_vec.begin(), End = _vec.end() ; it != End ; ++it ) {
+    for( auto it=_vec.begin(), End = _vec.end() ; it != End ; ++it ) {
       
  
     if( (*it)->Particle == p ) { 

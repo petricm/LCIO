@@ -11,8 +11,8 @@
 #include <vector>
 
 
-typedef std::vector<std::string> LCStrVec ;
-typedef std::vector<PTRTYPE> PointerVec ;
+using LCStrVec = std::vector<std::string> ;
+using PointerVec = std::vector<PTRTYPE> ;
 
 
 // define an interface to a LC string/int/float vector

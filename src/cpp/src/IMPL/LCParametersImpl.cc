@@ -7,13 +7,11 @@ using namespace EVENT ;
 
 namespace IMPL{
 
-  LCParametersImpl::LCParametersImpl(){
-    
-  }
+  LCParametersImpl::LCParametersImpl()= default;
 
   int LCParametersImpl::getIntVal(const std::string & key) const {
     
-    IntMap::iterator it = _intMap.find( key ) ;
+    auto it = _intMap.find( key ) ;
 
     if( it == _intMap.end() )  return 0 ;
 
@@ -24,7 +22,7 @@ namespace IMPL{
 
   float LCParametersImpl::getFloatVal(const std::string & key) const {
 
-    FloatMap::iterator it = _floatMap.find( key ) ;
+    auto it = _floatMap.find( key ) ;
 
     if( it == _floatMap.end() )  return 0 ;
 
@@ -37,7 +35,7 @@ namespace IMPL{
 
     static std::string empty("") ;
     
-    StringMap::iterator it = _stringMap.find( key ) ;
+    auto it = _stringMap.find( key ) ;
     
     if( it == _stringMap.end() )  return empty ;
     
@@ -48,7 +46,7 @@ namespace IMPL{
 
   IntVec & LCParametersImpl::getIntVals(const std::string & key, IntVec & values) const {
 
-    IntMap::iterator it = _intMap.find( key ) ;
+    auto it = _intMap.find( key ) ;
 
     if( it != _intMap.end() ) {
       values.insert( values.end() , it->second.begin() , it->second.end() ) ;
@@ -59,7 +57,7 @@ namespace IMPL{
 
   FloatVec & LCParametersImpl::getFloatVals(const std::string & key, FloatVec & values) const {
 
-    FloatMap::iterator it = _floatMap.find( key ) ;
+    auto it = _floatMap.find( key ) ;
 
     if( it != _floatMap.end() ) {
       values.insert( values.end() , it->second.begin() , it->second.end() ) ;
@@ -69,7 +67,7 @@ namespace IMPL{
 
   StringVec & LCParametersImpl::getStringVals(const std::string & key, StringVec & values) const {
 
-    StringMap::iterator it = _stringMap.find( key ) ;
+    auto it = _stringMap.find( key ) ;
 
     if( it != _stringMap.end() ) {
       values.insert( values.end() , it->second.begin() , it->second.end() ) ;
@@ -80,7 +78,7 @@ namespace IMPL{
 
   const StringVec & LCParametersImpl::getIntKeys(StringVec & keys) const  {
 
-     for( IntMap::iterator iter = _intMap.begin() ; iter !=  _intMap.end() ; iter++ ){
+     for( auto iter = _intMap.begin() ; iter !=  _intMap.end() ; iter++ ){
        keys.push_back( iter->first ) ; 
      }
 // fg: select1st is non-standard 
@@ -91,7 +89,7 @@ namespace IMPL{
 
   const StringVec & LCParametersImpl::getFloatKeys(StringVec & keys) const  {
     
-     for( FloatMap::iterator iter = _floatMap.begin() ; iter !=  _floatMap.end() ; iter++ ){
+     for( auto iter = _floatMap.begin() ; iter !=  _floatMap.end() ; iter++ ){
        keys.push_back( iter->first ) ; 
      }
 // fg: select1st is non-standard
@@ -101,7 +99,7 @@ namespace IMPL{
 
   const StringVec & LCParametersImpl::getStringKeys(StringVec & keys) const  {
 
-    for( StringMap::iterator iter = _stringMap.begin() ; iter !=  _stringMap.end() ; iter++ ){
+    for( auto iter = _stringMap.begin() ; iter !=  _stringMap.end() ; iter++ ){
       keys.push_back( iter->first ) ; 
     }
 // fg: select1st is non-standard
@@ -111,7 +109,7 @@ namespace IMPL{
   
   int LCParametersImpl::getNInt(const std::string & key) const {
 
-    IntMap::iterator it = _intMap.find( key ) ;
+    auto it = _intMap.find( key ) ;
 
     if( it == _intMap.end() )
       return 0 ;
@@ -121,7 +119,7 @@ namespace IMPL{
 
   int LCParametersImpl::getNFloat(const std::string & key) const {
 
-    FloatMap::iterator it = _floatMap.find( key ) ;
+    auto it = _floatMap.find( key ) ;
 
     if( it == _floatMap.end() )  
       return 0 ;
@@ -131,7 +129,7 @@ namespace IMPL{
 
   int LCParametersImpl::getNString(const std::string & key) const {
 
-    StringMap::iterator it = _stringMap.find( key ) ;
+    auto it = _stringMap.find( key ) ;
 
     if( it == _stringMap.end() )  
       return 0 ;

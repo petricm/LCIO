@@ -56,8 +56,8 @@ namespace UTIL {
 
 
     /// c'tor initialize the encoding string with the 'canonical' encoding 
-    LCTrackerCellID() : _encoding("subdet:5,side:-2,layer:9,module:8,sensor:8" ),
-		       _accessed(false) {}
+    LCTrackerCellID() : _encoding("subdet:5,side:-2,layer:9,module:8,sensor:8" )
+		       {}
     
     // get the current encoding string
     static const std::string& encoding_string() {
@@ -113,7 +113,7 @@ namespace UTIL {
 
   protected:
     std::string _encoding ;
-    bool _accessed;
+    bool _accessed{false};
   } ;
 
 }

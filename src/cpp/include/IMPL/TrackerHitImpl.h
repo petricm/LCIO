@@ -25,46 +25,46 @@ namespace IMPL {
     TrackerHitImpl() ;
     
     /// Destructor.
-    virtual ~TrackerHitImpl() ; 
+    ~TrackerHitImpl() override ; 
 
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      */
-    virtual int getCellID0() const ;
+    int getCellID0() const override ;
 
     /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      *  0 if information is not stored -  check the flag word (bit RTHBIT_ID1) 
      *  of the collection. Default is to store only cellid0.
      */
-    virtual int getCellID1() const ;
+    int getCellID1() const override ;
 
     /** The hit  position in [mm].	
      */
-    virtual const double* getPosition() const ;
+    const double* getPosition() const override ;
 
     /**Covariance of the position (x,y,z)
      */
-    virtual const EVENT::FloatVec & getCovMatrix() const ;
+    const EVENT::FloatVec & getCovMatrix() const override ;
 
     /** The dE/dx of the hit in [GeV/mm].
      *  @deprecated
      *  @see getEDep()
      */ 	
-    virtual float getdEdx() const ;
+    float getdEdx() const override ;
 
     /** The deposited energy of the hit [GeV]
      */
-    virtual float getEDep() const { return _EDep ; }
+    float getEDep() const override { return _EDep ; }
 
     /** The error measured on EDep [GeV]
      */
-    virtual float getEDepError() const { return _EDepError ; }
+    float getEDepError() const override { return _EDepError ; }
 
     /** The  time of the hit in [ns]. Is this needed ?
      */
-    virtual float getTime() const ;
+    float getTime() const override ;
 
 //     /**Type of raw data hit, either one of<br>
 //      * LCIO::TPCHIT<br>
@@ -76,16 +76,16 @@ namespace IMPL {
      * through collection parameters "TrackerHitTypeNames"
      * and "TrackerHitTypeValues".
      */
-    virtual int getType() const ;
+    int getType() const override ;
 
     /** The quality bit flag of the hit.
      */
-    virtual int getQuality() const { return _quality ; }
+    int getQuality() const override { return _quality ; }
 
     /** The raw data hits. 
      * Check getType() to get actual data type.
      */
-    virtual const EVENT::LCObjectVec & getRawHits() const ;
+    const EVENT::LCObjectVec & getRawHits() const override ;
 
 
     /** Use to manipulate the raw hits.

@@ -28,51 +28,51 @@ namespace IMPL {
     CalorimeterHitImpl& operator=(const IMPL::CalorimeterHitImpl&) = default ;
 
     /// Destructor.
-    virtual ~CalorimeterHitImpl() ;
+    ~CalorimeterHitImpl() override ;
     
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /**Returns the detector specific (geometrical) cell id.
      */
-    virtual int getCellID0() const ;
+    int getCellID0() const override ;
     
     /**Returns the second detector specific (geometrical) cell id.
      *  0 if information is not stored -  check the flag word (bit RCHBIT_ID1) 
      *  of the collection. Default is to store only cellid0.
      */
-    virtual int getCellID1() const ;
+    int getCellID1() const override ;
     
     /** Returns the energy of the hit.
      */
-    virtual float getEnergy() const ;
+    float getEnergy() const override ;
     
     /** Returns the error of the hit energy. Optional, check/set
      *  flag(LCIO::RCHBIT_ENERGY_ERROR)==1.
      */
-    virtual float getEnergyError() const ;
+    float getEnergyError() const override ;
  
     /** Returns the time of the hit in [ns]. Optional, check/set 
      *  flag(LCIO::RCHBIT_TIME)==1.
      */
-    virtual float getTime() const ;
+    float getTime() const override ;
 
     /** Returns the position of the hit in world coordinates.
      *  NULL if information is not stored. Ask collection for flag, only 
      * available if bit LCIO.RCHBIT_LONG is set.
      */
     
-    virtual const float * getPosition() const ;
+    const float * getPosition() const override ;
 
     /** Type of hit. Mapping of integer types to type names
      * through collection parameters "CalorimeterHitTypeNames"
      * and "CalorimeterHitTypeValues".
      */
-    virtual int getType() const ;
+    int getType() const override ;
 
     /** The RawCalorimeterHit. As in the future there might be other types of 
      *  raw calorimeter hits the return type is LCObject.
      */
-    virtual EVENT::LCObject * getRawHit() const ;
+    EVENT::LCObject * getRawHit() const override ;
 
     // setters
 
@@ -109,15 +109,15 @@ namespace IMPL {
 
   protected:
 
-    int _cellID0 ;
-    int _cellID1 ;
-    float _energy ;
-    float _energyError ;
-    float _time ;
+    int _cellID0{0} ;
+    int _cellID1{0} ;
+    float _energy{0.} ;
+    float _energyError{0.} ;
+    float _time{0.} ;
     float _position[3] ;
-    int _type ;
+    int _type{0} ;
 
-    EVENT::LCObject* _rawHit ;
+    EVENT::LCObject* _rawHit{nullptr} ;
     
   }; // class
 } // namespace IMPL

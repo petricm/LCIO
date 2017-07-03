@@ -24,7 +24,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    SimTrackerHitIOImpl* hit  = new SimTrackerHitIOImpl ;
+    auto* hit  = new SimTrackerHitIOImpl ;
     *objP = hit ;
 	
     LCFlagImpl lcFlag(_flag) ;
@@ -73,7 +73,7 @@ namespace SIO{
     // this is where we gave up type safety in order to
     // simplify the API and the implementation
     // by having a common collection of objects
-    const SimTrackerHit* hit = dynamic_cast<const SimTrackerHit*>(obj)  ;
+    const auto* hit = dynamic_cast<const SimTrackerHit*>(obj)  ;
 
     LCFlagImpl lcFlag(_flag) ;
 
@@ -85,7 +85,7 @@ namespace SIO{
 
     // as SIO doesn't provide a write function with const arguments
     // we have to cast away the constness 
-    double* pos = const_cast<double*> ( hit->getPosition() ) ; 
+    auto* pos = const_cast<double*> ( hit->getPosition() ) ; 
     SIO_DATA( stream,  pos , 3 ) ;
     LCSIO_WRITE( stream, hit->getEDep()  ) ;
     LCSIO_WRITE( stream, hit->getTime()  ) ;
@@ -94,7 +94,7 @@ namespace SIO{
     SIO_PNTR( stream , &part ) ;
 
     if( lcFlag.bitSet( LCIO::THBIT_MOMENTUM ) ){
-      float* p = const_cast<float*> ( hit->getMomentum() ) ; 
+      auto* p = const_cast<float*> ( hit->getMomentum() ) ; 
       SIO_DATA( stream , p  , 3 ) ;
       LCSIO_WRITE( stream , hit->getPathLength() ) ;
     }

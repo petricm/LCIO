@@ -17,7 +17,7 @@ namespace IMPL{
   //class  EVENT::LCCollection ;
   
   typedef std::map<std::string,EVENT::LCCollection*> LCCollectionMap ; 
-  typedef std::set<EVENT::LCCollection*> LCCollectionSet ;
+  using LCCollectionSet = std::set<EVENT::LCCollection *> ;
   //   typedef std::map<std::string,EVENT::LCRelation*> LCRelationMap ; 
   
   /**Implementation of the main event class. This is used by  
@@ -39,38 +39,38 @@ namespace IMPL{
     
     /**Destructor.
      */
-    virtual ~LCEventImpl() ; 
+    ~LCEventImpl() override ; 
     
     /** Return the run number off this event.
      */
-    virtual int getRunNumber() const ;
+    int getRunNumber() const override ;
     
     /** Returns this event's number .
      */
-    virtual int getEventNumber() const ;
+    int getEventNumber() const override ;
     
     /** Returns the name of the detector setup used in the simulation.
      */
-    virtual const std::string & getDetectorName() const ;
+    const std::string & getDetectorName() const override ;
     
     /** Returns the time stamp of the event.
      */
-    virtual EVENT::long64 getTimeStamp() const ;
+    EVENT::long64 getTimeStamp() const override ;
     
     /** Returns the event weight.
      */
-    virtual double getWeight() const  ;
+    double getWeight() const override  ;
 
     /** Returns the names of the collections in the  event.
      */
-    virtual const std::vector<std::string>  * getCollectionNames() const;
+    const std::vector<std::string>  * getCollectionNames() const override;
     
     /** Returns the collection for the given name.
      *
      * @throws DataNotAvailableException
      */
-    virtual EVENT::LCCollection * getCollection(const std::string & name) const 
-     throw (EVENT::DataNotAvailableException, std::exception) ;
+    EVENT::LCCollection * getCollection(const std::string & name) const 
+     throw (EVENT::DataNotAvailableException, std::exception) override ;
 
     /** Returns the collection for the given name and transfers the ownership of the collection
      *  to the caller. The caller is responsible for deleting the collection _after_ the Event is 
@@ -80,8 +80,8 @@ namespace IMPL{
      *  Use with care!
      * @throws DataNotAvailableException
      */
-    virtual EVENT::LCCollection * takeCollection(const std::string & name) const 
-      throw (EVENT::DataNotAvailableException, std::exception ) ;
+    EVENT::LCCollection * takeCollection(const std::string & name) const 
+      throw (EVENT::DataNotAvailableException, std::exception ) override ;
 
     /** Adds a collection with the given name (has to be a valid C/C++ variable name). 
      *	Throws an exception if the name already
@@ -90,15 +90,15 @@ namespace IMPL{
      *@see validateCollectionName
      *@throws EventException
      */ 
-    virtual void addCollection(EVENT::LCCollection * col, const std::string & name)  
-      throw (EVENT::EventException, std::exception) ;
+    void addCollection(EVENT::LCCollection * col, const std::string & name)  
+      throw (EVENT::EventException, std::exception) override ;
     
     /** Removes (and deletes) the collection with name (if it exists in the event). 
      * Throws an exception if the event is 'read only' as defined by the read mode in LCReader.
      *
      *@throws ReadOnlyException
      */ 
-    virtual void removeCollection(const std::string & name) throw (EVENT::ReadOnlyException, std::exception)  ;
+    void removeCollection(const std::string & name) throw (EVENT::ReadOnlyException, std::exception) override  ;
     
 
 //     //fg20040528:   added relations to the event
@@ -128,11 +128,11 @@ namespace IMPL{
 
     /** Parameters defined for this event.
      */
-    virtual const EVENT::LCParameters & getParameters() const { return _params ; }
+    const EVENT::LCParameters & getParameters() const override { return _params ; }
 
     /** Parameters defined for this run.
      */
-    virtual EVENT::LCParameters & parameters() { return _params ; }
+    EVENT::LCParameters & parameters() override { return _params ; }
 
     //---- set methods -----
     /** Sets the run number.
@@ -167,9 +167,9 @@ namespace IMPL{
     // for friends of sub classes ...
     
   protected:  
-    int _runNumber ;
-    int _eventNumber ;
-    EVENT::long64 _timeStamp ;
+    int _runNumber{0} ;
+    int _eventNumber{0} ;
+    EVENT::long64 _timeStamp{0} ;
     std::string _detectorName ;
     
     // map has to be defined mutable in order to use _map[]  for const methods ...

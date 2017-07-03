@@ -62,7 +62,7 @@ int main(int /*argc*/, char** /*argv*/ ){
   
 
   //----------- the event loop -----------
-  while( (evt = lcReader->readNextEvent()) != 0 && nEvents < 1 ) {
+  while( (evt = lcReader->readNextEvent()) != nullptr && nEvents < 1 ) {
     
 
     LCCollection* mcpcol = evt->getCollection("MCParticle" ) ;
@@ -71,7 +71,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
     for(int i=0 ; i< nmcp  ; i++ ){
 
-      MCParticle*  mcp = dynamic_cast<MCParticle*>( mcpcol->getElementAt(i) ) ;
+      auto*  mcp = dynamic_cast<MCParticle*>( mcpcol->getElementAt(i) ) ;
 	
 
       // ints can be assigned directly - w/o pointer !
@@ -134,7 +134,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
       for(int j=0 ; j< ntrk  ; j++ ){
 	
-	Track*   trk = dynamic_cast<Track*>   ( trkcol->getElementAt(j) ) ;
+	auto*   trk = dynamic_cast<Track*>   ( trkcol->getElementAt(j) ) ;
 	
 	// ints can be assigned directly - w/o pointer !
 	// make every track know it's index in the collection 
@@ -142,7 +142,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 	
 	for(int k=0 ; k< nclu ; k++ ){
 	  
-	  Cluster* clu = dynamic_cast<Cluster*> ( clucol->getElementAt(k) ) ;
+	  auto* clu = dynamic_cast<Cluster*> ( clucol->getElementAt(k) ) ;
 	  
 	  // make every cluster know it's index in the collection 
  	  if( j == 0 )
@@ -161,13 +161,13 @@ int main(int /*argc*/, char** /*argv*/ ){
       for(int j=0 ; j< ntrk ; j++ ){
 
 
-	Track*   trk = dynamic_cast<Track*>   ( trkcol->getElementAt(j) ) ;
+	auto*   trk = dynamic_cast<Track*>   ( trkcol->getElementAt(j) ) ;
 
 	std::cout << " track " << trk->ext<Index>()  << " assigned to clusters :   " ; 
 
 	TrkCluLink::to::rel_type clulist =  trk->rel<TrkCluLink::to>() ;
 
-	for( TrkCluLink::to::const_iterator iclu = clulist->begin() ;
+	for( auto iclu = clulist->begin() ;
 	     iclu != clulist->end() ; ++iclu ){
 	  
 	  Cluster* clu = *iclu ; // iterator is of type pointer to container element
@@ -181,14 +181,14 @@ int main(int /*argc*/, char** /*argv*/ ){
 
       for(int k=0 ; k< nclu ; k++ ){
 	  
-	Cluster* clu = dynamic_cast<Cluster*> ( clucol->getElementAt(k) ) ;
+	auto* clu = dynamic_cast<Cluster*> ( clucol->getElementAt(k) ) ;
 
 
 	Track* trk =  clu->rel<TrkCluLink::from>() ;
 	
 	std::cout << " cluster " 
 		  << clu->ext<Index>() << " assigned from track:   " ;
-	if( trk != 0 )
+	if( trk != nullptr )
 	  std::cout << trk->ext<Index>() << std::endl ; 
 	else
 	  std::cout << " none "  << std::endl ; 
@@ -203,11 +203,11 @@ int main(int /*argc*/, char** /*argv*/ ){
       
       nmcp = ( nmcp < 10 ? nmcp : 10 ) ;
 
-      MCParticle*  mcp0 = 0 ;   // pointer for first particle
+      MCParticle*  mcp0 = nullptr ;   // pointer for first particle
 
       for(int i=0 ; i<nmcp  ; i++ ){
 	
-	MCParticle*  mcp = dynamic_cast<MCParticle*>( mcpcol->getElementAt(i) ) ;
+	auto*  mcp = dynamic_cast<MCParticle*>( mcpcol->getElementAt(i) ) ;
 
 	if( i == 0 ) mcp0 = mcp  ;
 	
@@ -244,7 +244,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
 	std::cout <<  "      --- from MCParticle:  " ; 
 
-	for(MCParticleVec::const_iterator idau = daughters.begin() ; 
+	for(auto idau = daughters.begin() ; 
 	    idau != daughters.end() ; ++idau){
 	  
 	  std::cout << (*idau)->ext<Index>() << ", " ; 
@@ -257,7 +257,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
 	ParentDaughter::to::rel_type daulist =  mcp->rel<ParentDaughter::to>() ;
 	
-	for( ParentDaughter::to::const_iterator idau = daulist->begin(); 
+	for( auto idau = daulist->begin(); 
 	     idau != daulist->end(); ++idau){
 	  
 	  std::cout << (*idau)->ext<Index>() << ", " ;
@@ -273,7 +273,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
 	const MCParticleVec& parents = mcp->getParents() ;
 
-	for(MCParticleVec::const_iterator ipar = parents.begin() ; 
+	for(auto ipar = parents.begin() ; 
 	    ipar != parents.end() ; ++ipar){
 	  
 	  std::cout << (*ipar)->ext<Index>() << ", " ; 
@@ -286,7 +286,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
 	ParentDaughter::from::rel_type parlist =  mcp->rel<ParentDaughter::from>() ;
 	
-	for( ParentDaughter::from::const_iterator ipar = parlist->begin(); 
+	for( auto ipar = parlist->begin(); 
 	     ipar != parlist->end(); ++ipar){
 	  
 	  std::cout << (*ipar)->ext<Index>() << ", " ;
@@ -303,7 +303,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
       for(int i=0 ; i<nmcp  ; i++ ){
 	
-	MCParticle*  mcp = dynamic_cast<MCParticle*>( mcpcol->getElementAt(i) ) ;
+	auto*  mcp = dynamic_cast<MCParticle*>( mcpcol->getElementAt(i) ) ;
 
 	std::cout <<  "   --- particle " << mcp->ext<Index>()  << " ( mass: " << mcp->ext<Mass>() << ") "
 		  <<  " daughters after merging : " ;
@@ -311,7 +311,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
 	ParentDaughter::to::rel_type daulist =  mcp->rel<ParentDaughter::to>() ;
 	
-	for( ParentDaughter::to::const_iterator idau = daulist->begin(); 
+	for( auto idau = daulist->begin(); 
 	     idau != daulist->end(); ++idau){
 	  
 	  std::cout << (*idau)->ext<Index>() << ", " ;

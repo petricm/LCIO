@@ -33,16 +33,16 @@ lXDR::~lXDR()
 {
    if (_fp) {
       fclose(_fp);
-      _fp = 0;
+      _fp = nullptr;
    }
    if (_fileName) {
       delete [] _fileName;
-      _fileName = 0;
+      _fileName = nullptr;
    }
    return;
 }
 
-lXDR::lXDR(const char *filename, bool open_for_write) : _fileName(0), _fp(0) 
+lXDR::lXDR(const char *filename, bool open_for_write)  
 {
    setFileName(filename, open_for_write);
    if (htonl(1L) == 1L) _hasNetworkOrder = true;
@@ -55,7 +55,7 @@ void lXDR::setFileName(const char *filename, bool open_for_write)
 //
 // First check if we can open this file
 //
-   if (filename == 0) {
+   if (filename == nullptr) {
       _error = LXDR_OPENFAILURE;
       return;
    }
@@ -64,7 +64,7 @@ void lXDR::setFileName(const char *filename, bool open_for_write)
 #else
    FILE *fp = fopen(filename, open_for_write ? "w" : "r");
 #endif
-   if (fp == 0) {
+   if (fp == nullptr) {
       _error = LXDR_OPENFAILURE;
       return;
    }
@@ -74,7 +74,7 @@ void lXDR::setFileName(const char *filename, bool open_for_write)
 
    if (_fileName) {
       delete [] _fileName;
-      _fileName = 0;
+      _fileName = nullptr;
    }
 
    int n = strlen(filename);
@@ -114,7 +114,7 @@ double lXDR::ntohd(double d) const
 long lXDR::checkRead(long *l)
 {
    if (_openForWrite) return(_error = LXDR_READONLY);
-   if (_fp == 0)      return(_error = LXDR_NOFILE);
+   if (_fp == nullptr)      return(_error = LXDR_NOFILE);
    if (l) {
       // je: in architectures where long isn't 4 byte long this code crashes
       //long nr;
@@ -131,7 +131,7 @@ long lXDR::checkRead(long *l)
 long lXDR::checkRead(double *d)
 {
    if (_openForWrite) return(_error = LXDR_READONLY);
-   if (_fp == 0)      return(_error = LXDR_NOFILE);
+   if (_fp == nullptr)      return(_error = LXDR_NOFILE);
    if (d) {
       if (fread(d, 8, 1, _fp) != 1) return(_error = LXDR_READERROR);
       *d = ntohd(*d);
@@ -142,7 +142,7 @@ long lXDR::checkRead(double *d)
 long lXDR::checkRead(float *f)
 {
    if (_openForWrite) return(_error = LXDR_READONLY);
-   if (_fp == 0)      return(_error = LXDR_NOFILE);
+   if (_fp == nullptr)      return(_error = LXDR_NOFILE);
    if (f) {
       if (fread(f, 4, 1, _fp) != 1) return(_error = LXDR_READERROR);
       // je: in architectures where long isn't 4 byte long this code crashes
@@ -176,13 +176,13 @@ double lXDR::readFloat(void)
 
 const char *lXDR::readString(long &length)
 {
-   if (checkRead(&length)) return(0);
+   if (checkRead(&length)) return(nullptr);
    long rl = (length + 3) & 0xFFFFFFFC;
-   char *s = new char[rl + 1];
+   auto *s = new char[rl + 1];
    if (fread(s, 1, rl, _fp) != (unsigned long) rl) {
       _error = LXDR_READERROR;
       delete [] s;
-      return(0);
+      return(nullptr);
    }
    s[rl] = '\0';
    _error = LXDR_SUCCESS;
@@ -191,8 +191,8 @@ const char *lXDR::readString(long &length)
 
 long *lXDR::readLongArray(long &length)
 {
-   if (checkRead(&length)) return(0);
-   long *s = new long[length];
+   if (checkRead(&length)) return(nullptr);
+   auto *s = new long[length];
    // je: in architectures where long isn't 4 byte long this code crashes
    //if (fread(s, 4, length, _fp) != (unsigned long) length) {
    //   _error = LXDR_READERROR;
@@ -201,12 +201,12 @@ long *lXDR::readLongArray(long &length)
    //}
    //if (_hasNetworkOrder == false) for (long i = 0; i < length; i++) s[i] = ntohl(s[i]);
 
-   int32_t *buf = new int32_t[length];
+   auto *buf = new int32_t[length];
    if (fread(buf, 4, length, _fp) != (unsigned long) length) {
        _error = LXDR_READERROR;
        delete [] buf;
        delete [] s;
-       return(0);
+       return(nullptr);
    }
    for (long i = 0; i < length; i++){
        if (_hasNetworkOrder == false){
@@ -223,12 +223,12 @@ long *lXDR::readLongArray(long &length)
 
 double *lXDR::readDoubleArray(long &length)
 {
-   if (checkRead(&length)) return(0);
-   double *s = new double[length];
+   if (checkRead(&length)) return(nullptr);
+   auto *s = new double[length];
    if (fread(s, 8, length, _fp) != (unsigned long) length) {
       _error = LXDR_READERROR;
       delete [] s;
-      return(0);
+      return(nullptr);
    }
    if (_hasNetworkOrder == false) for (long i = 0; i < length; i++) s[i] = ntohd(s[i]);
    _error = LXDR_SUCCESS;
@@ -237,15 +237,15 @@ double *lXDR::readDoubleArray(long &length)
 
 double *lXDR::readFloatArray(long &length)
 {
-   if (checkRead(&length)) return(0);
-   long *st = new long[length];
+   if (checkRead(&length)) return(nullptr);
+   auto *st = new long[length];
    // je: FIXME this will cause problems in architectures where long isn't 4 byte long
    if (fread(st, 4, length, _fp) != (unsigned long) length) {
       _error = LXDR_READERROR;
       delete [] st;
-      return(0);
+      return(nullptr);
    }
-   double *s = new double[length];
+   auto *s = new double[length];
    // je: FIXME what happens if _hasNetworkOrder == true?!
    if (_hasNetworkOrder == false) {
       for (long i = 0; i < length; i++) {
@@ -265,7 +265,7 @@ double *lXDR::readFloatArray(long &length)
 long lXDR::checkWrite(long *l)
 {
    if (_openForWrite == false) return(_error = LXDR_WRITEONLY);
-   if (_fp == 0)               return(_error = LXDR_NOFILE);
+   if (_fp == nullptr)               return(_error = LXDR_NOFILE);
    if (l) {
       long ll = htonl(*l);
       // je: FIXME this will cause problems in architectures where long isn't 4 byte long
@@ -277,7 +277,7 @@ long lXDR::checkWrite(long *l)
 long lXDR::checkWrite(double *d)
 {
    if (_openForWrite == false) return(_error = LXDR_WRITEONLY);
-   if (_fp == 0)               return(_error = LXDR_NOFILE);
+   if (_fp == nullptr)               return(_error = LXDR_NOFILE);
    if (d) {
       double dd = htond(*d);
       if (fwrite(&dd, 8, 1, _fp) != 8) return(_error = LXDR_WRITEERROR);
@@ -312,7 +312,7 @@ long lXDR::writeString(const char *data, long length)
 long lXDR::writeLongArray(const long *data, long length)
 {
    if (checkWrite(&length)) return(_error);
-   long *s = (long *) data;
+   auto *s = (long *) data;
    if (_hasNetworkOrder == false) {
       s = new long[length];
       for (long i = 0; i < length; i++) s[i] = htonl(data[i]);
@@ -327,7 +327,7 @@ long lXDR::writeLongArray(const long *data, long length)
 long lXDR::writeDoubleArray(const double *data, long length)
 {
    if (checkWrite(&length)) return(_error);
-   double *s = (double *) data;
+   auto *s = (double *) data;
    if (_hasNetworkOrder == false) {
       s = new double[length];
       for (long i = 0; i < length; i++) s[i] = htond(data[i]);
@@ -341,7 +341,7 @@ long lXDR::writeDoubleArray(const double *data, long length)
 
 long lXDR::filePosition(long pos)
 {
-   if (_fp == 0) {
+   if (_fp == nullptr) {
       _error = LXDR_NOFILE;
       return(-1);
    }

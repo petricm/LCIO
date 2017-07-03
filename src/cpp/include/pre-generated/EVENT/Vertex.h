@@ -20,7 +20,7 @@ class ReconstructedParticle;
 
 class Vertex ;
 /**Vector of (pointers to) Vertices.*/
-typedef std::vector<Vertex*> VertexVec ;
+using VertexVec = std::vector<Vertex *> ;
 /** The Vertex class for LCIO. 
  *  <p>UNDER DEVELOPMENT!</p>
  *  see: <a href="http://forum.linearcollider.org/index.php?t=tree&goto=473">here</a><br>
@@ -35,11 +35,11 @@ class Vertex : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~Vertex() { /* nop */; }
+    ~Vertex() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef Vertex lcobject_type ;
+    using lcobject_type = EVENT::Vertex ;
     /** Checks if the Vertex is the primary vertex of the event.
      *  Only one primary vertex per event is allowed
      */

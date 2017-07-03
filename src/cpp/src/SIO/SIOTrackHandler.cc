@@ -24,7 +24,7 @@ namespace SIO{
 	
 
     // create a new object :
-    TrackIOImpl* trk  = new TrackIOImpl ;
+    auto* trk  = new TrackIOImpl ;
     *objP = trk ;
 	
 //     SIO_DATA( stream ,  &(trk->_type) , 1  ) ;
@@ -55,7 +55,7 @@ namespace SIO{
     for( int i=0 ; i<nTrackStates ; i++ ){
 
         // create new TrackState object
-        TrackStateIOImpl* trackstate = new TrackStateIOImpl ;
+        auto* trackstate = new TrackStateIOImpl ;
 
         if( _vers >= SIO_VERSION_ENCODE( 2, 0)   ) {
             SIO_DATA( stream ,  &(trackstate->_location)  , 1 ) ;
@@ -165,7 +165,7 @@ namespace SIO{
     // this is where we gave up type safety in order to
     // simplify the API and the implementation
     // by having a common collection of objects
-    const Track* trk = dynamic_cast<const Track*>(obj)  ;
+    const auto* trk = dynamic_cast<const Track*>(obj)  ;
 
 //     LCSIO_WRITE( stream, trk->getType()  ) ;
 //     LCSIO_WRITE( stream, trk->getMomentum()  ) ;
@@ -197,7 +197,7 @@ namespace SIO{
           LCSIO_WRITE( stream, cov[j]  ) ;
         }
 
-        float* pos = const_cast<float*> ( trk->getTrackStates()[i]->getReferencePoint() ) ; 
+        auto* pos = const_cast<float*> ( trk->getTrackStates()[i]->getReferencePoint() ) ; 
         SIO_DATA( stream,  pos , 3 ) ;
     }
 

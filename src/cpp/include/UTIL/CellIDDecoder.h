@@ -49,11 +49,11 @@ namespace UTIL{
     
     /** Constructor reads encoding string from collection parameter LCIO::CellIDEncoding.
      */
-    CellIDDecoder( const EVENT::LCCollection* col ) : _oldHit(0) {
+    CellIDDecoder( const EVENT::LCCollection* col ) : _oldHit(nullptr) {
       
       std::string initString("") ; 
 
-      if( col !=0 ) 
+      if( col !=nullptr ) 
 	initString = col->getParameters().getStringVal(  lcio::LCIO::CellIDEncoding ) ;
       
       if( initString.size() == 0 ) {

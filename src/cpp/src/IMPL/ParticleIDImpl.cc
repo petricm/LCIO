@@ -2,15 +2,11 @@
 
 namespace IMPL{
 
-  ParticleIDImpl::ParticleIDImpl() :
-    _type(0) ,
-    _pdg(0) ,
-    _likelihood(0), 
-    _algorithmType(0) {
+  ParticleIDImpl::ParticleIDImpl()  
+    {
   }
 
-  ParticleIDImpl::~ParticleIDImpl(){
-  }
+  ParticleIDImpl::~ParticleIDImpl()= default;
 
   int ParticleIDImpl::getType() const{
     return _type ; 

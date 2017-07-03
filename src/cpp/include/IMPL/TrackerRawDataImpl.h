@@ -21,27 +21,27 @@ public:
   TrackerRawDataImpl() ;
   
   /// Destructor.
-  virtual ~TrackerRawDataImpl() ;
+  ~TrackerRawDataImpl() override ;
   
-  virtual int id() const { return simpleUID() ; }
+  int id() const override { return simpleUID() ; }
     
   /** Returns the first detector specific (geometrical) cell id.
    */
-  virtual int getCellID0() const { return _cellID0 ; } 
+  int getCellID0() const override { return _cellID0 ; } 
   
   /** Returns the second detector specific (geometrical) cell id. Optional, check/set 
    *  flag(LCIO::TRAWBIT_ID1)==1.
    */
-  virtual int getCellID1() const { return _cellID1 ; } 
+  int getCellID1() const override { return _cellID1 ; } 
 
   
   /** Returns the time.
    */
-  virtual int getTime() const { return _time ; } 
+  int getTime() const override { return _time ; } 
   
   /** The measured ADC values.
    */
-  virtual const EVENT::ShortVec & getADCValues() const { return _adc ; }
+  const EVENT::ShortVec & getADCValues() const override { return _adc ; }
   
   void setCellID0( int cellID0 ) ; 
   void setCellID1( int cellID1 ) ; 
@@ -62,10 +62,10 @@ public:
 
 protected:
 
-  int _cellID0 ;
-  int _cellID1 ;
-  int _channelID ;
-  int  _time ;
+  int _cellID0{0} ;
+  int _cellID1{0} ;
+  int _channelID{0} ;
+  int  _time{0} ;
   EVENT::ShortVec _adc{} ;
   
 }; // class

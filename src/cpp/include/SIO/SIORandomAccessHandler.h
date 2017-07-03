@@ -28,15 +28,15 @@ namespace SIO {
     SIORandomAccessHandler(const std::string& name, LCIORandomAccessMgr* raMgr) ; 
 
 //     SIORandomAccessHandler(const std::string& name, LCIORandomAccess** raP) ;
-    virtual ~SIORandomAccessHandler() ;
+    ~SIORandomAccessHandler() override ;
     
     // interface from SIO_block
-    virtual unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) ;
-    virtual unsigned int   version() ;
+    unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) override ;
+    unsigned int   version() override ;
     
   private: 
 
-    LCIORandomAccessMgr* _raMgr{NULL} ;
+    LCIORandomAccessMgr* _raMgr{nullptr} ;
 
   }; // class
   

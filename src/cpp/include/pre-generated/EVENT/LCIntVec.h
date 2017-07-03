@@ -25,13 +25,13 @@ class LCIntVec : public LCObject, public IntVec {
 
 public: 
     /// Destructor.
-    virtual ~LCIntVec() { /* nop */; }
+    ~LCIntVec() override { /* nop */; }
 
 
-    typedef LCIntVec lcobject_type ;
+    using lcobject_type = EVENT::LCIntVec ;
 
     public:
-      int id() const { return _acc.simpleUID() ; } 
+      int id() const override { return _acc.simpleUID() ; } 
     protected:
       IMPL::AccessChecked _acc{} ;
 }; // class

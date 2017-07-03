@@ -11,8 +11,8 @@ namespace IMPL {
 
 
 
-  LCGenericObjectImpl::LCGenericObjectImpl():
-  _isFixedSize( false ) {
+  LCGenericObjectImpl::LCGenericObjectImpl()
+  {
     
   }
 

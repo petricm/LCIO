@@ -15,15 +15,8 @@ namespace EVENT{
 
 namespace IMPL {
   
-  SimTrackerHitImpl::SimTrackerHitImpl() :
-    _cellID0(0),
-    _cellID1(0),
-    //_dEdx(0),
-    _EDep(0),
-    _time(0),
-    _particle(0),
-    _pathLength(0),
-    _quality(0)
+  SimTrackerHitImpl::SimTrackerHitImpl() 
+    
   {
     _pos[0] = 0. ;
     _pos[1] = 0. ;
@@ -34,8 +27,7 @@ namespace IMPL {
 
   }
 
-  SimTrackerHitImpl::~SimTrackerHitImpl(){  
-  } 
+  SimTrackerHitImpl::~SimTrackerHitImpl()= default; 
 
   // DEPRECATED. use getCellID0()
   int SimTrackerHitImpl::getCellID() const {

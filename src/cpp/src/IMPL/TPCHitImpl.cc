@@ -4,13 +4,8 @@
 
 namespace IMPL{
 
-  TPCHitImpl::TPCHitImpl() : 
-    _cellID(0) ,
-    _time(0) ,
-    _charge(0) ,
-    _quality(0) ,
-    _rawSize(0) ,
-    _rawArray(0) {
+  TPCHitImpl::TPCHitImpl() 
+    {
   }    
 
   /// Destructor.
@@ -59,9 +54,9 @@ namespace IMPL{
 
   void TPCHitImpl::setRawData(const int* raw, int size ){
    checkAccess("TPCHitImpl::setRawData") ;
-   if( _rawArray  != 0 ) {
+   if( _rawArray  != nullptr ) {
      delete[] _rawArray ;
-     _rawArray = 0 ;
+     _rawArray = nullptr ;
    }
    _rawArray = new int[size] ;
    _rawSize = size ;
@@ -69,9 +64,9 @@ namespace IMPL{
   }
 
   void TPCHitImpl::initRawArray(int size){
-   if( _rawArray  != 0 ) {
+   if( _rawArray  != nullptr ) {
      delete[] _rawArray ;
-     _rawArray = 0 ;
+     _rawArray = nullptr ;
    }
     _rawArray = new int[size] ;
     _rawSize = size ;

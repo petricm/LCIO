@@ -41,55 +41,55 @@ namespace IMPL {
     
 
     /// Destructor.
-    virtual ~TrackImpl() ; 
+    ~TrackImpl() override ; 
     
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /** Flagword that defines the type of track. Bits 0-15 can be used to denote the subdetectors
      *  that have contributed hits used in the track fit. The definition of the  hits has to be done 
      *  elsewhere, e.g. in the run header. Before LCIO 2.0 bit 31 was used to encode isReferencePointPCA (now deprecated).
      */
-    virtual  int getType() const  ;
+     int getType() const override  ;
 
 
     /** Impact paramter of the track in (r-phi).
      *  Information is stored in the first TrackState of this Track, @see TrackState.
      */
-    virtual float getD0() const ;
+    float getD0() const override ;
 
     /** Phi of the track at reference point.
      *  Information is stored in the first TrackState of this Track, @see TrackState.
      */
-    virtual float getPhi() const ;
+    float getPhi() const override ;
 
     /** Omega is the signed curvature of the track in [1/mm].
      *  The sign is that of the particle's charge.
      *  Information is stored in the first TrackState of this Track, @see TrackState.
      */
-    virtual float getOmega() const ;
+    float getOmega() const override ;
 
     /** Impact paramter of the track in (r-z).
      *  Information is stored in the first TrackState of this Track, @see TrackState.
      */
-    virtual float getZ0() const ;
+    float getZ0() const override ;
 
     /** Lambda is the dip angle of the track in r-z at the reference point.
      *  Information is stored in the first TrackState of this Track, @see TrackState.
      */
-    virtual float getTanLambda() const ;
+    float getTanLambda() const override ;
 
     /** Covariance matrix of the track parameters. Stored as lower triangle matrix where
      *  the order of parameters is:   d0, phi, omega, z0, tan(lambda).
      *  So we have cov(d0,d0), cov( phi, d0 ), cov( phi, phi), ...
      *  Information is stored in the first TrackState of this Track, @see TrackState.
      */
-    virtual const EVENT::FloatVec & getCovMatrix() const ;
+    const EVENT::FloatVec & getCovMatrix() const override ;
 
     /** Reference point of the track parameters.
      *  The default for the reference point is the point of closest approach.
      *  Information is stored in the first TrackState of this Track, @see TrackState.
      */
-    virtual const float* getReferencePoint() const ;
+    const float* getReferencePoint() const override ;
 
     ///** True if the reference point is the point of closest approach.
     // */
@@ -97,26 +97,26 @@ namespace IMPL {
 
     /** Chi^2 of the track fit.
      */
-    virtual float getChi2() const ;
+    float getChi2() const override ;
 
     /** Number of degrees of freedom  of the track fit.
      */
-    virtual int getNdf() const ;
+    int getNdf() const override ;
 
     /** dEdx of the track.
      */
-    virtual float getdEdx() const;
+    float getdEdx() const override;
 
     /** Error of dEdx.
      */
-    virtual float getdEdxError() const;
+    float getdEdxError() const override;
 
     /** The radius of the innermost hit that has been used in the track fit.
      *  Helps to detect V0 tracks with small impact paramters or haevy mesons.
      *  To be used as convenient information or if hits are not stored in 
      *  the data set, e.g. DST or FastMC. 
      */
-    virtual float getRadiusOfInnermostHit() const  ;
+    float getRadiusOfInnermostHit() const override  ;
 
     /** A vector that holds the number of hits in particular subdetectors.
      *  The mapping of indices to subdetectors is implementation dependent.
@@ -124,34 +124,34 @@ namespace IMPL {
      *  the data set, e.g. DST or FastMC. 
      *  TODO:  Provide way to store mapping in event/run header.
      */
-    virtual const EVENT::IntVec & getSubdetectorHitNumbers() const ;
+    const EVENT::IntVec & getSubdetectorHitNumbers() const override ;
 
 
     /** The tracks (as Track objects) that have been combined to this track.
      */
-    virtual const EVENT::TrackVec & getTracks() const ;
+    const EVENT::TrackVec & getTracks() const override ;
 
 
     /** Returns track states associtated with this track. @see TrackState.
      */
-    virtual const EVENT::TrackStateVec & getTrackStates() const ;
+    const EVENT::TrackStateVec & getTrackStates() const override ;
 
 
     /** Returns track state closest to the given point. @see TrackState.
      */
-    virtual const EVENT::TrackState* getClosestTrackState( float x, float y, float z ) const ;
+    const EVENT::TrackState* getClosestTrackState( float x, float y, float z ) const override ;
 
 
     /** Returns track state for the given location - or NULL if not found. @see TrackState.
      *  location can be set to: AtIP, AtFirstHit, AtLastHit, AtCalorimeter, AtVertex, AtOther
      */
-    virtual const EVENT::TrackState* getTrackState( int location ) const ;
+    const EVENT::TrackState* getTrackState( int location ) const override ;
 
 
     /** Optionaly ( check/set flag(LCIO::TRBIT_HITS)==1)  return the hits that have been used 
      *  to create this track.
      */
-    virtual const EVENT::TrackerHitVec & getTrackerHits() const ;
+    const EVENT::TrackerHitVec & getTrackerHits() const override ;
     
 
     // setters 

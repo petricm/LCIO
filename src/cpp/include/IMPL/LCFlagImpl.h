@@ -15,7 +15,7 @@ namespace IMPL {
 class LCFlagImpl : public EVENT::LCFlag {
 
 private:
-  int _flag ;
+  int _flag{0} ;
 
 public: 
     
@@ -28,23 +28,23 @@ public:
   LCFlagImpl(int flag) ;
 
   /// Destructor.
-  virtual ~LCFlagImpl() { /* nop */; }
+  ~LCFlagImpl() override { /* nop */; }
   
   /** Returns true if bit at given index is set.
    */
-  virtual bool bitSet(int index) const ;
+  bool bitSet(int index) const override ;
   
   /**Returns the flag word.
    */
-  virtual int getFlag() const ;
+  int getFlag() const override ;
 
   /** Sets bit to 1.
    */
-  virtual void setBit(int bit) ;
+  void setBit(int bit) override ;
   
   /** Sets bit to 0.
    */
-  virtual void unsetBit(int bit) ;
+  void unsetBit(int bit) override ;
   
 }; // class
 } // namespace EVENT

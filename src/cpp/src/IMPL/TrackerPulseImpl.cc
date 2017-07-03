@@ -9,18 +9,13 @@ using namespace EVENT ;
 namespace IMPL{
 
   TrackerPulseImpl::TrackerPulseImpl() : 
-    _cellID0(0) ,
-    _cellID1(0) ,
-    _time(0),
-    _charge(0),
-    _quality(0),
-    _cov( TRKPULSENCOVMATRIX ), 
-    _corrData(0){
+    
+    _cov( TRKPULSENCOVMATRIX ) 
+    {
   }    
   
   /// Destructor.
-  TrackerPulseImpl::~TrackerPulseImpl() {
-  }
+  TrackerPulseImpl::~TrackerPulseImpl() = default;
   
   void TrackerPulseImpl::setCellID0( int cellID0 ) {
     checkAccess("TrackerPulseImpl::setCellID0") ;

@@ -24,25 +24,25 @@ namespace IMPL {
     TrackerHitZCylinderImpl() ;
     
     /// Destructor.
-    virtual ~TrackerHitZCylinderImpl() ; 
+    ~TrackerHitZCylinderImpl() override ; 
 
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      */
-    virtual int getCellID0() const { return _cellID0; }
+    int getCellID0() const override { return _cellID0; }
 
     /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      *  0 if information is not stored -  check the flag word (bit RTHZBIT_ID1) 
      *  of the collection. Default is to store only cellid0.
      */
-    virtual int getCellID1() const { return _cellID1; }
+    int getCellID1() const override { return _cellID1; }
 
 
     /** The hit  position in [mm].	
      */
-    virtual const double* getPosition() const  {  return _pos ; }  ;
+    const double* getPosition() const override  {  return _pos ; }  ;
 
     /** Radius of cylinder.
      */
@@ -50,52 +50,52 @@ namespace IMPL {
 
     /** Center of cylinder in RPhi-plane - given as (x,y).
      */
-    virtual const float* getCenter() const {  return _center ; }  ;
+    const float* getCenter() const override {  return _center ; }  ;
 
     /** Measurement error along RPhi */
-    virtual float getdRPhi() const {  return _drphi ; }  ;
+    float getdRPhi() const override {  return _drphi ; }  ;
 
     /** Measurement error along z */
-    virtual float getdZ() const {  return _dz ; }  ;
+    float getdZ() const override {  return _dz ; }  ;
 
 
     /**Covariance of the position (x,y,z)
      */
-    virtual const EVENT::FloatVec & getCovMatrix() const ;
+    const EVENT::FloatVec & getCovMatrix() const override ;
 
     /** The dE/dx of the hit in [GeV/mm].
      *  @deprecated
      *  @see getEDep()
      */ 	
-    virtual float getdEdx() const ;
+    float getdEdx() const override ;
 
     /** The deposited energy of the hit [GeV]
      */
-    virtual float getEDep() const { return _EDep ; }
+    float getEDep() const override { return _EDep ; }
 
     /** The error measured on EDep [GeV]
      */
-    virtual float getEDepError() const { return _EDepError ; }
+    float getEDepError() const override { return _EDepError ; }
 
     /** The  time of the hit in [ns]. Is this needed ?
      */
-    virtual float getTime() const  { return _time ; } ;
+    float getTime() const override  { return _time ; } ;
 
     /** Type of hit. Mapping of integer types to type names
      * through collection parameters "TrackerHitTypeNames"
      * and "TrackerHitTypeValues".
      */
-    virtual int getType() const { return _type ; }
+    int getType() const override { return _type ; }
 
 
     /** The quality bit flag of the hit.
      */
-    virtual int getQuality() const { return _quality ; }
+    int getQuality() const override { return _quality ; }
 
     /** The raw data hits. 
      * Check getType() to get actual data type.
      */
-    virtual const EVENT::LCObjectVec & getRawHits() const { return _rawHits ; }
+    const EVENT::LCObjectVec & getRawHits() const override { return _rawHits ; }
 
 
     /** Use to manipulate the raw hits.
@@ -133,18 +133,18 @@ namespace IMPL {
 
 protected:
   
-    int _cellID0 ;
-    int _cellID1 ;
+    int _cellID0{0} ;
+    int _cellID1{0} ;
 
-    int _type ;
+    int _type{0} ;
     double _pos[3] = {0,0,0} ;
     float  _center[2]  = {0,0};
-    float  _drphi ;
-    float  _dz ;
-    float _EDep ;
-    float _EDepError ;
-    float _time ;
-    int _quality ;
+    float  _drphi{0} ;
+    float  _dz{0} ;
+    float _EDep{0} ;
+    float _EDepError{0} ;
+    float _time{0} ;
+    int _quality{0} ;
     mutable EVENT::FloatVec _cov ;
     EVENT::LCObjectVec _rawHits ;
     

@@ -23,7 +23,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    TrackerRawDataIOImpl* hit  = new TrackerRawDataIOImpl ;
+    auto* hit  = new TrackerRawDataIOImpl ;
     *objP = hit ;
 	
     SIO_DATA( stream ,  &(hit->_cellID0) , 1  ) ;
@@ -54,7 +54,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const TrackerRawData* hit = dynamic_cast<const TrackerRawData*>(obj)  ;
+    const auto* hit = dynamic_cast<const TrackerRawData*>(obj)  ;
 
     LCSIO_WRITE( stream, hit->getCellID0()  ) ;
       
@@ -68,7 +68,7 @@ namespace SIO{
     const ShortVec& v =  hit->getADCValues() ;
     LCSIO_WRITE( stream, v.size()  ) ;
     
-    short* v0 =  const_cast<short*> ( & v[0]  ) ; 
+    auto* v0 =  const_cast<short*> ( & v[0]  ) ; 
     SIO_DATA( stream ,  v0 , v.size() ) ;
 
     SIO_PTAG( stream , hit ) ;

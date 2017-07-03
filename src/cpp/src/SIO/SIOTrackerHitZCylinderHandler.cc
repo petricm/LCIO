@@ -22,7 +22,7 @@ namespace SIO{
         unsigned int status ;
 
         // create a new object :
-        TrackerHitZCylinderIOImpl* hit  = new TrackerHitZCylinderIOImpl ;
+        auto* hit  = new TrackerHitZCylinderIOImpl ;
         *objP = hit ;
 
         LCFlagImpl lcFlag(_flag) ;
@@ -72,7 +72,7 @@ namespace SIO{
 
         unsigned int status ; 
 
-        const TrackerHitZCylinder* hit = dynamic_cast<const TrackerHitZCylinder*>(obj)  ;
+        const auto* hit = dynamic_cast<const TrackerHitZCylinder*>(obj)  ;
 
         LCFlagImpl lcFlag(_flag) ;
 
@@ -86,10 +86,10 @@ namespace SIO{
 
         // as SIO doesn't provide a write function with const arguments
         // we have to cast away the constness 
-        double* pos = const_cast<double*> ( hit->getPosition() ) ; 
+        auto* pos = const_cast<double*> ( hit->getPosition() ) ; 
         SIO_DATA( stream,  pos , 3 ) ;
 
-        float* center = const_cast<float*> ( hit->getCenter() ) ; 
+        auto* center = const_cast<float*> ( hit->getCenter() ) ; 
         SIO_DATA( stream,  center , 2 ) ;
 
         //LCSIO_WRITE( stream, hit->getR()  ) ;

@@ -24,81 +24,81 @@ namespace IMPL {
     TrackerHitPlaneImpl() ;
     
     /// Destructor.
-    virtual ~TrackerHitPlaneImpl() ; 
+    ~TrackerHitPlaneImpl() override ; 
 
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
 
     /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      */
-    virtual int getCellID0() const { return _cellID0; }
+    int getCellID0() const override { return _cellID0; }
 
     /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      *  0 if information is not stored -  check the flag word (bit RTHPBIT_ID1) 
      *  of the collection. Default is to store only cellid0.
      */
-    virtual int getCellID1() const { return _cellID1; }
+    int getCellID1() const override { return _cellID1; }
 
 
     /** The hit  position in [mm].	
      */
-    virtual const double* getPosition() const  {  return _pos ; }  ;
+    const double* getPosition() const override  {  return _pos ; }  ;
 
     /** Direction of first measurement - given as (theta, phi).
      *  Defines spanning vector of measurement plane.	
      */
-    virtual const float* getU() const { return _u ; }
+    const float* getU() const override { return _u ; }
 
     /** Direction of second measurement - given as (theta, phi).
      *  Defines spanning vector of measurement plane.	
      */
-    virtual const float* getV() const  { return _v ; }
+    const float* getV() const override  { return _v ; }
 
     /** Error along u */
-    virtual float getdU() const { return _du ; }
+    float getdU() const override { return _du ; }
 
     /** Error along v */
-    virtual float getdV() const  { return _dv ; }
+    float getdV() const override  { return _dv ; }
 
 
     /**Covariance of the position (x,y,z)
      */
-    virtual const EVENT::FloatVec & getCovMatrix() const ;
+    const EVENT::FloatVec & getCovMatrix() const override ;
 
     /** The dE/dx of the hit in [GeV/mm].
      *  @deprecated
      *  @see getEDep()
      */ 	
-    virtual float getdEdx() const ;
+    float getdEdx() const override ;
 
     /** The deposited energy of the hit [GeV]
      */
-    virtual float getEDep() const { return _EDep ; }
+    float getEDep() const override { return _EDep ; }
 
     /** The error measured on EDep [GeV]
      */
-    virtual float getEDepError() const { return _EDepError ; }
+    float getEDepError() const override { return _EDepError ; }
 
     /** The  time of the hit in [ns]. Is this needed ?
      */
-    virtual float getTime() const  { return _time ; } ;
+    float getTime() const override  { return _time ; } ;
 
     /** Type of hit. Mapping of integer types to type names
      * through collection parameters "TrackerHitTypeNames"
      * and "TrackerHitTypeValues".
      */
-    virtual int getType() const { return _type ; }
+    int getType() const override { return _type ; }
 
 
     /** The quality bit flag of the hit.
      */
-    virtual int getQuality() const { return _quality ; }
+    int getQuality() const override { return _quality ; }
 
     /** The raw data hits. 
      * Check getType() to get actual data type.
      */
-    virtual const EVENT::LCObjectVec & getRawHits() const { return _rawHits ; }
+    const EVENT::LCObjectVec & getRawHits() const override { return _rawHits ; }
 
 
     /** Use to manipulate the raw hits.
@@ -133,19 +133,19 @@ namespace IMPL {
 
 protected:
   
-    int _cellID0 ;
-    int _cellID1 ;
+    int _cellID0{0} ;
+    int _cellID1{0} ;
 
-    int    _type ;
+    int    _type{0} ;
     double  _pos[3] = {0,0,0};
     float  _u[2] = {0,0};
     float  _v[2] = {0,0};
-    float  _du ;
-    float  _dv ;
-    float _EDep ;
-    float _EDepError ;
-    float _time ;
-    int _quality ;
+    float  _du{0} ;
+    float  _dv{0} ;
+    float _EDep{0} ;
+    float _EDepError{0} ;
+    float _time{0} ;
+    int _quality{0} ;
     mutable EVENT::FloatVec _cov ;
     EVENT::LCObjectVec _rawHits ;
     

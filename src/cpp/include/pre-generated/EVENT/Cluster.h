@@ -19,7 +19,7 @@ namespace EVENT {
 
 class Cluster ;
 /**Vector of (pointers to) Clusters.*/
-typedef std::vector<Cluster*> ClusterVec ;
+using ClusterVec = std::vector<Cluster *> ;
 /** The LCIO cluster.
  * 
  * @author gaede
@@ -31,11 +31,11 @@ class Cluster : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~Cluster() { /* nop */; }
+    ~Cluster() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef Cluster lcobject_type ;
+    using lcobject_type = EVENT::Cluster ;
 
     /** Flagword that defines the type of cluster. Bits 0-15 can be used to denote the subdetectors
      *  that have contributed hits to the cluster. For the definition of the bits 

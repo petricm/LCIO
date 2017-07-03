@@ -23,18 +23,18 @@ using namespace IO ;
 namespace SIO{
 
 
-  LCIORandomAccessMgr::LCIORandomAccessMgr() : _fileRecord(0) {
+  LCIORandomAccessMgr::LCIORandomAccessMgr()  {
   }
 
   LCIORandomAccessMgr::~LCIORandomAccessMgr() {
 
     // cleanup 
-    for( std::list<LCIORandomAccess* >::iterator i = _list.begin() ; i != _list.end() ; ++i ){
+    for( auto i = _list.begin() ; i != _list.end() ; ++i ){
 
       delete *i ; 
     }
 
-    if( _fileRecord != 0 ) 
+    if( _fileRecord != nullptr ) 
       delete _fileRecord ;
   }
 
@@ -42,21 +42,21 @@ namespace SIO{
     
     _runEvtMap.clear() ;
     
-    for( std::list<LCIORandomAccess* >::iterator i = _list.begin() ; i != _list.end() ; ++i ){ 
+    for( auto i = _list.begin() ; i != _list.end() ; ++i ){ 
       delete *i ; 
     }
     
     _list.clear() ;
     
-    if( _fileRecord != 0 ) {
+    if( _fileRecord != nullptr ) {
       delete _fileRecord ;
-      _fileRecord = 0 ;
+      _fileRecord = nullptr ;
     }
   }
   
   LCIORandomAccess* LCIORandomAccessMgr::createFromEventMap() {
 
-    LCIORandomAccess* ra = new LCIORandomAccess  ;
+    auto* ra = new LCIORandomAccess  ;
     
     ra->_minRunEvt =   _runEvtMap.minRunEvent() ;
     ra->_maxRunEvt =   _runEvtMap.maxRunEvent() ;
@@ -76,7 +76,7 @@ namespace SIO{
 
   void LCIORandomAccessMgr::createFileRecord(){
 
-    if( _fileRecord == 0 ) {
+    if( _fileRecord == nullptr ) {
 
       _fileRecord = new LCIORandomAccess ;
       
@@ -459,7 +459,7 @@ namespace SIO{
     
     os << " LCIORandomAccessMgr:  ----------------------- " << std::endl   ;
     
-    for( std::list<LCIORandomAccess* >::const_iterator i = ra._list.begin() ; i != ra._list.end() ; ++i ){
+    for( auto i = ra._list.begin() ; i != ra._list.end() ; ++i ){
       
       os << **i ; 
     }

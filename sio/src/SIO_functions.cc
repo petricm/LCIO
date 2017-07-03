@@ -207,7 +207,7 @@ if( stream->mode != SIO_MODE_READ )
 //fg: ---
 
         newbuf = (unsigned char *)malloc( newlen );
-        if( newbuf == NULL )
+        if( newbuf == nullptr )
         {
             if( stream->verbosity >= SIO_ERRORS )
 	    {
@@ -560,7 +560,7 @@ if( stream->mode != SIO_MODE_READ )
     // zero match word (and are treated specially when read back).  There's no
     // point in putting useless information in the maps.
     //
-    if( ifer != NULL )
+    if( ifer != nullptr )
     {
         std::pair< void* const, void* >
             entry( ifer,

@@ -24,11 +24,11 @@ class TrackerData : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~TrackerData() { /* nop */; }
+    ~TrackerData() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef TrackerData lcobject_type ;
+    using lcobject_type = EVENT::TrackerData ;
 
     /** Returns the first detector specific (geometrical) cell id.
      */

@@ -80,7 +80,7 @@ int main(int argc, char** argv ){
   
   char* rColChar = getenv ("LCIO_READ_COL_NAMES");
   
-  if ( rColChar != 0 ) {
+  if ( rColChar != nullptr ) {
 
     std::vector< std::string > colSubset ;
     std::stringstream sts( rColChar ) ;
@@ -97,7 +97,7 @@ int main(int argc, char** argv ){
 
 
 
-  LCEvent* evt(0) ;
+  LCEvent* evt(nullptr) ;
 
   try{
     

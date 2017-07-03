@@ -11,10 +11,10 @@ namespace EVENT
 {
 
   /** 64 bit signed integer,e.g.to be used for timestamps **/
-  typedef long long long64 ;
+  using long64 = long long ;
 
   /** 64 bit unsigned integer,e.g.to be used for masks **/
-  typedef unsigned long long ulong64 ;
+  using ulong64 = unsigned long long ;
   
   //fg: this might have to be modified for other architectures, e.g. 64bit systems, or windows ?
   

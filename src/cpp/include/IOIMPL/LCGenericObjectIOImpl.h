@@ -21,7 +21,7 @@ namespace IOIMPL {
     friend class SIO::SIOLCGenericObjectHandler ;
 
   public:
-    LCGenericObjectIOImpl() { }
+    LCGenericObjectIOImpl() = default;
 
     LCGenericObjectIOImpl(int nInt, int nFloat, int nDouble) 
       : LCGenericObjectImpl(nInt, nFloat, nDouble) {}

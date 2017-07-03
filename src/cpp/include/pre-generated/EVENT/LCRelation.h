@@ -30,11 +30,11 @@ class LCRelation : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~LCRelation() { /* nop */; }
+    ~LCRelation() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef LCRelation lcobject_type ;
+    using lcobject_type = EVENT::LCRelation ;
 
     /** The 'from' object of the given relation. 
      */

@@ -15,7 +15,7 @@ namespace UTIL{
     throw Exception("  IndexMap still under development  - sorry !!!!  ") ;
   }
 
-  IndexMap::~IndexMap(){}
+  IndexMap::~IndexMap()= default;
 
   int IndexMap::encode(const std::string name){
     int type=-1;

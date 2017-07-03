@@ -21,7 +21,7 @@ namespace IOIMPL {
     friend class SIO::SIOLCRelationHandler ;
     
   public:
-    LCRelationIOImpl() { }
+    LCRelationIOImpl() = default;
     LCRelationIOImpl( EVENT::LCObject* from, EVENT::LCObject* to , float weight=1.0f ) 
       : LCRelationImpl(from, to, weight) {}
     //    LCRelationIOImpl(const std::string& type) : IMPL::LCRelationImpl(type) { } 

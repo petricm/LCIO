@@ -23,7 +23,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    TrackerPulseIOImpl* hit  = new TrackerPulseIOImpl ;
+    auto* hit  = new TrackerPulseIOImpl ;
     *objP = hit ;
 	
     SIO_DATA( stream ,  &(hit->_cellID0) , 1  ) ;
@@ -60,7 +60,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const TrackerPulse* hit = dynamic_cast<const TrackerPulse*>(obj)  ;
+    const auto* hit = dynamic_cast<const TrackerPulse*>(obj)  ;
 
     LCSIO_WRITE( stream, hit->getCellID0()  ) ;
       

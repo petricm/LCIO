@@ -21,7 +21,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    LCStrVec* vec  = new LCStrVec ;
+    auto* vec  = new LCStrVec ;
     *objP = vec ;
 	
     int nElements ;
@@ -53,7 +53,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const LCStrVec* vec = dynamic_cast<const LCStrVec*>(obj)  ;
+    const auto* vec = dynamic_cast<const LCStrVec*>(obj)  ;
     
     int nElements = vec->size() ;
 

@@ -24,11 +24,11 @@ class SimCalorimeterHit : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~SimCalorimeterHit() { /* nop */; }
+    ~SimCalorimeterHit() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef SimCalorimeterHit lcobject_type ;
+    using lcobject_type = EVENT::SimCalorimeterHit ;
 
     /**Returns the detector specific (geometrical) cell id.
      */

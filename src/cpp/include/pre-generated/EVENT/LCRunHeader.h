@@ -24,11 +24,11 @@ class LCRunHeader : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~LCRunHeader() { /* nop */; }
+    ~LCRunHeader() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef LCRunHeader lcobject_type ;
+    using lcobject_type = EVENT::LCRunHeader ;
 
     /** Returns the run number.
      */

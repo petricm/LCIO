@@ -19,12 +19,7 @@ using namespace EVENT ;
 namespace IMPL {
 
     TrackStateImpl::TrackStateImpl() :
-        _location(0),
-        _d0(0),
-        _phi(0),
-        _omega(0),
-        _z0(0),
-        _tanLambda(0),
+        
 	_covMatrix(TRKSTATENCOVMATRIX)
     {
         for(int i=0 ; i < TRKSTATENREFSIZE ; ++i ) {

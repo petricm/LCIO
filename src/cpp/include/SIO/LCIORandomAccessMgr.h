@@ -116,7 +116,7 @@ namespace SIO {
 
     /**Pointer to the last LCIORandomAccess in the list */
     const LCIORandomAccess* lastLCIORandomAccess() {
-      return (_list.empty() ?  0 : _list.back() )  ; 
+      return (_list.empty() ?  nullptr : _list.back() )  ; 
     } 
 
     // ----- map with RunHeader and EventHeader record positions
@@ -125,7 +125,7 @@ namespace SIO {
     // ----- list of LCIORandomAccess objects 
     std::list< LCIORandomAccess* > _list{} ;
 
-    LCIORandomAccess* _fileRecord ;
+    LCIORandomAccess* _fileRecord{nullptr} ;
 
   }; // class
   

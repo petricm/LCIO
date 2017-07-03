@@ -9,12 +9,12 @@
 #ifndef CPOINTER_H
 #define CPOINTER_H 1
 
-typedef long PTRTYPE ;
+using PTRTYPE = long ;
 #define CFORTRANPNTR LONG
 #define CFORTRANPNTRV LONGV
 
 #include <vector>
-typedef std::vector<PTRTYPE> PointerVec ;
+using PointerVec = std::vector<PTRTYPE> ;
 
 /** Template for casting from integers to LCIO classes 
  * First template is the resulting type, second argument is the original 
@@ -23,9 +23,9 @@ typedef std::vector<PTRTYPE> PointerVec ;
 
 template<class T, class O> T* f2c_pointer(PTRTYPE ptr){
 
-  if(! (ptr) ) return 0  ; 
+  if(! (ptr) ) return nullptr  ; 
 
-  O*  o_ptr = reinterpret_cast<O*>( ptr ) ;
+  auto*  o_ptr = reinterpret_cast<O*>( ptr ) ;
 
   return dynamic_cast<T*>( o_ptr ) ; 
 }

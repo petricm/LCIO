@@ -130,7 +130,7 @@ delete pointerTo;
 //
 // Dispose of compression control structure.
 //
-if( z_strm != NULL )
+if( z_strm != nullptr )
 {
     z_stat = (mode == SIO_MODE_READ) ? inflateEnd( z_strm )
                                      : deflateEnd( z_strm );
@@ -150,30 +150,30 @@ if( z_strm != NULL )
         }
     }
     free( z_strm );
-    z_strm = NULL;
+    z_strm = nullptr;
 }
     
 //
 // Dispose of any compression/decompression buffer.
 //
-if( cmploc != NULL )
+if( cmploc != nullptr )
 {
     free( cmploc );
-    cmploc = NULL;
-    cmpmax = NULL;
+    cmploc = nullptr;
+    cmpmax = nullptr;
 }
 
 //
 // Dispose of any associated raw data buffer.
 //
-if( bufloc != NULL )
+if( bufloc != nullptr )
 {
     free( bufloc );
-    bufloc = NULL;
-    buffer = NULL;
-    bufmax = NULL;
-    recmax = NULL;
-    blkmax = NULL;
+    bufloc = nullptr;
+    buffer = nullptr;
+    bufmax = nullptr;
+    recmax = nullptr;
+    blkmax = nullptr;
 }
 
 //
@@ -193,7 +193,7 @@ else
 {
 }
 filename.erase( filename.begin(), filename.end() );
-handle = NULL;
+handle = nullptr;
 
 //
 // Miscellany.
@@ -254,7 +254,7 @@ static char
 //
 printf( "\nDump buffer of stream %s\n\n", name.c_str() );
 
-if( buffer == NULL )
+if( buffer == nullptr )
 {
     printf( "No buffer associated with stream %s\n", name.c_str() );
     return;
@@ -448,7 +448,7 @@ if( state == SIO_STATE_OPEN || state == SIO_STATE_ERROR )
 //
 // Open the file.
 //
-if( (handle = FOPEN( i_filename, SIO_filemode[i_mode] )) == NULL )
+if( (handle = FOPEN( i_filename, SIO_filemode[i_mode] )) == nullptr )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -478,10 +478,10 @@ if( verbosity >= SIO_ALL )
 //
 // Allocate a raw data buffer to go with the stream.
 //
-buffer = NULL;
-bufmax = NULL;
+buffer = nullptr;
+bufmax = nullptr;
 bufloc = static_cast<unsigned char*>(malloc( reserve ));
-if( bufloc == NULL )
+if( bufloc == nullptr )
 {
     state = SIO_STATE_ERROR;
     if( verbosity >= SIO_ERRORS )
@@ -498,10 +498,10 @@ bufmax = bufloc + reserve;
 //
 // Allocate a compression/decompression buffer and initialize it.
 //
-cmploc = NULL;
-cmpmax = NULL;
+cmploc = nullptr;
+cmpmax = nullptr;
 cmploc = static_cast<unsigned char*>(malloc( reserve >> 2 ));
-if( cmploc == NULL )
+if( cmploc == nullptr )
 {
     state = SIO_STATE_ERROR;
     if( verbosity >= SIO_ERRORS )
@@ -521,7 +521,7 @@ z_strm = static_cast<z_stream*>( malloc( sizeof( z_stream ) ));
 
 z_strm->zalloc = Z_NULL;
 z_strm->zfree  = Z_NULL;
-z_strm->opaque = 0;
+z_strm->opaque = nullptr;
 
 z_stat = (mode == SIO_MODE_READ) ? inflateInit( z_strm )
                                  : deflateInit( z_strm, compLevel );
@@ -654,7 +654,7 @@ bool
 //
 // Initialize the returned record pointer to something nasty.
 //
-*record = NULL;
+*record = nullptr;
 
  recPos = -1 ;  
  SIO_64BITINT  recStart = -1 ;
@@ -751,7 +751,7 @@ while( requested == false )
     SIO_DATA( this, &name_length,  1 );
 
     tmploc = static_cast<char*>(malloc( name_length + 1 ));
-    if( tmploc == NULL )
+    if( tmploc == nullptr )
     {
         if( verbosity >= SIO_ERRORS )
         {
@@ -785,7 +785,7 @@ while( requested == false )
     //
     // Unpack this record?
     //
-    if( *record == NULL )
+    if( *record == nullptr )
     {
         if( verbosity >= SIO_ALL )
 	{
@@ -846,7 +846,7 @@ while( requested == false )
 
         newlen = head_length + ucmp_length;
         newbuf = static_cast<unsigned char*>(malloc( newlen )); 
-        if( newbuf == NULL )
+        if( newbuf == nullptr )
         {
             if( verbosity >= SIO_ERRORS )
             {
@@ -901,7 +901,7 @@ while( requested == false )
                *newbuf;
 
             newbuf = static_cast<unsigned char*>(malloc( data_length )); 
-            if( newbuf == NULL )
+            if( newbuf == nullptr )
             {
                 if( verbosity >= SIO_ERRORS )
                 {
@@ -1065,7 +1065,7 @@ SIO_record
 // Validate the record name.
 //
 record = SIO_recordManager::get( i_name );
-if( record == NULL )
+if( record == nullptr )
 {
     if( verbosity >= SIO_ERRORS )
     {
@@ -1297,7 +1297,7 @@ else
 
         newlen = (cmpmax - cmploc) << 1;
         newbuf = static_cast<unsigned char*>(malloc( newlen ));
-        if( newbuf == NULL )
+        if( newbuf == nullptr )
         {
             if( verbosity >= SIO_ERRORS )
 	    {

@@ -27,11 +27,11 @@ class TrackerPulse : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~TrackerPulse() { /* nop */; }
+    ~TrackerPulse() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef TrackerPulse lcobject_type ;
+    using lcobject_type = EVENT::TrackerPulse ;
 
     /** Returns the first detector specific (geometrical) cell id.
      */

@@ -16,7 +16,7 @@ namespace EVENT {
 
 class TrackerHit ;
 /**Vector of (pointers to) TrackerHits.*/
-typedef std::vector<TrackerHit*> TrackerHitVec ;
+using TrackerHitVec = std::vector<TrackerHit *> ;
 /** A generic tracker hit to be used by pattern recognition.
  * 
  * @author gaede
@@ -27,11 +27,11 @@ class TrackerHit : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~TrackerHit() { /* nop */; }
+    ~TrackerHit() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef TrackerHit lcobject_type ;
+    using lcobject_type = EVENT::TrackerHit ;
 
    /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      */

@@ -9,14 +9,9 @@ namespace IMPL{
 
 
   ReconstructedParticleImpl::ReconstructedParticleImpl() :
-    _type(0) ,
-    _energy(0) ,
-    _mass(0) ,
-    _charge(0),
-    _pidUsed(0),
-    _goodnessOfPID(0),
-    _sv(0)
-    //_ev(0)
+    
+    _pidUsed(nullptr),
+    _goodnessOfPID(0)
   {
     _cov.resize( NCOVARIANCE ) ;
     //     for(int i=0 ; i < NCOVARIANCE ; i++ ) { _cov.push_back( 0.0 ) ;  }
@@ -30,7 +25,7 @@ namespace IMPL{
 
   ReconstructedParticleImpl::~ReconstructedParticleImpl(){
     // delete the pids owned by this particle
-    for(  ParticleIDVec::iterator iter = _pid.begin() ; iter != _pid.end() ; iter++){
+    for(  auto iter = _pid.begin() ; iter != _pid.end() ; iter++){
       delete *iter ;
     }
   }
@@ -73,7 +68,7 @@ namespace IMPL{
     if(getParticles().size()!=0){
       return getParticles().at(0)->getStartVertex();
     }
-    return NULL;
+    return nullptr;
   }
                                                                                                                                                           
   void ReconstructedParticleImpl::setStartVertex( EVENT::Vertex *sv ){

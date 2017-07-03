@@ -35,7 +35,7 @@ namespace UTIL{
     
     for(int i=0; i < n; i++){
       
-      LCRelation* rel = dynamic_cast<LCRelation*>( col->getElementAt(i) )  ;
+      auto* rel = dynamic_cast<LCRelation*>( col->getElementAt(i) )  ;
       
       addRelation( rel->getFrom() , rel->getTo() , rel->getWeight()  ) ; 
       
@@ -109,7 +109,7 @@ namespace UTIL{
   
   void LCRelationNavigator::removeRelation(EVENT::LCObject * from, EVENT::LCObject * to, RelMap& map ){
 
-    RelMap::iterator iter =  map.find( from ) ;
+    auto iter =  map.find( from ) ;
     if( iter != map.end() ) {
       
       
@@ -119,11 +119,11 @@ namespace UTIL{
       // doesn't work as we need to remove/erase the corresponding weight as well ...
       // vTo.erase( remove(vTo.begin(),vTo.end(), to ), vTo.end()).
 
-      LCObjectVec::iterator iTo = find( vTo.begin(), vTo.end() , to ) ;
+      auto iTo = find( vTo.begin(), vTo.end() , to ) ;
 
       if( iTo != vTo.end() ){
 
-	FloatVec::iterator iWgt =  vWgt.begin() ;
+	auto iWgt =  vWgt.begin() ;
 
 	advance( iWgt , distance( vTo.begin() , iTo )  ) ;
 
@@ -149,7 +149,7 @@ namespace UTIL{
 
 
     bool storeWeights = false ;
-    for(RelMap::iterator iter = _map.begin() ;
+    for(auto iter = _map.begin() ;
 	iter != _map.end() ; iter++ ) {
       
       LCObject* from = iter->first ;

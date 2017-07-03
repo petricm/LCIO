@@ -24,7 +24,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    LCRelationIOImpl* rel  = new LCRelationIOImpl ;
+    auto* rel  = new LCRelationIOImpl ;
     *objP = rel ;
 	
 
@@ -45,7 +45,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const LCRelation* rel = dynamic_cast<const LCRelation*>(obj)  ;
+    const auto* rel = dynamic_cast<const LCRelation*>(obj)  ;
     
     LCObject* from = rel->getFrom() ;
     SIO_PNTR( stream,  &from ) ;

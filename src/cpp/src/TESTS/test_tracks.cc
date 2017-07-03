@@ -52,7 +52,7 @@ int main(int /*argc*/, char** /*argv*/ ){
         for( int i=0 ; i<NEVENT ; i++ ){
 
             // we need to use the implementation classes here 
-            LCEventImpl*  evt = new LCEventImpl() ;
+            auto*  evt = new LCEventImpl() ;
 
 
             evt->setRunNumber( 4711  ) ;
@@ -65,7 +65,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
             for( int j=0 ; j<NTRACKS ; j++ ){
 
-                TrackImpl* trk = new TrackImpl ;
+                auto* trk = new TrackImpl ;
 
                 trk->setTypeBit( 7 ) ;
                 trk->setOmega(  (i+j) * .1 ) ;
@@ -91,14 +91,14 @@ int main(int /*argc*/, char** /*argv*/ ){
                     trk->addTrack( dynamic_cast<TrackImpl*> ( (*tracks)[ tracks->size() - 2 ] ) ) ;
                 }
 
-                TrackImpl* trkc = new TrackImpl(*trk) ;
+                auto* trkc = new TrackImpl(*trk) ;
 
                 tracks->addElement( trk ) ;
                 tracksCopies->addElement( trkc ) ;
             }
 
             for( int j=0 ; j<NTRACKS ; j++ ){
-                TrackImpl* trk = new TrackImpl ;
+                auto* trk = new TrackImpl ;
 
                 trk->setTypeBit( 7 ) ;
 
@@ -127,7 +127,7 @@ int main(int /*argc*/, char** /*argv*/ ){
                     float covL[15] = { k+1,k+2,k+3,k+4,k+5,k+6,k+7,k+8,k+9,k+10,k+11,k+12,k+13,k+14,k+15 } ;
                     float refL[3] = { k*1 , k*2 , k*3 } ;
 
-                    TrackStateImpl* trkstate = new TrackStateImpl(
+                    auto* trkstate = new TrackStateImpl(
                             k,                  // location
                             ( i*j*k * .1 ),     // d0
                             ( (i+j+k) * .3 ),   // phi
@@ -140,7 +140,7 @@ int main(int /*argc*/, char** /*argv*/ ){
                     trk->addTrackState( trkstate ) ;
                 }
 
-                TrackImpl* trkc = new TrackImpl(*trk) ;
+                auto* trkc = new TrackImpl(*trk) ;
 
                 tracksWithMultipleStates->addElement( trk ) ;
                 tracksWithMultipleStatesCopies->addElement( trkc ) ;
@@ -278,7 +278,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
                 //std::cout << " testing track " << j << std::endl ;
 
-                Track* trk = dynamic_cast<Track*>(tracksWithMultipleStates->getElementAt(j)) ;
+                auto* trk = dynamic_cast<Track*>(tracksWithMultipleStates->getElementAt(j)) ;
 
                 MYTEST( trk->getOmega(),  float( (i+j) * .1 ), "getOmega" ) ;
                 MYTEST( trk->getTanLambda(),  float( (i+j) * .2 ), "getTanLambda" ) ;
@@ -342,7 +342,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
 
                 // ---------- test copies -------------------------------
-                Track* trkc = dynamic_cast<Track*>(tracksWithMultipleStatesCopies->getElementAt(j)) ;
+                auto* trkc = dynamic_cast<Track*>(tracksWithMultipleStatesCopies->getElementAt(j)) ;
                 MYTEST( trkc->getOmega(),  float( (i+j) * .1 ), "getOmega" ) ;
                 MYTEST( trkc->getTanLambda(),  float( (i+j) * .2 ), "getTanLambda" ) ;
                 MYTEST( trkc->getPhi(),  float( (i+j) * .3 ), "getPhi" ) ;

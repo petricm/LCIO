@@ -22,7 +22,7 @@ using namespace IOIMPL ;
 
 namespace SIO{
 
-  SIOVertexHandler::~SIOVertexHandler(){ }
+  SIOVertexHandler::~SIOVertexHandler()= default;
 
   unsigned int SIOVertexHandler::init( SIO_stream* stream,
                                        SIO_operation op,
@@ -92,7 +92,7 @@ namespace SIO{
 	v = dynamic_cast<Vertex*>( col->getElementAt( i ) ) ;
 	_set.insert(v->getAlgorithmType());
       }
-      for(std::set<std::string>::iterator it=_set.begin(); it!=_set.end(); it++){
+      for(auto it=_set.begin(); it!=_set.end(); it++){
 	parameters.push_back(*it);
       }
       //add parameters to collection
@@ -112,7 +112,7 @@ namespace SIO{
     unsigned int status ; 
 
     // create a new object :
-    VertexIOImpl* vtx  = new VertexIOImpl ;
+    auto* vtx  = new VertexIOImpl ;
     *objP = vtx ;
 
     //read data
@@ -162,7 +162,7 @@ namespace SIO{
     // this is where we gave up type safety in order to
     // simplify the API and the implementation
     // by having a common collection of objects
-    const Vertex* vtx = dynamic_cast<const Vertex*>(obj)  ;
+    const auto* vtx = dynamic_cast<const Vertex*>(obj)  ;
 
     //write data
     LCSIO_WRITE( stream, vtx->isPrimary()  ) ;
@@ -177,7 +177,7 @@ namespace SIO{
     LCSIO_WRITE( stream, vtx->getProbability()  ) ;
 
     //write position of the vertex
-    float* pos = const_cast<float*> ( vtx->getPosition() ) ; 
+    auto* pos = const_cast<float*> ( vtx->getPosition() ) ; 
     SIO_DATA( stream,  pos , 3 ) ;
     
     //write covariance matrix

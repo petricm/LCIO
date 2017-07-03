@@ -7,22 +7,12 @@ using namespace EVENT ;
 namespace IMPL {
   
   TrackerHitZCylinderImpl::TrackerHitZCylinderImpl() :
-    _cellID0(0),
-    _cellID1(0),
-
-    _type(0),
-    _drphi(0),
-    _dz(0),
-    _EDep(0),
-    _EDepError(0),
-    _time(0),
-    _quality(0),
+    
     _cov(TRKHITZCYLNCOVMATRIX ), 
     _rawHits(0) {
   }
   
-  TrackerHitZCylinderImpl::~TrackerHitZCylinderImpl(){  
-  } 
+  TrackerHitZCylinderImpl::~TrackerHitZCylinderImpl()= default; 
   
   
   const FloatVec & TrackerHitZCylinderImpl::getCovMatrix() const {

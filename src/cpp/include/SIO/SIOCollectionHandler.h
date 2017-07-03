@@ -22,7 +22,7 @@ namespace SIO {
   class SIOCollectionHandler : public SIO_block{
     
   private:
-    SIOCollectionHandler() ;  // no default c'tor
+    SIOCollectionHandler() = delete ;  // no default c'tor
     
   public:
     
@@ -36,16 +36,16 @@ namespace SIO {
      */
     SIOCollectionHandler(const std::string& name, 
 			 const std::string& type, 
-			 IOIMPL::LCEventIOImpl**  anEvtP=0 ) 
+			 IOIMPL::LCEventIOImpl**  anEvtP=nullptr ) 
       throw (EVENT::Exception) ;
 
-    virtual ~SIOCollectionHandler() ;
+    ~SIOCollectionHandler() override ;
 
     const std::string &getTypeName() const;
 
     // interface from SIO_block
-    virtual unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) ;
-    virtual unsigned int   version() ;
+    unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) override ;
+    unsigned int   version() override ;
     
     void setCollection(const EVENT::LCCollection *col) ; 
     void setEvent(IOIMPL::LCEventIOImpl**  anEvtP) ; 
@@ -56,7 +56,7 @@ namespace SIO {
     const EVENT::LCCollection *_col ;   // for writing we use the data interface
     
     std::string _myType ;
-    SIOObjectHandler* _myHandler{NULL}  ;
+    SIOObjectHandler* _myHandler{nullptr}  ;
     
   }; // class
   

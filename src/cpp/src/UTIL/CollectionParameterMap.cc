@@ -23,7 +23,7 @@ namespace UTIL{
 						  const LCCollection* col ) :
     _keyName( keyName ) ,
     _valueName( valueName ) ,
-    _col( 0 ) { // if const we don't update
+    _col( nullptr ) { // if const we don't update
 
     init( col ) ;
   }
@@ -63,12 +63,12 @@ namespace UTIL{
   CollectionParameterMap::~CollectionParameterMap() {
 
 
-    if( _col != 0 ){
+    if( _col != nullptr ){
       
       StringVec keys ;
       IntVec values ;
       
-      for(map_type::iterator it= _map.begin() ; it!=_map.end() ;++it){
+      for(auto it= _map.begin() ; it!=_map.end() ;++it){
 	
 	keys.push_back( it->first ) ;
 	values.push_back( it->second ) ;

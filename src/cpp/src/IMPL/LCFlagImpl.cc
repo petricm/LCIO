@@ -5,7 +5,7 @@ using namespace EVENT ;
 
 namespace IMPL {
   
-  LCFlagImpl::LCFlagImpl() : _flag(0) {}
+  LCFlagImpl::LCFlagImpl()  {}
 
   LCFlagImpl::LCFlagImpl(int flag) : _flag( flag ) {} 
 

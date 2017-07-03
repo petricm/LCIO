@@ -24,11 +24,11 @@ class SimTrackerHit : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~SimTrackerHit() { /* nop */; }
+    ~SimTrackerHit() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef SimTrackerHit lcobject_type ;
+    using lcobject_type = EVENT::SimTrackerHit ;
 
    /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      */

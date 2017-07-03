@@ -19,7 +19,7 @@ class LCObject;
 
 class CalorimeterHit ;
 /**Vector of (pointers to) CalorimeterHits.*/
-typedef std::vector<CalorimeterHit*> CalorimeterHitVec ;
+using CalorimeterHitVec = std::vector<CalorimeterHit *> ;
 /** The generic calorimeter hit - created from SimCalorimeterHit or
  *  RawCalorimeterHit. The difference to RawCalorimeterHit is that amplitude
  *  ( energy) and time are now float and an optional position (x,y,z) can be stored
@@ -35,11 +35,11 @@ class CalorimeterHit : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~CalorimeterHit() { /* nop */; }
+    ~CalorimeterHit() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef CalorimeterHit lcobject_type ;
+    using lcobject_type = EVENT::CalorimeterHit ;
 
     /** Returns the detector specific (geometrical) cell id.
      */

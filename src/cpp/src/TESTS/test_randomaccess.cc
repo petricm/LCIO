@@ -83,7 +83,7 @@ int main(int /*argc*/, char** /*argv*/ ){
     RunEventMap map ;
 
     int count = 0  ;
-    for( std::set< RunEvent >::iterator it = reSet.begin() ; it != reSet.end() ; ++it , ++count ){
+    for( auto it = reSet.begin() ; it != reSet.end() ; ++it , ++count ){
       
       //  std::cout << " set[" << count <<"] " << *it  << std::endl ;
       map.add( *it , 1024 * count ) ;
@@ -162,7 +162,7 @@ int main(int /*argc*/, char** /*argv*/ ){
       
       evt = lcReader->readEvent( 3 , 4 ) ;
 
-      MYTEST( evt !=0  , true  , " LCReader::readEvent( 3 , 4  ) - evt is NULL" );
+      MYTEST( evt !=nullptr  , true  , " LCReader::readEvent( 3 , 4  ) - evt is NULL" );
       MYTEST( evt->getRunNumber() , 3 , " LCReader::readEvent( 3, 4  ) - run number is not 3" );
       MYTEST( evt->getEventNumber() , 4 , " LCReader::readEvent( 3, 4  ) - event number is not 4" );
 
@@ -176,8 +176,8 @@ int main(int /*argc*/, char** /*argv*/ ){
 
       rHdr = lcReader->readRunHeader( 0 , EVENT::LCIO::UPDATE ) ;
       //rHdr = lcReader->readRunHeader( 0 ) ;
-      IMPL::LCRunHeaderImpl* rhImpl = dynamic_cast< IMPL::LCRunHeaderImpl*> ( rHdr ) ;
-      bool notNull = rhImpl != 0 ;
+      auto* rhImpl = dynamic_cast< IMPL::LCRunHeaderImpl*> ( rHdr ) ;
+      bool notNull = rhImpl != nullptr ;
       MYTEST( notNull , true , " readRunHeader not of type IMPL::LCRunHeaderImpl " );
 
       rhImpl->setRunNumber( 42 ) ;

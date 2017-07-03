@@ -30,7 +30,7 @@ int main(int argc, char** argv ){
     exit(1) ;
   }
   for(int i=1 ; i < argc ; i++){
-      FILEN.push_back( argv[i] )  ;
+      FILEN.emplace_back(argv[i] )  ;
   }
   int nFiles = argc-1 ;
   
@@ -40,7 +40,7 @@ int main(int argc, char** argv ){
     
     char* rColChar = getenv ("LCIO_READ_COL_NAMES");
 
-    if ( rColChar != 0 ) {
+    if ( rColChar != nullptr ) {
       
     std::vector< std::string > colSubset ;
       std::stringstream sts( rColChar ) ;
@@ -85,7 +85,7 @@ int main(int argc, char** argv ){
   try{  
 
     // loop over all run headers
-    while( ( runHdr = lcReader->readNextRunHeader() ) != 0 ){
+    while( ( runHdr = lcReader->readNextRunHeader() ) != nullptr ){
       
       LCTOOLS::dumpRunHeader( runHdr ) ;
 //       cout << "  Run : " << runHdr->getRunNumber() 
@@ -116,7 +116,7 @@ int main(int argc, char** argv ){
   int nEvents = 0 ;
   
   //----------- the event loop -----------
-  while( (evt = lcReader->readNextEvent()) != 0 ) {
+  while( (evt = lcReader->readNextEvent()) != nullptr ) {
     
     LCTOOLS::dumpEvent( evt ) ;
     nEvents ++ ;

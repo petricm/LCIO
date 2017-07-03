@@ -42,7 +42,7 @@ namespace UTIL{
 
     /** Destructor.
      */
-    virtual ~LCSplitWriter() {;}
+    ~LCSplitWriter() override {;}
     
     
     //--------------------  the LCWriter interface: -------------------------------------
@@ -53,7 +53,7 @@ namespace UTIL{
      *
      *@throws IO::IOException
      */
-    virtual void open(const std::string & filename) throw (IO::IOException, std::exception ) ;
+    void open(const std::string & filename) throw (IO::IOException, std::exception ) override ;
 
     /** Not implemented - will throw an Exception if called.
      * Overwriting of or appending to split files is not straight forward. Pleas use the default write mode 
@@ -61,19 +61,19 @@ namespace UTIL{
      * 
      * @throws IO::IOException
      */
-    virtual void open(const std::string & filename, int writeMode) throw (IO::IOException, std::exception ) ;
+    void open(const std::string & filename, int writeMode) throw (IO::IOException, std::exception ) override ;
 
     /** Writes the given run header to file. Opens a new file if the given file size is already exceeded
      *  before the execution of the write access.
      *
      * @throws IO::IOException
      */
-    virtual void writeRunHeader(const EVENT::LCRunHeader * hdr) throw (IO::IOException, std::exception ) ;
+    void writeRunHeader(const EVENT::LCRunHeader * hdr) throw (IO::IOException, std::exception ) override ;
 
     /** Set CompressionLevel.
      * @see LCWriter::setCompressionLevel()
      */
-    virtual void setCompressionLevel(int level) { 
+    void setCompressionLevel(int level) override { 
       _wrt->setCompressionLevel(level) ; 
     }  
 
@@ -83,20 +83,20 @@ namespace UTIL{
      *
      *@throws IO::IOException
      */
-    virtual void writeEvent(const EVENT::LCEvent * evt) throw (IO::IOException, std::exception )  ;
+    void writeEvent(const EVENT::LCEvent * evt) throw (IO::IOException, std::exception ) override  ;
 
     /** Closes the output file/stream.
      *
      *@throws IO::IOException
      */
-    virtual void close() throw (IO::IOException, std::exception )  ;
+    void close() throw (IO::IOException, std::exception ) override  ;
 
 
     /** Flushes the output file/stream.
      *
      *@throws IO::IOException
      */
-    virtual void flush() throw (IO::IOException, std::exception )  ;
+    void flush() throw (IO::IOException, std::exception ) override  ;
 
     
     //---------------------------------------------------------------------------------------------

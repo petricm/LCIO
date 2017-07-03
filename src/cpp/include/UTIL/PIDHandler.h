@@ -35,7 +35,7 @@ namespace UTIL{
    */
   class PIDHandler {
 
-    typedef CollectionParameterMap CPM ;
+    using CPM = UTIL::CollectionParameterMap ;
     typedef std::map< int, StringVec > PNM ;
     typedef  std::map< CPM::map_type::mapped_type , CPM::map_type::key_type > CPMINV ;
 
@@ -122,7 +122,7 @@ namespace UTIL{
     void init( const LCCollection* col ) ;
 
 
-    LCCollection* _col{NULL} ;
+    LCCollection* _col{nullptr} ;
     CPM _cpm{} ;
     int _type{0} ; 
     int _maxID{0} ;
@@ -140,7 +140,7 @@ namespace UTIL{
   protected:
     UnknownAlgorithm() {  /*no_op*/ ; } 
   public: 
-    virtual ~UnknownAlgorithm() throw() { /*no_op*/; } 
+    ~UnknownAlgorithm() throw() override { /*no_op*/; } 
     
     UnknownAlgorithm( std::string text ){
       message = "lcio::UnknownAlgorithm: " + text ;

@@ -128,7 +128,7 @@ int main(int /*argc*/, char** /*argv*/ ){
         MYTEST( pp->getOmega(),  float( .3 ), "getOmega" ) ;
 
         delete pp;
-        pp=NULL;
+        pp=nullptr;
 
 
 
@@ -144,11 +144,11 @@ int main(int /*argc*/, char** /*argv*/ ){
 
 
         delete pp;
-        pp=NULL;
+        pp=nullptr;
 
 
         delete p;
-        p=NULL;
+        p=nullptr;
 
 
     } catch( Exception &e ){

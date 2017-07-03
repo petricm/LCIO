@@ -25,7 +25,7 @@ namespace SIO{
     
     
     // create a new object :
-    ReconstructedParticleIOImpl* recP  = new ReconstructedParticleIOImpl ;
+    auto* recP  = new ReconstructedParticleIOImpl ;
     *objP = recP ;
     
     if( _vers > SIO_VERSION_ENCODE( 1, 2)   ) {
@@ -62,7 +62,7 @@ namespace SIO{
       SIO_DATA( stream ,  &nPid  , 1 ) ;
       for(int i=0;i<nPid;i++){
 	// create new Pid objects
-	ParticleIDIOImpl* pid = new ParticleIDIOImpl ;
+	auto* pid = new ParticleIDIOImpl ;
 	
 	SIO_DATA( stream ,  &(pid->_likelihood) , 1  ) ;
 	SIO_DATA( stream ,  &(pid->_type) , 1  ) ;
@@ -144,7 +144,7 @@ namespace SIO{
       SIO_DATA( stream ,  &nPid  , 1 ) ;
       for(int i=0;i<nPid;i++){
 	// create new Pid objects
-	ParticleIDIOImpl* pid = new ParticleIDIOImpl ;
+	auto* pid = new ParticleIDIOImpl ;
 	
 	SIO_DATA( stream ,  &(pid->_likelihood) , 1  ) ;
 	SIO_DATA( stream ,  &(pid->_type) , 1  ) ;
@@ -160,14 +160,14 @@ namespace SIO{
 	recP->addParticleID( pid) ;
       }
       
-      recP->_pidUsed = 0 ;
+      recP->_pidUsed = nullptr ;
 
       // read reconstructed particles
       int nRecP ;
       SIO_DATA( stream, &nRecP , 1  ) ;
       
       for(int i=0;i<nRecP;i++){
-	recP->_particles.push_back( 0 ) ;
+	recP->_particles.push_back( nullptr ) ;
       }
       float dummyWeights ;
       for(int i=0;i<nRecP;i++){
@@ -180,7 +180,7 @@ namespace SIO{
       SIO_DATA( stream, &nTrk , 1  ) ;
       
       for(int i=0;i<nTrk;i++){
-	recP->_tracks.push_back( 0 ) ;
+	recP->_tracks.push_back( nullptr ) ;
       }
       for(int i=0;i<nTrk;i++){
 	SIO_PNTR( stream , &(recP->_tracks[i] ) ) ;
@@ -192,7 +192,7 @@ namespace SIO{
       SIO_DATA( stream, &nClu , 1  ) ;
       
       for(int i=0;i<nClu;i++){
-	recP->_clusters.push_back( 0 ) ;
+	recP->_clusters.push_back( nullptr ) ;
       }
       for(int i=0;i<nClu;i++){
 	SIO_PNTR( stream , &(recP->_clusters[i] ) ) ;
@@ -231,7 +231,7 @@ namespace SIO{
     // this is where we gave up type safety in order to
     // simplify the API and the implementation
     // by having a common collection of objects
-    const ReconstructedParticle* recP = dynamic_cast<const ReconstructedParticle*>(obj)  ;
+    const auto* recP = dynamic_cast<const ReconstructedParticle*>(obj)  ;
 
 
 //     // bit 31 is primary flag 
@@ -259,7 +259,7 @@ namespace SIO{
     LCSIO_WRITE( stream, (float) recP->getMass()  ) ;
     LCSIO_WRITE( stream, recP->getCharge()  ) ;
 
-    float* ref = const_cast<float*> ( recP->getReferencePoint() ) ; 
+    auto* ref = const_cast<float*> ( recP->getReferencePoint() ) ; 
     SIO_DATA( stream,  ref , 3 ) ;
 
 

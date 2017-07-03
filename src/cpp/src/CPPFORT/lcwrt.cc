@@ -25,7 +25,7 @@ int lcwrtdelete(PTRTYPE writer){
 
 int lcwrtopen(PTRTYPE writer, const char* filename, int writeMode ){
   try{ 
-    LCWriter* wrt = reinterpret_cast<LCWriter*>(  writer ) ; 
+    auto* wrt = reinterpret_cast<LCWriter*>(  writer ) ; 
     wrt->open( filename , writeMode ) ;
     
   }catch(...){ return LCIO::ERROR ; }
@@ -35,7 +35,7 @@ int lcwrtopen(PTRTYPE writer, const char* filename, int writeMode ){
 
 int lcwrtclose(PTRTYPE writer){
   try{
-    LCWriter* wrt = reinterpret_cast<LCWriter*>(  writer ) ; 
+    auto* wrt = reinterpret_cast<LCWriter*>(  writer ) ; 
     wrt->close() ;
     }catch(...){ return LCIO::ERROR ; }
 
@@ -45,8 +45,8 @@ int lcwrtclose(PTRTYPE writer){
 int lcwrtwriterunheader( PTRTYPE writer, PTRTYPE header){
   try{
 
-    LCWriter* wrt = reinterpret_cast<LCWriter*>(  writer ) ; 
-    LCRunHeader* hdr = reinterpret_cast<LCRunHeader*>(  header ) ; 
+    auto* wrt = reinterpret_cast<LCWriter*>(  writer ) ; 
+    auto* hdr = reinterpret_cast<LCRunHeader*>(  header ) ; 
     
     wrt->writeRunHeader( hdr ) ;
 
@@ -58,8 +58,8 @@ int   lcwrtwriteevent( PTRTYPE writer, PTRTYPE event){
   
   try{
     
-    LCWriter* wrt = reinterpret_cast<LCWriter*>(  writer ) ; 
-    LCEvent* evt = reinterpret_cast<LCEvent*>( event ) ; 
+    auto* wrt = reinterpret_cast<LCWriter*>(  writer ) ; 
+    auto* evt = reinterpret_cast<LCEvent*>( event ) ; 
     
     wrt->writeEvent( evt ) ;
     

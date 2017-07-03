@@ -29,20 +29,20 @@ class TrackerHitZCylinder : public TrackerHit {
 
 public: 
     /// Destructor.
-    virtual ~TrackerHitZCylinder() { /* nop */; }
+    ~TrackerHitZCylinder() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef TrackerHitZCylinder lcobject_type ;
+    using lcobject_type = EVENT::TrackerHitZCylinder ;
 
    /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      */
-    virtual int getCellID0() const = 0;
+    int getCellID0() const override = 0;
 
     /** Same name as in CalorimeterHit, even though there are no 'cells' in this case
      *  Optional, check/set flag(LCIO::RTHZBIT_ID1)==1.
      */
-    virtual int getCellID1() const = 0;
+    int getCellID1() const override = 0;
 
     /** Radius of cylinder.
      */

@@ -29,30 +29,30 @@ namespace IMPL {
     TrackerPulseImpl& operator=(const TrackerPulseImpl&) = default ;
 
     /// Destructor.
-    virtual ~TrackerPulseImpl() ;
+    ~TrackerPulseImpl() override ;
     
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
     
 
     /** Returns the first detector specific (geometrical) cell id.
      */
-    virtual int getCellID0() const { return _cellID0 ; } 
+    int getCellID0() const override { return _cellID0 ; } 
     
     /** Returns the second detector specific (geometrical) cell id. Optional, check/set 
      *  flag(LCIO::TRAWBIT_ID1)==1.
      */
-    virtual int getCellID1() const { return _cellID1 ; } 
+    int getCellID1() const override { return _cellID1 ; } 
     
     /** The time of the pulse.
      */
-    virtual float getTime() const { return _time ; }
+    float getTime() const override { return _time ; }
 
     // The time error
     //virtual float getTimeError() const { return _timeError ; }
 
     /** The integrated charge of the pulse // FIXME: unit ?.
      */
-    virtual float getCharge() const { return _charge ; }
+    float getCharge() const override { return _charge ; }
 
     //The charge error
     //virtual float getChargeError() const { return _chargeError ; }
@@ -61,18 +61,18 @@ namespace IMPL {
      *  cov(c,c) , cov(t,c) , cov(t,t).
      *  Optional, check/set flag(LCIO::TRAWBIT_CM)==1.
      */
-    virtual const EVENT::FloatVec & getCovMatrix() const { return _cov ; }
+    const EVENT::FloatVec & getCovMatrix() const override { return _cov ; }
 
 
     /** The quality bit flag of the pulse - use the defined constants for referring to the bits.
      */
-    virtual int getQuality() const { return _quality ; }
+    int getQuality() const override { return _quality ; }
     
     /** Optionally the TrackerData that has been uesed to create the pulse
      *  can be stored with the pulse - NULL if none. Check the quality bits for reason
      *  why the spectrum has been stored for the pulse.
      */
-    virtual EVENT::TrackerData * getTrackerData() const { return _corrData ; } 
+    EVENT::TrackerData * getTrackerData() const override { return _corrData ; } 
   
 
     // setter methods
@@ -91,13 +91,13 @@ namespace IMPL {
     
 protected:
 
-    int _cellID0 ;
-    int _cellID1 ;
-    float _time ;
-    float _charge ;
-    int   _quality ;
+    int _cellID0{0} ;
+    int _cellID1{0} ;
+    float _time{0} ;
+    float _charge{0} ;
+    int   _quality{0} ;
     EVENT::FloatVec _cov ;
-    EVENT::TrackerData* _corrData ;
+    EVENT::TrackerData* _corrData{nullptr} ;
     
   }; // class
 } // namespace IMPL

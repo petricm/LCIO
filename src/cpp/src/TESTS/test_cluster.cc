@@ -48,7 +48,7 @@ int main(int /*argc*/, char** /*argv*/ ){
         for(int i=0;i<NEVENT;i++){
 
             // we need to use the implementation classes here 
-            LCEventImpl*  evt = new LCEventImpl() ;
+            auto*  evt = new LCEventImpl() ;
 
 
             evt->setRunNumber( 4711  ) ;
@@ -58,14 +58,14 @@ int main(int /*argc*/, char** /*argv*/ ){
             LCCollectionVec* clustersErr = new LCCollectionVec( LCIO::CLUSTER )  ;
 
             for(int j=0;j<NHITS;j++){
-                ClusterImpl* clu = new ClusterImpl ;
+                auto* clu = new ClusterImpl ;
                 clu->setEnergy( i*j*117. ) ;
 		float pos[3] = { float(i) , float(j) ,float(i*j) } ;
                 clu->setPosition( pos ) ;
                 clusters->addElement( clu ) ;
             }
             for(int j=0;j<NHITS;j++){
-                ClusterImpl* clu = new ClusterImpl ;
+                auto* clu = new ClusterImpl ;
                 clu->setEnergy( i*j*117. ) ;
                 clu->setEnergyError( i*j*0.117 ) ;
 		float pos[3] = { float(i) , float(j) ,float(i*j) } ;
@@ -107,7 +107,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
                 //std::cout << " testing hit " << j << std::endl ;
 
-                Cluster* clu = dynamic_cast<Cluster*>(clusters->getElementAt(j)) ;
+                auto* clu = dynamic_cast<Cluster*>(clusters->getElementAt(j)) ;
 
                 MYTEST( clu->getEnergy() ,  i*j*117. , "energy" ) ;
 
@@ -122,7 +122,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
                 //std::cout << " testing hit " << j << std::endl ;
 
-                Cluster* clu = dynamic_cast<Cluster*>(clustersErr->getElementAt(j)) ;
+                auto* clu = dynamic_cast<Cluster*>(clustersErr->getElementAt(j)) ;
 
                 MYTEST( clu->getEnergy() ,  i*j*117. , "energy" ) ;
                 MYTEST( clu->getEnergyError() , float(i*j*0.117)  , "energy error" ) ;

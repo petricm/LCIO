@@ -15,9 +15,7 @@ using namespace EVENT ;
 namespace IMPL {
   
 LCEventImpl::LCEventImpl() :
-  _runNumber(0),
-  _eventNumber(0),
-  _timeStamp(0),
+  
   _detectorName("unknown") {
 }
   
@@ -26,7 +24,7 @@ LCEventImpl::~LCEventImpl() {
   //  std::cout << " ~LCEventImpl() : " << this << std::endl ;
 
   // here we need to delete all collections in the event
-  typedef LCCollectionMap::const_iterator LCI ;
+  using LCI = LCCollectionMap::const_iterator ;
   
   for ( LCI i=_colMap.begin() ; i != _colMap.end() ; i++ ){
     
@@ -67,7 +65,7 @@ double LCEventImpl::getWeight() const {
 const std::vector<std::string>* LCEventImpl::getCollectionNames() const {
 
   // return pointer to updated vector _colNames 
-  typedef LCCollectionMap::const_iterator LCI ;
+  using LCI = LCCollectionMap::const_iterator ;
   
   _colNames.clear() ;
 
@@ -82,7 +80,7 @@ const std::vector<std::string>* LCEventImpl::getCollectionNames() const {
 LCCollection * LCEventImpl::getCollection(const std::string & name) const 
   throw (DataNotAvailableException, std::exception) {
 
-  LCCollectionMap::iterator it = _colMap.find( name )  ;
+  auto it = _colMap.find( name )  ;
 
   if( it == _colMap.end() ) {
     
@@ -103,7 +101,7 @@ LCCollection * LCEventImpl::getCollection(const std::string & name) const
 LCCollection * LCEventImpl::takeCollection(const std::string & name) const 
   throw (DataNotAvailableException, std::exception) {
 
-  LCCollectionVec* col = dynamic_cast<LCCollectionVec*> ( getCollection( name ) ) ;
+  auto* col = dynamic_cast<LCCollectionVec*> ( getCollection( name ) ) ;
 
   col->setTransient( true ) ;
   
@@ -131,7 +129,7 @@ void  LCEventImpl::addCollection(LCCollection * col, const std::string & name)
     throw EventException( std::string("LCEventImpl::addCollection() name already exists: "
 				      +name) ) ; 
   // check if col != 0
-  if( col == 0  )
+  if( col == nullptr  )
 
     throw EventException( std::string("LCEventImpl::addCollection()  cannot add NULL collection for : "
 				      +name) ) ; 
@@ -189,11 +187,11 @@ void LCEventImpl::setAccessMode( int accessMode ) {
 
   setReadOnly( readOnly ) ;
 
-  typedef LCCollectionMap::iterator LCI ;
+  using LCI = LCCollectionMap::iterator ;
   
-  for ( LCI i=_colMap.begin() ; i != _colMap.end() ; i++ ){
+  for ( auto i=_colMap.begin() ; i != _colMap.end() ; i++ ){
 
-    AccessChecked* col = dynamic_cast<AccessChecked*>( i->second ) ; 
+    auto* col = dynamic_cast<AccessChecked*>( i->second ) ; 
     if( col ){
       col->setReadOnly( readOnly ) ;
     }

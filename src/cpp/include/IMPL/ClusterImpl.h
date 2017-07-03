@@ -30,48 +30,48 @@ namespace IMPL {
     ClusterImpl() ;
     
     /// Destructor.
-    virtual ~ClusterImpl() ; 
+    ~ClusterImpl() override ; 
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /** Flagword that defines the type of cluster. Bits 0-15 can be used to denote the subdetectors
      *  that have contributed hits to the cluster. The definition of the bits has to be done 
      *  elsewhere, e.g. in the run header. Bits 16-31 are used internally.
      */
-    virtual int getType() const ;
+    int getType() const override ;
 
     /** Energy of the cluster.
      */
-    virtual float getEnergy() const ;
+    float getEnergy() const override ;
 
     /** Returns the error on the energy of the cluster.
      */
-    virtual float getEnergyError() const ;
+    float getEnergyError() const override ;
 
     /** Position of the cluster.
      */
-    virtual const float* getPosition() const ;
+    const float* getPosition() const override ;
 
     /** Covariance matrix of the position (6 Parameters)
     */
-    virtual const EVENT::FloatVec & getPositionError() const ;
+    const EVENT::FloatVec & getPositionError() const override ;
 
     /** Intrinsic direction of cluster at position: Theta.
      */
-    virtual float getITheta() const ;
+    float getITheta() const override ;
 
     /** Intrinsic direction of cluster at position: Phi.
      */
-    virtual float getIPhi() const ;
+    float getIPhi() const override ;
 
     /** Covariance matrix of the direction (3 Parameters)
      */
-    virtual const EVENT::FloatVec & getDirectionError() const ;
+    const EVENT::FloatVec & getDirectionError() const override ;
 
     /** Shape parameters - check/set  collection parameter
      *  ClusterShapeParameters for size and names of parameters.
      */
-    virtual const EVENT::FloatVec & getShape() const ;
+    const EVENT::FloatVec & getShape() const override ;
 
 //     /** Type hypotheses: 3 Parameters: compatible with EM, HAD, muon cluster
 //      */
@@ -81,22 +81,22 @@ namespace IMPL {
     /** The particle Id's sorted by their probability.
      * @see ParticleID
      */
-    virtual const EVENT::ParticleIDVec & getParticleIDs() const ;
+    const EVENT::ParticleIDVec & getParticleIDs() const override ;
 
 
     /** The clusters that have been combined to this cluster.
      */
-    virtual const EVENT::ClusterVec & getClusters() const ;
+    const EVENT::ClusterVec & getClusters() const override ;
 
 
     /** The hits that have been combined to this cluster.
      */
-    virtual const EVENT::CalorimeterHitVec & getCalorimeterHits() const ;
+    const EVENT::CalorimeterHitVec & getCalorimeterHits() const override ;
 
     /** Returns the energy contribution of the hits 
      * Runs parallel to the CalorimeterHitVec from getCalorimeterHits()
      */
-    virtual const EVENT::FloatVec & getHitContributions() const ;
+    const EVENT::FloatVec & getHitContributions() const override ;
 
 
     /** A vector that holds the energy observed in a particular subdetectors.
@@ -106,7 +106,7 @@ namespace IMPL {
      *  Check/set collection parameter ClusterSubdetectorNames for decoding the
      *  indices of the array.
      */
-    virtual const EVENT::FloatVec & getSubdetectorEnergies() const ;
+    const EVENT::FloatVec & getSubdetectorEnergies() const override ;
 
     //setters 
     void setTypeBit( int index , bool val=true) ;

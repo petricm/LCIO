@@ -48,7 +48,7 @@ int main(int /*argc*/, char** /*argv*/ ){
     for(int i=0;i<NEVENT;i++){
       
       // we need to use the implementation classes here 
-      LCEventImpl*  evt = new LCEventImpl() ;
+      auto*  evt = new LCEventImpl() ;
       
       
       evt->setRunNumber( 4711  ) ;
@@ -64,7 +64,7 @@ int main(int /*argc*/, char** /*argv*/ ){
       calHitsErr->setFlag( calFlag.getFlag()  ) ;
  
       for(int j=0;j<NHITS;j++){
-	CalorimeterHitImpl* calHit = new CalorimeterHitImpl ;
+	auto* calHit = new CalorimeterHitImpl ;
 	calHit->setEnergy( i*j*117. ) ;
 	calHit->setCellID0( i+100000 + j ) ;
 	float pos[3] = { float(i) , float(j) ,float(i*j) } ;
@@ -72,7 +72,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 	calHits->addElement( calHit ) ;
       }
       for(int j=0;j<NHITS;j++){
-	CalorimeterHitImpl* calHit = new CalorimeterHitImpl ;
+	auto* calHit = new CalorimeterHitImpl ;
 	calHit->setEnergy( i*j*117. ) ;
 	calHit->setEnergyError( i*j*0.117 ) ;
 	calHit->setCellID0( i+100000 + j ) ;
@@ -115,7 +115,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 	
 	//std::cout << " testing hit " << j << std::endl ;
 	
-	CalorimeterHit* calHit = dynamic_cast<CalorimeterHit*>(calHits->getElementAt(j)) ;
+	auto* calHit = dynamic_cast<CalorimeterHit*>(calHits->getElementAt(j)) ;
 	
         MYTEST( calHit->getEnergy() ,  i*j*117. , "energy" ) ;
         MYTEST( calHit->getCellID0() , i+100000 + j , " cellid0 " ) ;
@@ -131,7 +131,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 	
 	//std::cout << " testing hit " << j << std::endl ;
 	
-	CalorimeterHit* calHit = dynamic_cast<CalorimeterHit*>(calHitsErr->getElementAt(j)) ;
+	auto* calHit = dynamic_cast<CalorimeterHit*>(calHitsErr->getElementAt(j)) ;
 	
         MYTEST( calHit->getEnergy() ,  i*j*117. , "energy" ) ;
         MYTEST( calHit->getEnergyError() , float(i*j*0.117)  , "energy error" ) ;

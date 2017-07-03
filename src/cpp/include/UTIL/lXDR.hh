@@ -48,9 +48,9 @@ public:
 // Constructor opens file, destructor closes file. Once opened for
 // reading, the file cannot be written to, and v.v.
 //
-   lXDR(const char *filename = 0, bool open_for_write = false);
+   lXDR(const char *filename = nullptr, bool open_for_write = false);
 private: // Prevent copying
-   lXDR(const lXDR &);
+   lXDR(const lXDR &) = delete;
 public:
    virtual ~lXDR();
 //
@@ -64,7 +64,7 @@ public:
 // Prevent assignment:
 //
 private:
-   lXDR       &operator=(const lXDR &);
+   lXDR       &operator=(const lXDR &) = delete;
 public:
 //
 // Check for errors in the last operation.
@@ -114,8 +114,8 @@ public:
    long        filePosition(long pos = -1);
 
 private:
-   char      *_fileName;
-   FILE      *_fp;
+   char      *_fileName{nullptr};
+   FILE      *_fp{nullptr};
    long       _error{0};
    bool       _openForWrite{false};
 

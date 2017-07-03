@@ -16,7 +16,7 @@ namespace EVENT {
 
 class TrackState ;
 /**Vector of (pointers to) TrackStates.*/
-typedef std::vector<TrackState*> TrackStateVec ;
+using TrackStateVec = std::vector<TrackState *> ;
 /** The LCIO TrackState class.
  * 
  * @author gaede, engels
@@ -27,11 +27,11 @@ class TrackState : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~TrackState() { /* nop */; }
+    ~TrackState() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef TrackState lcobject_type ;
+    using lcobject_type = EVENT::TrackState ;
 
 
     static const int AtOther = 0 ; // any location other than the ones defined below	     

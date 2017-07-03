@@ -27,7 +27,7 @@ int main(int argc, char** argv ){
     long total_events = 0 ;
 
     for(int i=1 ; i <= nFiles ; i++){
-        FILEN.push_back( argv[i] )  ;
+        FILEN.emplace_back(argv[i] )  ;
     }
 
 

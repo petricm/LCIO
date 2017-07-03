@@ -16,10 +16,10 @@ namespace lcrtrel_helper{
   struct can_call_ext<true>{ static void check(){/* no_op */ } ; };
 
   /** Function pointer for delete function */
-  typedef void (*DeleteFPtr)(void*) ;
+  using DeleteFPtr = void (*)(void *) ;
 
   /** Simple init function for simple pointers */
-  struct SimplePtrInit{ static void* init() { return 0 ; } } ;
+  struct SimplePtrInit{ static void* init() { return nullptr ; } } ;
 
   /** Empty delete function for pointers w/o ownership */
   struct NoDelete{ static void clean(void *) { /* no_op */ } } ;
@@ -38,8 +38,8 @@ namespace lcrtrel_helper{
   struct DeleteElements{
 
     static void clean(void *v) { 
-      T* vec = static_cast<T*>(v) ;
-      for( typename T::iterator it = vec->begin();it != vec->end(); ++it){
+      auto* vec = static_cast<T*>(v) ;
+      for( auto it = vec->begin();it != vec->end(); ++it){
 	delete *it ;
       }
       delete vec  ;    
@@ -51,7 +51,7 @@ namespace lcrtrel_helper{
   typedef std::map< unsigned , void * > PtrMap ;
 
   /** Vector of delete  functions */
-  typedef std::vector< DeleteFPtr > DPtrVec ;
+  using DPtrVec = std::vector<DeleteFPtr> ;
 
   /** Vector of pointers to extension obbjects*/
   //typedef std::vector< void * > PtrVec ;
@@ -61,8 +61,8 @@ namespace lcrtrel_helper{
   template <class U, class T , class I, class D, bool b>
   struct LCBaseTraits{
   
-    typedef T*  ptr ;  /**<base pointer type  */
-    typedef U tag ;    // this ensures that a new class instance is created for every user extension
+    using ptr = T * ;  /**<base pointer type  */
+    using tag = U ;    // this ensures that a new class instance is created for every user extension
   
     static const int allowed_to_call_ext = b ;
   
@@ -77,30 +77,30 @@ namespace lcrtrel_helper{
 
 
   /** Base class for all extensions and relations of single objects */
-  template <class U, class T , class I=SimplePtrInit, class D=NoDelete , bool b=1>
+  template <class U, class T , class I=SimplePtrInit, class D=NoDelete , bool b=true>
   struct LCBaseLinkTraits : public LCBaseTraits<U,T,I,D,b>{
 
     typedef LCBaseTraits<U,T,I,D,b> base ;
 
-    typedef T*& ext_type ;                 // return value of  ext<>()
-    typedef T*  rel_type ;                 // return value of  rel<>() 
-    typedef typename base::ptr obj_ptr ;   // pointer to object
+    using ext_type = T *& ;                 // return value of  ext<>()
+    using rel_type = T * ;                 // return value of  rel<>() 
+    using obj_ptr = typename base::ptr ;   // pointer to object
 
     static const bool is_container=false ;
   };
 
   /** Base class for all containers of extensions and relations, vectors, lists,... */
-  template <class U, class T , class I=CreationPtrInit<T>, class D=DeletePtr<T> , bool b=1>
+  template <class U, class T , class I=CreationPtrInit<T>, class D=DeletePtr<T> , bool b=true>
   struct LCBaseLinkContainerTraits : public LCBaseTraits<U,T,I,D,b>{
 
     typedef LCBaseTraits<U,T,I,D,b> base ;
 
-    typedef       T*  ext_type ;              // return value of  ext<>()
-    typedef const T*  rel_type ;              // return value of  rel<>() 
-    typedef typename T::value_type obj_ptr ;  // pointer to object
+    using ext_type = T * ;              // return value of  ext<>()
+    using rel_type = const T * ;              // return value of  rel<>() 
+    using obj_ptr = typename T::value_type ;  // pointer to object
 
-    typedef typename T::iterator iterator ;
-    typedef typename T::const_iterator const_iterator ;
+    using iterator = typename T::iterator ;
+    using const_iterator = typename T::const_iterator ;
 
     static const bool is_container=true ;
   };
@@ -129,8 +129,8 @@ namespace lcrtrel_helper{
   /** Helper class for biderectional relations provides the to and from type*/
   template <class From, class To>
   struct BiDirectional{
-    typedef From from  ;
-    typedef To   to  ;
+    using from = From  ;
+    using to = To  ;
   } ;
   
   
@@ -244,10 +244,10 @@ namespace lcrtrel{
   template <class U >
   struct LCIntExtension{  
     
-    typedef long ptr ;  // base pointer type - use long to work for 64 bit (long is 32 on 32-bit systems/64 on 64bit systems)
-    typedef long& ext_type ;                
+    using ptr = long ;  // base pointer type - use long to work for 64 bit (long is 32 on 32-bit systems/64 on 64bit systems)
+    using ext_type = long & ;                
 
-    typedef U tag ;     // this ensures that a new class instance is created for every user extension
+    using tag = U ;     // this ensures that a new class instance is created for every user extension
     
     static const int allowed_to_call_ext = 1 ;
     
@@ -271,11 +271,11 @@ namespace lcrtrel{
     typedef float& ext_type ;     // return value of  ext<>()
 
 #else  // use double on 64bit systems
-    typedef double  ptr ;  // base pointer type 
-    typedef double& ext_type ;     // return value of  ext<>()
+    using ptr = double ;  // base pointer type 
+    using ext_type = double & ;     // return value of  ext<>()
 #endif    
 
-    typedef U tag ;     // this ensures that a new class instance is created for every user extension
+    using tag = U ;     // this ensures that a new class instance is created for every user extension
 
     static const int allowed_to_call_ext = 1 ;
     static void clean(void *) { }
@@ -477,7 +477,7 @@ namespace lcrtrel{
 
 
     virtual ~LCRTRelations() {
-      for( PtrMap::iterator it = _map.begin() ; it != _map.end() ; ++it ){
+      for( auto it = _map.begin() ; it != _map.end() ; ++it ){
 	cleaners()[ it->first ] ( it->second ) ;  // call the delete function
       }
     }
@@ -505,10 +505,10 @@ namespace lcrtrel{
       typedef std::map< unsigned , typename V::ptr  > MyPtrMap ;
       
       // going through a pointer to char* avoids the strict-aliasing warning of gcc 
-      char* char_map = reinterpret_cast<char *> ( &_map ) ;
-      MyPtrMap* map = reinterpret_cast<MyPtrMap*>( char_map ) ;
+      auto* char_map = reinterpret_cast<char *> ( &_map ) ;
+      auto* map = reinterpret_cast<MyPtrMap*>( char_map ) ;
       
-      typename MyPtrMap::iterator it = map->find( typeID<V>() ) ;
+      auto it = map->find( typeID<V>() ) ;
       
       if( it == map->end() )
 	it = map->insert( map->begin(), 
@@ -558,7 +558,7 @@ namespace lcrtrel{
     
       LCRTRelations* t = f->LCRTRelations::template rel<typename R::to>() ;
     
-      if( t != 0 ) 
+      if( t != nullptr ) 
 	t->LCRTRelations::ptr<typename R::from>() = 0 ;
     
       f->LCRTRelations::template ptr<typename R::to>() = 0 ;
@@ -621,7 +621,7 @@ namespace lcrtrel{
   
     typename R::to::ptr  lt2 = f2->LCRTRelations::template ptr<typename R::to>() ;
   
-    for( typename R::to::iterator it = lt2->begin() ;it !=  lt2->end() ; it++ ){
+    for( auto it = lt2->begin() ;it !=  lt2->end() ; it++ ){
     
       objorcont<R::from::is_container>::remove( (*it)->LCRTRelations::template ptr<typename R::from>(), f2 ) ; 
       objorcont<R::from::is_container>::add( (*it)->LCRTRelations::template ptr<typename R::from>(), f1 ) ; 

@@ -33,18 +33,18 @@ namespace SIO {
     /** C'tor for reading.
      */
     SIORunHeaderHandler(const std::string& name, IOIMPL::LCRunHeaderIOImpl** rhP) ;
-    virtual ~SIORunHeaderHandler() ;
+    ~SIORunHeaderHandler() override ;
     
     // interface from SIO_block
-    virtual unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) ;
-    virtual unsigned int   version() ;
+    unsigned int   xfer( SIO_stream*, SIO_operation, unsigned int ) override ;
+    unsigned int   version() override ;
     
     void setRunHeader(const EVENT::LCRunHeader* hdr ) ; 
     void setRunHeaderPtr(IOIMPL::LCRunHeaderIOImpl** hdrP ) ; 
     
   private: 
-    IOIMPL::LCRunHeaderIOImpl** _rhP{NULL} ;  // address for reading
-    const EVENT::LCRunHeader* _hdr{NULL} ;  // runheader for writing
+    IOIMPL::LCRunHeaderIOImpl** _rhP{nullptr} ;  // address for reading
+    const EVENT::LCRunHeader* _hdr{nullptr} ;  // runheader for writing
     
   }; // class
   

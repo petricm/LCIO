@@ -15,11 +15,10 @@ using namespace SIO ;
 
 namespace IOIMPL{
 
-  LCFactory* LCFactory::_me = 0 ;
+  LCFactory* LCFactory::_me = nullptr ;
   
   
-  LCFactory::LCFactory() {  
-  }
+  LCFactory::LCFactory() = default;
   
 
   LCFactory* LCFactory::getInstance() { 

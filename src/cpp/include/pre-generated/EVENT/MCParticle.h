@@ -18,7 +18,7 @@ namespace EVENT {
 
 class MCParticle ;
 /**Vector of (pointers to) MCParticles.*/
-typedef std::vector<MCParticle*> MCParticleVec ;
+using MCParticleVec = std::vector<MCParticle *> ;
 /** The LCIO Monte Carlo particle. 
  * 
  * @author gaede
@@ -28,11 +28,11 @@ class MCParticle : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~MCParticle() { /* nop */; }
+    ~MCParticle() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef MCParticle lcobject_type ;
+    using lcobject_type = EVENT::MCParticle ;
 
     /** Returns the energy of the particle (at the vertex) in [GeV] computed from
      * the particle's momentum and mass - only float used in files.

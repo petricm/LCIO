@@ -24,7 +24,7 @@ namespace SIO{
     unsigned int status ; 
 	
     // create a new object :
-    RawCalorimeterHitIOImpl* hit  = new RawCalorimeterHitIOImpl ;
+    auto* hit  = new RawCalorimeterHitIOImpl ;
     *objP = hit ;
 	
     LCFlagImpl lcFlag(_flag) ;
@@ -57,7 +57,7 @@ namespace SIO{
     
     unsigned int status ; 
 
-    const RawCalorimeterHit* hit = dynamic_cast<const RawCalorimeterHit*>(obj)  ;
+    const auto* hit = dynamic_cast<const RawCalorimeterHit*>(obj)  ;
     
     LCSIO_WRITE( stream, hit->getCellID0()  ) ;
 

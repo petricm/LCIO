@@ -48,7 +48,7 @@ int main(int /*argc*/, char** /*argv*/ ){
         for(int i=0;i<NEVENT;i++){
 
             // we need to use the implementation classes here 
-            LCEventImpl*  evt = new LCEventImpl() ;
+            auto*  evt = new LCEventImpl() ;
 
 
             evt->setRunNumber( 4711  ) ;
@@ -63,7 +63,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
 
             for(int j=0;j<NPULSES;j++){
-                TrackerPulseImpl* trkPulse = new TrackerPulseImpl ;
+                auto* trkPulse = new TrackerPulseImpl ;
                 trkPulse->setTime( 3.1415 + 0.1 * i ) ;
                 //trkPulse->setTimeError( (i+j) * .003 ) ;
                 trkPulse->setCharge( 3.1415 + 0.1 * j ) ;
@@ -72,7 +72,7 @@ int main(int /*argc*/, char** /*argv*/ ){
                 trkPulses->addElement( trkPulse ) ;
             }
             for(int j=0;j<NPULSES;j++){
-                TrackerPulseImpl* trkPulse = new TrackerPulseImpl ;
+                auto* trkPulse = new TrackerPulseImpl ;
                 trkPulse->setTime( 3.1415 + 0.1 * i ) ;
                 //trkPulse->setTimeError( (i+j) * .003 ) ;
                 trkPulse->setCharge( 3.1415 + 0.1 * j ) ;
@@ -120,7 +120,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
                 //std::cout << " testing pulse " << j << std::endl ;
 
-                TrackerPulse* trkPulse = dynamic_cast<TrackerPulse*>(trkPulses->getElementAt(j)) ;
+                auto* trkPulse = dynamic_cast<TrackerPulse*>(trkPulses->getElementAt(j)) ;
 
                 MYTEST( trkPulse->getTime(),  float( 3.1415 + 0.1 * i ), "time" ) ;
                 //MYTEST( trkPulse->getTimeError(),  float( (i + j) * .003 ), "time error" ) ;
@@ -145,7 +145,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
                 //std::cout << " testing pulse " << j << std::endl ;
 
-                TrackerPulse* trkPulse = dynamic_cast<TrackerPulse*>(trkPulsesCov->getElementAt(j)) ;
+                auto* trkPulse = dynamic_cast<TrackerPulse*>(trkPulsesCov->getElementAt(j)) ;
 
                 MYTEST( trkPulse->getTime(),  float( 3.1415 + 0.1 * i ), "time" ) ;
                 //MYTEST( trkPulse->getTimeError(),  float( (i + j) * .003 ), "time error" ) ;

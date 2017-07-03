@@ -11,7 +11,7 @@ namespace IMPL {
     TrackImpl::TrackImpl() :
         _type(0),
         _chi2(0),
-        _ndf(0),
+        
         _dEdx(0),
         _dEdxError(0),
         _radiusOfInnermostHit(0) { 
@@ -157,7 +157,7 @@ namespace IMPL {
                 return _trackStates[i] ;  
             }
         }
-        return NULL ;
+        return nullptr ;
     } 
 
     void  TrackImpl::setTypeBit( int  index, bool val){  
@@ -348,7 +348,7 @@ namespace IMPL {
     void  TrackImpl::addTrackState( EVENT::TrackState* trkstate ) {
         checkAccess("TrackImpl::addTrackState") ;
         if( trkstate->getLocation() != TrackState::AtOther &&
-            getTrackState( trkstate->getLocation() ) != NULL )
+            getTrackState( trkstate->getLocation() ) != nullptr )
         {
             std::stringstream ss;
             ss << "another TrackState already exists with Location set to: " << trkstate->getLocation() ;

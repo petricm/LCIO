@@ -22,20 +22,20 @@ namespace SIO {
 	
   public:
 
-    virtual ~SIOVertexHandler() ;
+    ~SIOVertexHandler() override ;
     
-    virtual unsigned int init( SIO_stream* stream,
+    unsigned int init( SIO_stream* stream,
                              SIO_operation op,
                              EVENT::LCCollection* col,
-                             unsigned int vers ) ;
+                             unsigned int vers ) override ;
 	
     /** Reads lcio Vertex objects from an SIO stream.
      */
-    virtual unsigned int read(SIO_stream* stream, EVENT::LCObject** objP)  ;
+    unsigned int read(SIO_stream* stream, EVENT::LCObject** objP) override  ;
 	
     /** Writes lcio Vertex objects to an SIO stream.
      */
-    virtual unsigned int write(SIO_stream* stream, const EVENT::LCObject* obj) ;
+    unsigned int write(SIO_stream* stream, const EVENT::LCObject* obj) override ;
 
   protected:
     std::map<int,std::string> imr{}; //indexmap for reading

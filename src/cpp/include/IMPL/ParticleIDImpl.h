@@ -34,32 +34,32 @@ namespace IMPL {
     ParticleIDImpl() ;
     
     /// Destructor.
-    virtual ~ParticleIDImpl() ; 
+    ~ParticleIDImpl() override ; 
 
-    virtual int id() const { return simpleUID() ; }
+    int id() const override { return simpleUID() ; }
 
     /** Type - userdefined.
      */
-    virtual int getType() const ;
+    int getType() const override ;
 
     /** The PDG code of this id - UnknownPDG ( 999999 ) if unknown.
      */
-    virtual int getPDG() const ;
+    int getPDG() const override ;
 
     /**The likelihood  of this hypothesis - in a user defined normalization.
      */
-    virtual float getLikelihood() const ;
+    float getLikelihood() const override ;
 
     /** Type of the algorithm/module that created this hypothesis - NOTE: must be unique within one 
      *  collection.  
      *  Check/set collection parameters PIDAlgorithmTypeName and PIDAlgorithmTypeID.
      */
-    virtual  int getAlgorithmType() const ;
+     int getAlgorithmType() const override ;
 
     /** Parameters associated with this hypothesis.
      * Check/set collection parameter ParameterNames_PIDAlgorithmTypeName for decoding the indices.
      */
-    virtual const EVENT::FloatVec & getParameters() const ;
+    const EVENT::FloatVec & getParameters() const override ;
 
     /**Access to parameters associated with this hypothesis.
      */
@@ -73,10 +73,10 @@ namespace IMPL {
     void addParameter( float p ) ;
     
   protected:
-    int _type ;
-    int _pdg ;
-    float _likelihood ;
-    int _algorithmType ;
+    int _type{0} ;
+    int _pdg{0} ;
+    float _likelihood{0} ;
+    int _algorithmType{0} ;
     EVENT::FloatVec _parameters{} ;
 
 }; // class

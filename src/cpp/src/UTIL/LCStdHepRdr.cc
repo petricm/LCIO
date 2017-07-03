@@ -51,13 +51,13 @@ namespace UTIL{
 
   void LCStdHepRdr::updateNextEvent( IMPL::LCEventImpl* evt , const char* colName ) {
 
-    if( evt == 0 ) {
+    if( evt == nullptr ) {
       throw EVENT::Exception( " LCStdHepRdr::updateEvent - null pointer for event "  );
     }
     
     IMPL::LCCollectionVec* mcpCol = readEvent() ;
     
-    if( mcpCol == 0 ) {
+    if( mcpCol == nullptr ) {
 
       throw IO::EndOfDataException( " LCStdHepRdr::updateEvent: EOF " ) ;
     }
@@ -86,7 +86,7 @@ namespace UTIL{
   //
   IMPL::LCCollectionVec * LCStdHepRdr::readEvent()
   {
-    IMPL::LCCollectionVec * mcVec = 0;
+    IMPL::LCCollectionVec * mcVec = nullptr;
     double c_light = 299.792;// mm/ns
     //
     //  Read the event, check for errors
@@ -107,7 +107,7 @@ namespace UTIL{
 	
 	else {
 	  
-	  return 0 ;
+	  return nullptr ;
 	  // throw IO::EndOfDataException( " LCStdHepRdr::readEvent EOF " ) ;
 	}
       }
@@ -168,7 +168,7 @@ namespace UTIL{
 	//
 	//  Create a MCParticle and fill it from stdhep info
 	//
-	MCParticleImpl* mcp = new MCParticleImpl();
+	auto* mcp = new MCParticleImpl();
 
 	// and add it to the collection (preserving the order of the hepevt block)
 	mcVec->at(IHEP)  = mcp ;
@@ -306,7 +306,7 @@ namespace UTIL{
 	//
 	//  Get the MCParticle
 	//
-	MCParticleImpl* mcp = 
+	auto* mcp = 
 	  dynamic_cast<MCParticleImpl*>
 	  (mcVec->getElementAt(IHEP));
 	//
@@ -437,7 +437,7 @@ namespace UTIL{
     int nic = 0;
     for( int IHEP=0; IHEP<NHEP; IHEP++ ){
 
-        MCParticleImpl* mcp = dynamic_cast<MCParticleImpl*>(mcVec->getElementAt(IHEP));
+        auto* mcp = dynamic_cast<MCParticleImpl*>(mcVec->getElementAt(IHEP));
 
         // find inconsistencies
         if ((mcp->getGeneratorStatus()==2)&&(mcp->getDaughters().size()==0)){

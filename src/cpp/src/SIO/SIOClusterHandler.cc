@@ -23,7 +23,7 @@ namespace SIO{
 	
 
     // create a new object :
-    ClusterIOImpl* cluster  = new ClusterIOImpl ;
+    auto* cluster  = new ClusterIOImpl ;
     *objP = cluster ;
 	
     //SIO_DATA( stream ,  &(cluster->_type) , 1  ) ;
@@ -71,7 +71,7 @@ namespace SIO{
       SIO_DATA( stream ,  &nPid  , 1 ) ;
       for(int i=0;i<nPid;i++){
 	// create new Pid objects
-	ParticleIDIOImpl* pid = new ParticleIDIOImpl ;
+	auto* pid = new ParticleIDIOImpl ;
 	
 	SIO_DATA( stream ,  &(pid->_likelihood) , 1  ) ;
 	SIO_DATA( stream ,  &(pid->_type) , 1  ) ;
@@ -146,13 +146,13 @@ namespace SIO{
     // this is where we gave up type safety in order to
     // simplify the API and the implementation
     // by having a common collection of objects
-    const Cluster* cluster = dynamic_cast<const Cluster*>(obj)  ;
+    const auto* cluster = dynamic_cast<const Cluster*>(obj)  ;
 
 
     LCSIO_WRITE( stream, cluster->getType()  ) ;
     LCSIO_WRITE( stream, cluster->getEnergy()  ) ;
     LCSIO_WRITE( stream, cluster->getEnergyError()  ) ;
-    float* pos = const_cast<float*> ( cluster->getPosition() ) ; 
+    auto* pos = const_cast<float*> ( cluster->getPosition() ) ; 
     SIO_DATA( stream,  pos , 3 ) ;
 
     const FloatVec& errpos = cluster->getPositionError() ;

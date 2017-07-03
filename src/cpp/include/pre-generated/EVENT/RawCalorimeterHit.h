@@ -16,7 +16,7 @@ namespace EVENT {
 
 class RawCalorimeterHit ;
 /**Vector of (pointers to) RawCalorimeterHits.*/
-typedef std::vector<RawCalorimeterHit*> RawCalorimeterHitVec ;
+using RawCalorimeterHitVec = std::vector<RawCalorimeterHit *> ;
 /** The generic calorimeter hit for real data (or simulation thereof). 
  *  In order to reduce the file size you can suppress a (32-bit) pointer 
  *  tag stored with every hit by setting the flag(LCIO::RCHBIT_NO_PTR)==1. <br>
@@ -32,11 +32,11 @@ class RawCalorimeterHit : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~RawCalorimeterHit() { /* nop */; }
+    ~RawCalorimeterHit() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef RawCalorimeterHit lcobject_type ;
+    using lcobject_type = EVENT::RawCalorimeterHit ;
 
     /** Returns the detector specific (geometrical) cell id.
      */

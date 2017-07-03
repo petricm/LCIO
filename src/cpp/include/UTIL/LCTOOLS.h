@@ -129,7 +129,7 @@ namespace UTIL{
      *  If no MCParticle given a string describing the bits is returned:<br>
      *  
      */
-    static std::string getSimulatorStatusString(const EVENT::MCParticle* mcp=0) ;
+    static std::string getSimulatorStatusString(const EVENT::MCParticle* mcp=nullptr) ;
 
     static int printDaughterParticles(const EVENT::MCParticle* part, int index) ;
 
@@ -138,7 +138,7 @@ namespace UTIL{
      *  If no SimTrackerHit is given a string describing the bits is returned:<br>
      *
      */
-    static std::string getQualityBits(const EVENT::SimTrackerHit* sth=0);
+    static std::string getQualityBits(const EVENT::SimTrackerHit* sth=nullptr);
 
   }; // class
 

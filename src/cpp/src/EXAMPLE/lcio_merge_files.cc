@@ -23,7 +23,7 @@ using namespace lcio ;
 class RunEventProcessor : public LCRunListener, public LCEventListener{
 
     protected:
-        LCWriter* lcWrt{NULL} ;
+        LCWriter* lcWrt{nullptr} ;
         int nEvent{0} ;
         unsigned int _nFiles{0} ;
 
@@ -32,7 +32,7 @@ class RunEventProcessor : public LCRunListener, public LCEventListener{
        RunEventProcessor(const RunEventProcessor&) = delete ;
        RunEventProcessor operator=(const RunEventProcessor&) = delete ;
 
-       RunEventProcessor(const char* outFileName, unsigned int nFiles) : nEvent(0), _nFiles(nFiles) {
+       RunEventProcessor(const char* outFileName, unsigned int nFiles) :  _nFiles(nFiles) {
 
             // open outputfile
             lcWrt = LCFactory::getInstance()->createLCWriter() ;
@@ -47,15 +47,15 @@ class RunEventProcessor : public LCRunListener, public LCEventListener{
 
         }
 
-        ~RunEventProcessor(){
+        ~RunEventProcessor() override{
             // close outputfile
             lcWrt->close()  ;
             cout << "merged " << nEvent << " events from " << _nFiles << " input files." << endl ; 
         }
   
-       void modifyEvent( LCEvent * /* evt */) {  /*no changes to event ! */ ; }
+       void modifyEvent( LCEvent * /* evt */) override {  /*no changes to event ! */ ; }
 
-        void processEvent( LCEvent * evt ) {  
+        void processEvent( LCEvent * evt ) override {  
 
             // just copy events to outputfiles  
             lcWrt->writeEvent( evt ) ;
@@ -64,10 +64,10 @@ class RunEventProcessor : public LCRunListener, public LCEventListener{
             // 	 << " [run: " << evt->getRunNumber() << "] copied" << endl ;
         }
 
-        void modifyRunHeader(LCRunHeader* /*run*/ ){  /*no changes to event ! */ ;}
+        void modifyRunHeader(LCRunHeader* /*run*/ ) override{  /*no changes to event ! */ ;}
 
         // don't manipulate run headers - use analyze 
-        void processRunHeader( LCRunHeader* run){
+        void processRunHeader( LCRunHeader* run) override{
 
             cout << "." ; 
             cout.flush() ;
@@ -98,7 +98,7 @@ int main(int argc, char** argv ){
         unsigned int nFiles = argc - 2 ;
 
         for(unsigned int i=0 ; i < nFiles ; i++){
-            FILEN.push_back( argv[2+i] )  ; // 2+ because of program-name and output-file
+            FILEN.emplace_back(argv[2+i] )  ; // 2+ because of program-name and output-file
         }
 
         // create reader and writer for input and output streams 

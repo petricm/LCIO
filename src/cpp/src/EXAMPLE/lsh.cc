@@ -88,7 +88,7 @@ const char * print_prompt() {
   prompt.clear() ;
 
   vector<level>::iterator levelIt;
-  vector<level>::iterator levelItEnd = position.end();
+  auto levelItEnd = position.end();
   for( levelIt = position.begin(); levelIt != levelItEnd ; levelIt++ ){
     prompt += levelIt->second ;
   }
@@ -328,7 +328,7 @@ void fun_print(string colNr, string flag) {
   istringstream i(colNr);
   i >> c;
   lcReader->open( position[TOP].second ) ;
-  if ((event = lcReader->readEvent( position[RUN].first, position[EVT].first )) != 0) {
+  if ((event = lcReader->readEvent( position[RUN].first, position[EVT].first )) != nullptr) {
     const vector<string> *colVec = event->getCollectionNames();
     if (c < colVec->size()) {
       gCol = event->getCollection((*colVec)[c]);
@@ -359,7 +359,7 @@ void fun_print(string colNr, string flag) {
 // list all runs in file
 void lsRuns() {
   map<int, string>::iterator it;
-  map<int, string>::iterator itEnd = mapRuns.end();
+  auto itEnd = mapRuns.end();
   for( it = mapRuns.begin() ; it != itEnd ; it++ ) {
     if (withEvents) {
       stringstream sstream;
@@ -377,7 +377,7 @@ void lsRuns() {
 // list all events in run
 void lsEvents() {
   lcReader->open( position[TOP].second ) ;
-  while ( (event = lcReader->readNextEvent() ) != 0  && !interrupt) {
+  while ( (event = lcReader->readNextEvent() ) != nullptr  && !interrupt) {
     if (event->getRunNumber() == (position[RUN].first)) {
       cout << "[" << setw(2) << event->getEventNumber() << "] " << setw(3) << (event->getCollectionNames())->size() << " Collections" << endl;
     }
@@ -391,11 +391,11 @@ void lsEvents() {
 // list all collections in event
 void lsCollections() {
   lcReader->open( position[TOP].second ) ;
-  if ((event = lcReader->readEvent( position[RUN].first, position[EVT].first )) != 0) {
+  if ((event = lcReader->readEvent( position[RUN].first, position[EVT].first )) != nullptr) {
     const vector<string> *colVec = event->getCollectionNames();
     int i = 0;
     vector<string>::const_iterator it;
-    vector<string>::const_iterator itEnd = colVec->end();
+    auto itEnd = colVec->end();
     for( it = colVec->begin(); it != itEnd ; it++ ){
       gCol = event->getCollection(*it);
       cout << "[" << setw(2) << i << "] " << left << setw(25) << *it << "  " << setw(20) << gCol->getTypeName() << "  " << right << setw(3) << gCol->getNumberOfElements () <<  endl;
@@ -452,7 +452,7 @@ void fun_cd(string str) {
   cstr = new char [str.size()+1];
   strcpy (cstr, str.c_str());
   p=strtok (cstr,"/");
-  while (p!=NULL)
+  while (p!=nullptr)
   {
     string next; 
     stringstream sstream;
@@ -470,17 +470,17 @@ void fun_cd(string str) {
       i >> n;
       switch( position.size()-1 ){
         case TOP:
-          position.push_back(level(n, "/run_"+next));
+          position.emplace_back(n, "/run_"+next);
           break;
         case RUN:
-          position.push_back(level(n, "/evt_"+next));
+          position.emplace_back(n, "/evt_"+next);
           break;
         case EVT:
           lcReader->open( position[TOP].second ) ;
-          if ((event = lcReader->readEvent( position[RUN].first, position[EVT].first )) != 0) {
+          if ((event = lcReader->readEvent( position[RUN].first, position[EVT].first )) != nullptr) {
             const vector<string> *colVec = event->getCollectionNames();
             if (n < colVec->size()) {
-              position.push_back(level(n, "/"+(*colVec)[n] ));
+              position.emplace_back(n, "/"+(*colVec)[n] );
             } else {
               cout << "No collection with number " << n << endl;
             }
@@ -490,7 +490,7 @@ void fun_cd(string str) {
       }
     }
   
-    p=strtok(NULL,"/");
+    p=strtok(nullptr,"/");
   }
 
   delete[] cstr;  
@@ -505,7 +505,7 @@ void fun_dump(string arg) {
     case RUN:
       // WHY IS THERE NO readRunHeader( int run ) ??
       lcReader->open( position[TOP].second ) ;
-      while (( runHdr = lcReader->readNextRunHeader() ) != 0 && !interrupt) {
+      while (( runHdr = lcReader->readNextRunHeader() ) != nullptr && !interrupt) {
         int run = runHdr->getRunNumber();
         if (run == position[RUN].first) {
           interrupt = true;
@@ -517,7 +517,7 @@ void fun_dump(string arg) {
       break;
     case EVT:
       lcReader->open( position[TOP].second ) ;
-      if ((event = lcReader->readEvent( position[RUN].first, position[EVT].first )) != 0) {
+      if ((event = lcReader->readEvent( position[RUN].first, position[EVT].first )) != nullptr) {
         if(arg == "-d"){
           LCTOOLS::dumpEventDetailed(event);
         } else {
@@ -559,7 +559,7 @@ void fun_open(string filename) {
   // checking file size, as we do not want to wait for 
   // the shell to map all the events of a large file.
   pFile = fopen (filename.c_str(),"rb");
-  if (pFile==NULL) perror ("Error opening file");
+  if (pFile==nullptr) perror ("Error opening file");
   else
   {
     fseek (pFile, 0, SEEK_END);
@@ -575,10 +575,10 @@ void fun_open(string filename) {
   
 
   egg.replace(1,2,2,'e');
-  position.push_back(level(0, filename));
+  position.emplace_back(0, filename);
 
   lcReader->open( position[TOP].second ) ;
-  while (( runHdr = lcReader->readNextRunHeader() ) != 0 && !interrupt) {
+  while (( runHdr = lcReader->readNextRunHeader() ) != nullptr && !interrupt) {
     int run = runHdr->getRunNumber();
     mapRuns.insert ( pair<int, string>(run, runHdr->getDescription()) );
     mapEventsInRun.insert( pair<int, int>(run, 0));
@@ -588,7 +588,7 @@ void fun_open(string filename) {
   
   if (withEvents) {
     lcReader->open( position[TOP].second ) ;
-    while ( (event = lcReader->readNextEvent()) != 0  && !interrupt) {
+    while ( (event = lcReader->readNextEvent()) != nullptr  && !interrupt) {
       (mapEventsInRun[event->getRunNumber()])++;
       numEvents++;
     }
@@ -771,7 +771,7 @@ int main(int argc, char** argv ) {
       }
       if ((commandVec[0] == "dump")) {
         if (commandVec.size() < 2) {
-          commandVec.push_back("-s");
+          commandVec.emplace_back("-s");
         }
         fun_dump(commandVec[1]);
       }

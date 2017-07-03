@@ -25,7 +25,7 @@ class Vertex;
 
 class ReconstructedParticle ;
 /**Vector of (pointers to) ReconstructedParticles.*/
-typedef std::vector<ReconstructedParticle*> ReconstructedParticleVec ;
+using ReconstructedParticleVec = std::vector<ReconstructedParticle *> ;
 /** The LCIO reconstructedParticle.
  * 
  * @author gaede
@@ -36,11 +36,11 @@ class ReconstructedParticle : public LCObject {
 
 public: 
     /// Destructor.
-    virtual ~ReconstructedParticle() { /* nop */; }
+    ~ReconstructedParticle() override { /* nop */; }
 
 
     /** Useful typedef for template programming with LCIO */
-    typedef ReconstructedParticle lcobject_type ;
+    using lcobject_type = EVENT::ReconstructedParticle ;
 
 //           
 // @cpp{

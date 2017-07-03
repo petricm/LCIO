@@ -23,7 +23,7 @@ namespace SIO {
     unsigned int status ; 
     
     // create a new object :
-    MCParticleIOImpl* particle  = new MCParticleIOImpl ;
+    auto* particle  = new MCParticleIOImpl ;
     *objP = particle ;
     
     // tell SIO the address of particle as an abstract  MCParticle ...
@@ -105,7 +105,7 @@ namespace SIO {
     //fg 20030609 changed to use MCParticle    
     unsigned int status ; 
     
-    const MCParticle* particle  = dynamic_cast<const MCParticle*>(obj)  ;
+    const auto* particle  = dynamic_cast<const MCParticle*>(obj)  ;
     SIO_PTAG( stream , particle ) ;
     
 //     const MCParticle* myMom0 = particle->getParent() ;
@@ -185,21 +185,21 @@ namespace SIO {
 	int nDaughtersTotal = 0 ;
 	int nParentsTotal = 0 ; 
 	for(int i=0; i < col->getNumberOfElements() ; i++){
-	  MCParticleIOImpl* mcp = dynamic_cast<MCParticleIOImpl*>( col->getElementAt(i) ) ;
+	  auto* mcp = dynamic_cast<MCParticleIOImpl*>( col->getElementAt(i) ) ;
 	  nDaughtersTotal += mcp->getDaughters().size()  ;
 	  nParentsTotal += mcp->getParents().size() ;
 	}
 
 	for(int i=0; i < col->getNumberOfElements() ; i++){
 	  
-	  MCParticleIOImpl* mcp = dynamic_cast<MCParticleIOImpl*>( col->getElementAt(i) ) ;
+	  auto* mcp = dynamic_cast<MCParticleIOImpl*>( col->getElementAt(i) ) ;
 	  
 	  // for version v00-08 we restore parents from daughters
 	  if ( nParentsTotal == 0 &&  nDaughtersTotal > 0 ){
 	    
 	    int nDaughters = mcp->getDaughters().size() ;
 	    for( int j=0; j<nDaughters; j++){
-	      MCParticleIOImpl* dgh = dynamic_cast<MCParticleIOImpl*>( mcp->getDaughters()[j] ) ;
+	      auto* dgh = dynamic_cast<MCParticleIOImpl*>( mcp->getDaughters()[j] ) ;
 	      
 // 	      MCParticle ** mcpP = new (MCParticle*) ;
 // 	      *mcpP = mcp ;
@@ -212,7 +212,7 @@ namespace SIO {
 	    
 	    int nParents = mcp->getParents().size() ;
 	    for( int j=0; j<nParents; j++){
-	      MCParticleIOImpl* mom = dynamic_cast<MCParticleIOImpl*>( mcp->getParents()[j] ) ;
+	      auto* mom = dynamic_cast<MCParticleIOImpl*>( mcp->getParents()[j] ) ;
 // 	      MCParticle ** mcpP = new (MCParticle*) ;
 // 	      *mcpP = mcp ;
 // 	      mom->_daughters.push_back( mcpP ) ;

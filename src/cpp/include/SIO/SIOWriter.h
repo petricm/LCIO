@@ -51,14 +51,14 @@ namespace SIO {
     /**
      * Destructor
      */
-    virtual ~SIOWriter() ;
+    ~SIOWriter() override ;
 
     /** Opens a file for writing. If file with given name exists, 
      * an exception is thrown. Use append or new mode instead.
      *
      *@throws IOException
      */
-    virtual void open(const std::string & filename) throw (IO::IOException, std::exception) ;
+    void open(const std::string & filename) throw (IO::IOException, std::exception) override ;
 
     /** Opens a file for writing.
      * Possible write modes are: LCIO::WRITE_NEW
@@ -66,7 +66,7 @@ namespace SIO {
      *
      *@throws IOException
      */
-    virtual void open(const std::string & filename, int writeMode)throw (IO::IOException, std::exception) ;
+    void open(const std::string & filename, int writeMode)throw (IO::IOException, std::exception) override ;
     
     /** Set the compression level - needs to be called before open() otherwise
      *  call will have no effect. If not called the Writer will use default compression.<br>
@@ -81,32 +81,32 @@ namespace SIO {
      * 
      *@param level compression level
      */
-    virtual void setCompressionLevel(int level) ;
+    void setCompressionLevel(int level) override ;
 
 
     /** Writes the given run header to file.
      *
      *@throws IOException
      */
-    virtual void writeRunHeader(const EVENT::LCRunHeader * hdr)throw (IO::IOException, std::exception) ;
+    void writeRunHeader(const EVENT::LCRunHeader * hdr)throw (IO::IOException, std::exception) override ;
 
     /** Writes the given event to file.
      *
      *@throws IOException
      */
-    virtual void writeEvent(const EVENT::LCEvent * evt) throw (IO::IOException, std::exception) ;
+    void writeEvent(const EVENT::LCEvent * evt) throw (IO::IOException, std::exception) override ;
 
     /** Closes the output file/stream etc.
      *
      *@throws IOException
      */
-    virtual void close() throw (IO::IOException, std::exception) ;
+    void close() throw (IO::IOException, std::exception) override ;
     
     /** Flushes the output file/stream etc.
      *
      *@throws IOException
      */
-    virtual void flush() throw (IO::IOException, std::exception) ;
+    void flush() throw (IO::IOException, std::exception) override ;
 
 
   protected:
@@ -123,13 +123,13 @@ namespace SIO {
     
   protected:
     
-    SIO_stream *_stream ;
-    int _compressionLevel ;
+    SIO_stream *_stream{0} ;
+    int _compressionLevel{-1} ;
 
   private:
 
-    SIOEventHandler *_hdrHandler ;
-    SIORunHeaderHandler *_runHandler ;
+    SIOEventHandler *_hdrHandler{0} ;
+    SIORunHeaderHandler *_runHandler{0} ;
     std::vector<SIO_block*> _connectedBlocks{} ;
 
   protected:

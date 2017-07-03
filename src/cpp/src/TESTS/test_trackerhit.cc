@@ -54,7 +54,7 @@ int main(int /*argc*/, char** /*argv*/ ){
         for(int i=0;i<NEVENT;i++){
 
             // we need to use the implementation classes here 
-            LCEventImpl*  evt = new LCEventImpl() ;
+            auto*  evt = new LCEventImpl() ;
 
 
             evt->setRunNumber( 4711  ) ;
@@ -70,7 +70,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
             for(int j=0;j<NHITS;j++){
 	      
-	      TrackerHitImpl* trkHit = new TrackerHitImpl ;
+	      auto* trkHit = new TrackerHitImpl ;
 
 	      idEnc.reset() ;
 
@@ -129,7 +129,7 @@ int main(int /*argc*/, char** /*argv*/ ){
 
                 //std::cout << " testing hit " << j << std::endl ;
 
-                TrackerHit* trkHit = dynamic_cast<TrackerHit*>(trkHits->getElementAt(j)) ;
+                auto* trkHit = dynamic_cast<TrackerHit*>(trkHits->getElementAt(j)) ;
 
 
 		MYTEST( idDec(trkHit)[ LCTrackerCellID::subdet() ]  , ILDDetID::FTD , " cellID(trkHit) == ( ILDDetID::FTD  ) " ) ;

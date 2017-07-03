@@ -28,33 +28,33 @@ public:
   LCGenericObjectImpl(int nInt, int nFloat, int nDouble) ;
 
   /// Destructor.
-  virtual ~LCGenericObjectImpl() { /* nop */; }
+  ~LCGenericObjectImpl() override { /* nop */; }
   
-  virtual int id() const { return simpleUID() ; }
+  int id() const override { return simpleUID() ; }
 
   /** Number of integer values stored in this object.
    */
-  virtual int getNInt() const;
+  int getNInt() const override;
   
   /** Number of float values stored in this object.
    */
-  virtual int getNFloat() const;
+  int getNFloat() const override;
   
   /** Number of double values stored in this object.
    */
-  virtual int getNDouble() const;
+  int getNDouble() const override;
   
   /** Returns the integer value for the given index.
    */
-  virtual int getIntVal(int index) const;
+  int getIntVal(int index) const override;
   
   /** Returns the float value for the given index.
    */
-  virtual float getFloatVal(int index) const;
+  float getFloatVal(int index) const override;
   
   /** Returns the double value for the given index.
    */
-  virtual double getDoubleVal(int index) const;
+  double getDoubleVal(int index) const override;
   
 
 
@@ -74,17 +74,17 @@ public:
    * getNInt, getNFloat and getNDouble will return values that are constant during 
    * the lifetime of the object.
    */
-  virtual bool isFixedSize() const;
+  bool isFixedSize() const override;
 
   /** The type name of the user class (typically the class name)
    */
-  virtual const std::string getTypeName() const ;
+  const std::string getTypeName() const override ;
   
   /** The description string. A comma separated list of pairs of
    *  type identifier, one of 'i','f','d' followed by ':' 
    *  and an attribute name, e.g. "i:cellId,f:offset,f:gain".
    */
-  virtual const std::string getDataDescription() const ;
+  const std::string getDataDescription() const override ;
 
 
 protected:

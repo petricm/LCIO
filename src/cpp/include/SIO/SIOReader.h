@@ -46,7 +46,7 @@ class SIOEventHandler ;
     SIOReader& operator=(const SIOReader&) = delete ;
 
     /// Destructor
-    virtual ~SIOReader() ;
+    ~SIOReader() override ;
     
 
     /** Opens a list of files for reading (read-only). All subsequent
@@ -55,34 +55,34 @@ class SIOEventHandler ;
      * user.
      * @throws IOException
      */
-    virtual void open(const std::vector<std::string>& filenames) 
-      throw (IO::IOException, std::exception) ;
+    void open(const std::vector<std::string>& filenames) 
+      throw (IO::IOException, std::exception) override ;
 
 
     /** Opens a file for reading (read-only).
      * @throws IOException
      */
-    virtual void open(const std::string & filename) throw (IO::IOException, std::exception) ;
+    void open(const std::string & filename) throw (IO::IOException, std::exception) override ;
     
     /** Reads the next run header from the file. 
      *
      * @throws IOException
      */
-    virtual EVENT::LCRunHeader * readNextRunHeader() throw (IO::IOException, std::exception) ;
+    EVENT::LCRunHeader * readNextRunHeader() throw (IO::IOException, std::exception) override ;
 
     /** Same as readNextRunHeader() but allows to set the access mode 
      *  LCIO::READ_ONLY (default) or LCIO::Update. 
      *
      * @throws IOException
      */
-    virtual EVENT::LCRunHeader * readNextRunHeader(int accessMode) throw (IO::IOException, std::exception) ;
+    EVENT::LCRunHeader * readNextRunHeader(int accessMode) throw (IO::IOException, std::exception) override ;
 
 
     /** Reads the next event from the file. 
      *
      * @throws IOException
      */
-    virtual EVENT::LCEvent* readNextEvent() throw (IO::IOException, std::exception) ;
+    EVENT::LCEvent* readNextEvent() throw (IO::IOException, std::exception) override ;
     
 
     /** Same as readNextRunHeader() but allows to set the access mode 
@@ -90,28 +90,28 @@ class SIOEventHandler ;
      *
      * @throws IOException
      */
-    virtual EVENT::LCEvent* readNextEvent( int accessMode) throw (IO::IOException, std::exception) ;
+    EVENT::LCEvent* readNextEvent( int accessMode) throw (IO::IOException, std::exception) override ;
     
 
     /** Return the number of events in the file - the file has to be open. In
      *  case several input files are specified in the open() method - 
      *  the number of events in the file that is currently open is returned. 
      */
-   virtual int getNumberOfEvents() throw (IO::IOException, std::exception ) ;
+   int getNumberOfEvents() throw (IO::IOException, std::exception ) override ;
 
 
     /** Return the number of runs (run headers) in the file - the file has to be open. In
      *  case several input files are specified in the open() method - 
      *  the number of runs (run headers) in the file that is currently open is returned. 
      */
-    virtual int getNumberOfRuns() throw (IO::IOException, std::exception ) ;
+    int getNumberOfRuns() throw (IO::IOException, std::exception ) override ;
 
 
     /** Return the run numbers of the runs (run headers) in the file - the file has to be open. In
      *  case several input files are specified in the open() method - 
      *  the run numbers of the runs (run headers) in the file that is currently open is returned. 
      */
-    virtual void getRuns(EVENT::IntVec & runs) ;
+    void getRuns(EVENT::IntVec & runs) override ;
 
     /** Return the run and event numbers of the events in the file - the file has to be open. In
      *  case several input files are specified in the open() method - 
@@ -119,13 +119,13 @@ class SIOEventHandler ;
      *  The size of the vector events will be twice the number of events, where i-th run number
      *  will be in events[2*i] and the i-th event number in  events[2*i+].
      */
-    virtual void getEvents(EVENT::IntVec & events) ;
+    void getEvents(EVENT::IntVec & events) override ;
 
 
     /** Skips the next n events from the current position. In fact simply reads the next n
       *  event headers so that the next event read is the (n+1)-th event.
       */
-    virtual void skipNEvents(int n)   throw (IO::IOException, std::exception )  ;
+    void skipNEvents(int n)   throw (IO::IOException, std::exception ) override  ;
 
 
 
@@ -133,7 +133,7 @@ class SIOEventHandler ;
      *  all other collection will be ignored. This might improve the reading performance
      *  considerably in cases where only a small subset of the collections in the event is needed. 
      */
-    virtual void setReadCollectionNames(const std::vector<std::string>& colnames) ;
+    void setReadCollectionNames(const std::vector<std::string>& colnames) override ;
 
 
     /** Reads the specified runHeader from file. Returns NULL if
@@ -141,24 +141,24 @@ class SIOEventHandler ;
      *
      * @throws IOException
      */
-    virtual EVENT::LCRunHeader * readRunHeader(int runNumber ) 
-      throw (IO::IOException , std::exception) ;
+    EVENT::LCRunHeader * readRunHeader(int runNumber ) 
+      throw (IO::IOException , std::exception) override ;
 
     /** Same as LCEvent* readRunHeader(int runNumber) 
      *  allowing to set the access mode LCIO::READ_ONLY (default) or LCIO::Update.
      *
      * @throws IOException
      */
-    virtual EVENT::LCRunHeader * readRunHeader(int runNumber, int accessMode ) 
-      throw (IO::IOException , std::exception) ;
+    EVENT::LCRunHeader * readRunHeader(int runNumber, int accessMode ) 
+      throw (IO::IOException , std::exception) override ;
 
     /** Reads the specified event from file. Returns NULL if
      *  the specified event hasn't been found in the file.
      *
      * @throws IOException
      */
-    virtual EVENT::LCEvent * readEvent(int runNumber, int evtNumber) 
-      throw (IO::IOException, std::exception ) ;
+    EVENT::LCEvent * readEvent(int runNumber, int evtNumber) 
+      throw (IO::IOException, std::exception ) override ;
 
 
     /** Same as LCEvent* readEvent(int runNumber, int evtNumber 
@@ -166,32 +166,32 @@ class SIOEventHandler ;
      *
      * @throws IOException
      */
-    virtual EVENT::LCEvent * readEvent(int runNumber, int evtNumber, int accessMode) 
-      throw (IO::IOException, std::exception ) ;
+    EVENT::LCEvent * readEvent(int runNumber, int evtNumber, int accessMode) 
+      throw (IO::IOException, std::exception ) override ;
     
     /** Closes the output file/stream etc.
      *
      * @throws IOException
      */
-    virtual void close() throw (IO::IOException, std::exception) ;
+    void close() throw (IO::IOException, std::exception) override ;
     
     // interface for listeners
  
     /** Registers a listener for reading LCEvents from a stream.
      */ 
-    virtual void registerLCEventListener(IO::LCEventListener * ls) ;
+    void registerLCEventListener(IO::LCEventListener * ls) override ;
 
     /** Remove a listener for reading LCEvents from a stream.
      */ 
-    virtual void removeLCEventListener(IO::LCEventListener * ls) ;
+    void removeLCEventListener(IO::LCEventListener * ls) override ;
 
     /** Registers a listener for reading LCEventsLCRunHeaders from a stream.
      */ 
-    virtual void registerLCRunListener(IO::LCRunListener * ls) ;
+    void registerLCRunListener(IO::LCRunListener * ls) override ;
 
     /** Remove a listener for reading LCRunHeaders from a stream.
      */ 
-    virtual void removeLCRunListener(IO::LCRunListener * ls) ;
+    void removeLCRunListener(IO::LCRunListener * ls) override ;
 
     /** Reads the input stream and notifies registered 
      * listeners according to the object type 
@@ -200,7 +200,7 @@ class SIOEventHandler ;
      * @throws IOException
      * @throws EndOfException
      */
-    virtual void readStream() throw (IO::IOException, std::exception) ;
+    void readStream() throw (IO::IOException, std::exception) override ;
 
     /** Reads maxRecord from the input stream and notifies registered 
      * listeners according to the object type found in the stream. 
@@ -209,7 +209,7 @@ class SIOEventHandler ;
      * @throws IOException
      * @throws EndOfException
      */
-    virtual void readStream(int maxRecord) throw (IO::IOException, std::exception) ;
+    void readStream(int maxRecord) throw (IO::IOException, std::exception) override ;
 
 
 
@@ -228,17 +228,17 @@ class SIOEventHandler ;
 
   protected:
     
-    SIO_record *_dummyRecord {NULL};  // used for reading arbitrary records
-    SIO_stream *_stream{NULL} ;
+    SIO_record *_dummyRecord {nullptr};  // used for reading arbitrary records
+    SIO_stream *_stream{nullptr} ;
 
-    SIORunHeaderHandler* _runHandler{NULL} ;
-    SIOEventHandler* _evtHandler{NULL} ;
+    SIORunHeaderHandler* _runHandler{nullptr} ;
+    SIOEventHandler* _evtHandler{nullptr} ;
 
   private:
     
-    IOIMPL::LCEventIOImpl *_defaultEvt{NULL} ; // used to add collections when reading 
-    IOIMPL::LCEventIOImpl *_evt{NULL} ;
-    IOIMPL::LCRunHeaderIOImpl *_run{NULL} ;
+    IOIMPL::LCEventIOImpl *_defaultEvt{nullptr} ; // used to add collections when reading 
+    IOIMPL::LCEventIOImpl *_evt{nullptr} ;
+    IOIMPL::LCRunHeaderIOImpl *_run{nullptr} ;
 
     std::set<IO::LCRunListener*> _runListeners{} ;
     std::set<IO::LCEventListener*> _evtListeners{} ;

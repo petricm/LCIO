@@ -77,7 +77,7 @@ namespace UTIL{
 
   private:
     
-    lStdHep* _reader{NULL};
+    lStdHep* _reader{nullptr};
     
 
   }; // class

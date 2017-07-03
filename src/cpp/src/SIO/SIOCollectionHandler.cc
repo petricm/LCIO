@@ -25,7 +25,7 @@ namespace SIO {
 					     LCEventIOImpl**  anEvtP)
     throw (Exception) : 
     SIO_block( bname.c_str() ), 
-    _evtP( anEvtP ) , _col(0) , 
+    _evtP( anEvtP ) , _col(nullptr) , 
     _myType( type )   {
     
     // here we need to get the handler for our type
@@ -116,7 +116,7 @@ namespace SIO {
 
     } else if( op == SIO_OP_WRITE ){ 
       
-      if( _col  != 0 ){
+      if( _col  != nullptr ){
 	
 	_myHandler->init( stream , SIO_OP_WRITE , const_cast<LCCollection*>(_col) , version() ) ;
 
